@@ -107,7 +107,8 @@ Reprises des sites, pas seulement des logos. L'outil final ira lire le site de c
 ## 12. Tarif (décision de Karl du 07/11/2026 : formule super simple)
 
 - **Un seul prix : 0,07 € HT par entreprise contactée**, tout compris (recherche, vérification, campagne IA, envoi, relance, suivi, tri des réponses). Pas d'abonnement obligatoire.
-- **Les 100 premières entreprises sont offertes.**
+- **Rien d'offert** (décision de Karl) : pas d'essai gratuit. Argument : sans abonnement, on ne paie que ce qui part.
+- Accroche de la page : « Qui vous a dit que trouver des prospects, des leads et des clients était compliqué ? »
 - **Option « Agent automatique » : 19 € HT par mois**, sans engagement : chaque semaine il trouve et contacte les nouvelles entreprises de la cible (contacts toujours à 0,07 € HT). C'est la source de revenu mensuel.
 - Entreprise contactée = premier e-mail bien reçu. Jamais facturés : relances, adresses en erreur, entreprises retirées (déjà contactées, désinscrites, exclusions). Plafond de budget mensuel fixé par le client.
 - Prix affichés **HT** (clients professionnels).

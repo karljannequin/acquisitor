@@ -50,6 +50,7 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 .hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;font-weight:800}
 .hl{color:var(--blue);position:relative;white-space:nowrap}
 .hl:after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.18em;background:var(--blue-100);border-radius:6px;z-index:-1;transform-origin:left;animation:underline .9s .3s cubic-bezier(.2,.8,.2,1) both}
+.hook{margin:0;font-family:var(--fd);font-weight:700;font-size:clamp(18px,2.2vw,22px);color:var(--blue-d);letter-spacing:-.01em}
 .lead{font-size:clamp(17px,2vw,20px);color:var(--muted);max-width:52ch;margin:0}
 .lead b{color:var(--ink)}
 .ask{display:flex;gap:8px;background:#fff;border:2px solid var(--blue-200);border-radius:18px;padding:8px;box-shadow:0 18px 50px rgba(30,94,255,.14);transition:border-color .15s,box-shadow .15s}
@@ -244,7 +245,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <a class="logo" href="#haut" aria-label="ACQUISITOR, retour en haut"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg></i><b>ACQUISITOR</b></a>
     <nav class="links" aria-label="Menu">
       <a href="#comment">Comment ça marche</a><a href="#prix">Prix</a><a href="#questions">Questions</a>
-      <a class="btn sm" href="#haut">100 offertes →</a>
+      <a class="btn sm" href="#haut">Essayer →</a>
     </nav>
   </div>
 </header>
@@ -255,8 +256,9 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="wrap hgrid">
       <div class="hleft">
         <span class="tagline"><span aria-hidden="true"></span>L’apporteur de contacts qualifiés, conforme RGPD</span>
+        <p class="hook">Qui vous a dit que trouver des prospects, des leads et des clients était compliqué&nbsp;?</p>
         <h1>Vos prochains clients, <span class="hl">à&nbsp;0,07&nbsp;€</span> l’entreprise.</h1>
-        <p class="lead">Dites qui vous cherchez. ACQUISITOR les trouve, leur écrit à votre place et vous transmet les réponses. <b>Les 100 premières sont offertes.</b></p>
+        <p class="lead">Dites qui vous cherchez. ACQUISITOR les trouve, leur écrit à votre place et vous transmet les réponses. <b>Sans abonnement, vous payez seulement ce qui part.</b></p>
 
         <form class="ask" id="askf" autocomplete="off">
           <label for="q"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E6A85" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg>
@@ -322,8 +324,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <li>Envoi depuis votre adresse et relance</li>
           <li>Suivi lu, cliqué, répondu</li>
         </ul>
-        <div class="pgift">🎁 Les 100 premières entreprises sont offertes</div>
-        <a class="btn white" href="#haut">Commencer gratuitement</a>
+        <div class="pgift">Sans abonnement · Vous payez seulement les entreprises contactées</div>
+        <a class="btn white" href="#haut">Trouver mes clients</a>
         <p class="popt"><b>Option agent automatique : 19 € HT / mois.</b> Chaque semaine, il trouve et contacte les nouvelles entreprises de votre cible. Sans engagement.</p>
       </div>
       <div class="pright rv">
@@ -371,12 +373,12 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
   <section class="final">
     <div class="wrap rv">
-      <h2>Vos 100 premières entreprises contactées sont offertes.</h2>
-      <p>Lancement très bientôt. Laissez votre adresse, on vous prévient en premier.</p>
+      <h2>Vos prochains clients sont à 0,07 € HT.</h2>
+      <p>Lancement très bientôt. Laissez votre adresse, vous serez parmi les premiers à y accéder.</p>
       <form class="wl" id="wl2">
         <input type="email" name="email" required placeholder="Votre adresse e-mail professionnelle" aria-label="Votre adresse e-mail">
         <input class="hp" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <button class="btn white" type="submit">Je veux mes 100 offertes</button>
+        <button class="btn white" type="submit">Être prévenu</button>
       </form>
       <span class="msg light" id="wl2m" role="status"></span>
       <small>Votre adresse sert uniquement à vous prévenir du lancement. <a href="/confidentialite">Confidentialité</a></small>
@@ -384,7 +386,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   </section>
 </main>
 
-<div class="mbar" id="mbar"><div><b>0,07 € HT</b> l’entreprise<small>100 offertes</small></div><a class="btn" href="#haut">Essayer</a></div>
+<div class="mbar" id="mbar"><div><b>0,07 € HT</b> l’entreprise<small>sans abonnement</small></div><a class="btn" href="#haut">Essayer</a></div>
 
 <footer><div class="wrap"><span><b style="color:var(--ink)">ACQUISITOR</b> · <a href="https://www.meddleygroup.fr/" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;text-underline-offset:2px">by MEDDLEY</a> · © 2026</span><nav class="flinks" aria-label="Liens légaux"><a href="/mentions-legales">Mentions légales</a><a href="/confidentialite">Confidentialité</a><a href="mailto:contact@acquisitor.fr">Contact</a></nav></div></footer>
 
@@ -408,14 +410,14 @@ async function ask(q){
     const msg=(e instanceof TypeError||!e.message)?'Le comptage n’est pas disponible pour le moment. Réessayez dans un instant.':e.message;r.innerHTML=`<b>${esc(msg)}</b>${wlForm()}`;bindWl();
   }finally{$('#go').disabled=false}
 }
-function cost(n){const pay=Math.max(0,n-100);return pay?(pay*0.07).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € HT':'Offert'}
+function cost(n){return (n*0.07).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € HT'}
 function show(d){
   const chips=[d.activite,d.zone,d.salaries].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('');
   if(!d.total){$('#res').innerHTML=`<b>Aucune entreprise ne correspond exactement.</b><small>Élargissez la zone (« + 50 km », le département) ou retirez le nombre de salariés.</small>`;return}
   $('#res').innerHTML=`<div class="rtop"><div><div class="big num" id="rnum">0</div><b>entreprise${d.total>1?'s':''} correspond${d.total>1?'ent':''} à votre recherche</b></div><div class="chips">${chips}</div></div>
    <p class="wait">Ces contacts n’attendent que vous.</p>
-   <div class="reco"><div><small>Les contacter toutes</small><b>${cost(d.total)}</b><small>${d.total>100?`100 offertes, puis ${fmt(d.total-100)} × 0,07 € HT.`:'Les 100 premières entreprises sont offertes.'} Sans abonnement.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>
-   <b>Démarrez gratuitement : vos 100 premières entreprises contactées sont offertes.</b>${wlForm('Je veux ces clients')}
+   <div class="reco"><div><small>Les contacter toutes</small><b>${cost(d.total)}</b><small>${fmt(d.total)} × 0,07 € HT. Sans abonnement.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>
+   <b>Lancement très bientôt : laissez votre adresse, vous serez parmi les premiers.</b>${wlForm('Je veux ces clients')}
    ${d.notes&&d.notes.length?`<small>${d.notes.map(esc).join(' ')}</small>`:''}
    <small>Source : registre officiel des entreprises (entreprises actives). Avant l’envoi, ACQUISITOR ne garde que les contacts sûrs.</small>`;
   count($('#rnum'),d.total,900);
@@ -426,7 +428,7 @@ function bindWl(){const f=$('#wl1');if(f)f.onsubmit=e=>{e.preventDefault();join(
 async function join(f,m,besoin){
   const email=f.email.value.trim();m.className=m.className.replace(/\b(ok|bad)\b/g,'').trim();m.textContent='Envoi…';
   try{const r=await fetch('/api/liste',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,besoin,site:f.site.value})});const d=await r.json();
-    if(!d.ok)throw new Error(d.message||'');m.classList.add('ok');m.textContent='C’est noté ! Nous vous écrivons dès l’ouverture, avec vos 100 entreprises offertes.';f.reset()}
+    if(!d.ok)throw new Error(d.message||'');m.classList.add('ok');m.textContent='C’est noté ! Nous vous écrivons dès l’ouverture.';f.reset()}
   catch(e){m.classList.add('bad');m.textContent=e.message||'L’inscription n’a pas fonctionné. Réessayez dans un instant.'}
 }
 $('#askf').onsubmit=e=>{e.preventDefault();const q=$('#q').value.trim();if(q.length<3){$('#q').focus();return}ask(q)};
