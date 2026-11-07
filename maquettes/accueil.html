@@ -84,6 +84,7 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 
 /* Carte animée */
 .hright{position:relative;min-width:0}
+.exemple{align-self:flex-start;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:3px 10px}
 .live{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 30px 80px rgba(14,26,51,.14);display:flex;flex-direction:column;gap:14px;transform:rotate(-1.5deg);animation:float 6s ease-in-out infinite}
 .lhead{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .lhead b{color:var(--ink)}
@@ -257,7 +258,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="glow" aria-hidden="true"></div>
     <div class="wrap hgrid">
       <div class="hleft">
-        <span class="tagline"><span aria-hidden="true"></span>L’apporteur de contacts qualifiés, conforme RGPD</span>
+        <span class="tagline"><span aria-hidden="true"></span>Ouverture prochaine · L’apporteur de contacts qualifiés, conforme RGPD</span>
         <h1>Qui vous a dit que trouver des clients était compliqué&nbsp;?</h1>
         <p class="lead"><b class="pricel">Vos prochains clients à 0,07&nbsp;€ l’entreprise.</b> Dites qui vous cherchez, on les trouve, on leur écrit, vous recevez les réponses.</p>
 
@@ -279,7 +280,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
       <div class="hright" aria-hidden="true">
         <div class="live">
-          <div class="lhead"><span class="dotlive"></span>Campagne en cours · <b id="lv-act">Coiffeurs</b> · <span id="lv-zone">Lyon + 20 km</span></div>
+          <span class="exemple">Exemple</span>
+          <div class="lhead"><span class="dotlive"></span>Campagne · <b id="lv-act">Coiffeurs</b> · <span id="lv-zone">Lyon + 20 km</span></div>
           <div class="lstats">
             <div><b class="num" id="lv-found">0</b><small>entreprises trouvées</small></div>
             <div><b class="num" id="lv-sent">0</b><small>contactées</small></div>
