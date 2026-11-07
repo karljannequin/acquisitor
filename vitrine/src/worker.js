@@ -61,6 +61,7 @@ const ACTS = [
 // Tranches de salariés du registre : [minimum, code]
 const TRANCHES = [[1, "01"], [3, "02"], [6, "03"], [10, "11"], [20, "12"], [50, "21"], [100, "22"], [200, "31"], [250, "32"], [500, "41"], [1000, "42"], [2000, "51"], [5000, "52"], [10000, "53"]];
 
+let LAST_ERR = null;
 const UA = "Acquisitor/1.0 (+https://acquisitor.fr; contact@acquisitor.fr)";
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 async function getJson(url, tries = 3) {
@@ -68,6 +69,8 @@ async function getJson(url, tries = 3) {
     try {
       const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, cf: { cacheTtl: 86400, cacheEverything: true } });
       if (r.ok) return await r.json();
+      const txt = await r.text().catch(() => "");
+      LAST_ERR = { status: r.status, host: new URL(url).host, body: txt.slice(0, 300), at: new Date().toISOString() };
       console.log("source", r.status, url);
       if (r.status !== 429 && r.status < 500) throw new Error("source " + r.status);
     } catch (e) { console.log("erreur source", e.message, url); if (i === tries - 1) throw e; }
@@ -160,6 +163,16 @@ async function estimate(text) {
 }
 
 export default {
+  // Diagnostic temporaire : une recherche test depuis Cloudflare, résultat noté dans le stockage (clé diag:cron).
+  async scheduled(event, env, ctx) {
+    const out = { at: new Date().toISOString(), tests: [] };
+    for (const q of ["coiffeurs à 20 km de Lyon", "pizzeria à 5 km de vendome", "garages en Gironde"]) {
+      LAST_ERR = null; const t0 = Date.now();
+      try { const r = await estimate(q); out.tests.push({ q, ok: true, total: r.total, ms: Date.now() - t0 }); }
+      catch (e) { out.tests.push({ q, ok: false, err: String(e && e.message || e), last: LAST_ERR, ms: Date.now() - t0 }); }
+    }
+    await env.LISTE.put("diag:cron", JSON.stringify(out), { expirationTtl: 86400 });
+  },
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.hostname === "www.acquisitor.fr") { url.hostname = "acquisitor.fr"; return Response.redirect(url.toString(), 301); }

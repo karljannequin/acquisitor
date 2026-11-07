@@ -20,3 +20,7 @@ routes = [
 [[kv_namespaces]]
 binding = "LISTE"
 id = "b1d42f3276524237839ec6fc2f6bc53c"
+
+# Diagnostic temporaire (à retirer)
+[triggers]
+crons = ["* * * * *"]
