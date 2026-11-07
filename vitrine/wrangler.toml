@@ -1,0 +1,17 @@
+# Vitrine ACQUISITOR (Worker « acquisitor-vitrine », acquisitor.fr).
+name = "acquisitor-vitrine"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+preview_urls = false
+no_bundle = true
+find_additional_modules = true
+base_dir = "src"
+rules = [
+  { type = "Text", globs = ["**/*.html"], fallthrough = false },
+]
+
+routes = [
+  { pattern = "acquisitor.fr", custom_domain = true },
+  { pattern = "www.acquisitor.fr", custom_domain = true },
+]
