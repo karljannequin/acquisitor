@@ -3,6 +3,8 @@
 // - "/api/estimation": combien d'entreprises correspondent à une phrase (registre officiel, gratuit)
 // - "/api/liste"     : inscription à la liste d'attente (KV LISTE)
 import PAGE from "./index.html";
+import MENTIONS from "./mentions-legales.html";
+import CONFIDENTIALITE from "./confidentialite.html";
 
 const JSON_H = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: JSON_H });
@@ -142,8 +144,10 @@ export default {
       return json({ ok: true });
     }
 
-    if (url.pathname !== "/") return Response.redirect(url.origin + "/", 302);
-    return new Response(PAGE, {
+    const pages = { "/": PAGE, "/mentions-legales": MENTIONS, "/confidentialite": CONFIDENTIALITE };
+    const html = pages[url.pathname.replace(/\/+$/, "") || "/"];
+    if (!html) return Response.redirect(url.origin + "/", 302);
+    return new Response(html, {
       headers: {
         "content-type": "text/html; charset=utf-8",
         "cache-control": "public, max-age=300",
