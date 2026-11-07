@@ -18,6 +18,11 @@
 - Les données (contacts, entreprises, campagnes envoyées) se créent dans l'outil ou dans le stockage Cloudflare, jamais dans le code.
 - Toujours expliquer en français simple, sans jargon.
 
+## RÈGLE ABSOLUE : Domino's Pizza exclu
+
+- **Domino's Pizza est exclu de tout Acquisitor, sans aucune exception** : jamais collecté, jamais gardé dans la base, jamais contacté, jamais fourni à un client, pour aucune marque. Cela vaut aussi pour ses franchisés, ses restaurants et tout ce qui s'en rapproche (nom ou enseigne contenant « Domino », domaines `dominos.fr` / `dominos.com`).
+- Cette exclusion se vérifie à l'entrée de la base (collecte, import), avant chaque envoi et avant chaque fourniture de contacts. Elle ne doit pas pouvoir être désactivée dans l'interface.
+
 ## ACQUISITOR : ce que c'est
 
 - Outil de prospection **multi-marques** de Karl : il collecte des contacts d'entreprises (base unique qui grandit et n'est jamais effacée), puis envoie des campagnes pour chaque marque (ZeBooster, Speedy Pizz, Yellow Immo, Hébergements Insolites Vendôme, futures licences…). Baseline : « Aucun contact ne lui échappe ».

@@ -2,6 +2,10 @@
 
 Décisions prises avec Karl le 07/11/2026. La maquette `maquettes/outil.html` montre chaque écran.
 
+## 0. Règle absolue : Domino's Pizza exclu
+
+Domino's Pizza est exclu de tout l'outil, sans exception : jamais collecté, jamais gardé, jamais contacté, jamais fourni à un client, pour toutes les marques. Franchisés et restaurants compris, et tout ce qui s'en rapproche (nom ou enseigne contenant « Domino », sites et e-mails `dominos.fr` / `dominos.com`). Contrôle à l'entrée de la base, avant chaque envoi et avant chaque fourniture. Visible dans Marques & réglages (« Exclusions permanentes »), impossible à retirer. Une ancienne fiche qui correspond est supprimée automatiquement.
+
 ## 1. Le principe
 
 - Une **base de contacts unique** pour toutes les marques. Tout ce qui est collecté est gardé **pour toujours** (choix de Karl), mis à jour à chaque nouvelle collecte, sans doublon.
@@ -90,3 +94,10 @@ Reprises des sites, pas seulement des logos. L'outil final ira lire le site de c
 - Prospection par e-mail d'entreprises autorisée sans accord préalable si le message concerne leur métier, indique qui écrit et d'où vient l'adresse, et offre un lien « ne plus recevoir ».
 - Ne jamais vendre les contacts. Vendre le logiciel est possible (client responsable de ses contacts, Acquisitor sous-traitant : contrat de traitement des données).
 - Conservation : Karl a choisi de tout garder. La CNIL recommande 3 ans sans réponse pour les contacts personnels : choix assumé par Karl, à revoir avant toute vente du logiciel.
+
+## 11. Modèle économique (décision du 07/11/2026)
+
+- Karl est d'accord pour **fournir des contacts et des campagnes** à des clients.
+- Contacts fournis : entreprises (registre officiel, sites web) avec leurs coordonnées professionnelles. Pas de revente d'e-mails nominatifs collectés sans information des personnes (risque CNIL), pas de revente de données Google Maps.
+- Parcours client visé, automatique : le client décrit les clients qu'il cherche → nombre d'entreprises affiché aussitôt → formule et paiement (Stripe) → campagne → envoi depuis sa propre adresse → réponses dans son espace.
+- Question ouverte : campagne faite pour le client ou par le client (voir proposition dans la conversation : l'IA la fait, le client valide ou modifie ; option faite à la main par Karl).
