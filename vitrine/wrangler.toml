@@ -9,6 +9,7 @@ find_additional_modules = true
 base_dir = "src"
 rules = [
   { type = "Text", globs = ["**/*.html"], fallthrough = false },
+  { type = "ESModule", globs = ["**/*.js"], fallthrough = false },
 ]
 
 routes = [
@@ -23,3 +24,8 @@ id = "b1d42f3276524237839ec6fc2f6bc53c"
 
 [triggers]
 crons = []
+
+# Comptages issus de la base officielle des entreprises (préparés par donnees/preparer.py)
+[[kv_namespaces]]
+binding = "DONNEES"
+id = "9af436fb43c54e26b9ba815f9881a116"

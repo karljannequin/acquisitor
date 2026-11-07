@@ -1,189 +1,137 @@
 // Vitrine ACQUISITOR (acquisitor.fr)
-// - "/"              : la page d'accueil
-// - "/api/estimation": combien d'entreprises correspondent à une phrase (registre officiel, gratuit)
-// - "/api/liste"     : inscription à la liste d'attente (KV LISTE)
+// - "/", "/mentions-legales", "/confidentialite" : les pages
+// - "/api/metiers"   : le catalogue des métiers pour la recherche guidée
+// - "/api/lieux"     : villes, départements et régions proposés pendant la saisie
+// - "/api/compter"   : nombre exact d'entreprises (copie de la base officielle, stockage DONNEES)
+// - "/api/comprendre": transforme une phrase en recherche guidée
+// - "/api/liste"     : inscription à la liste d'attente (stockage LISTE)
 import PAGE from "./index.html";
 import MENTIONS from "./mentions-legales.html";
 import CONFIDENTIALITE from "./confidentialite.html";
+import { CATALOGUE, METIERS } from "./catalogue.js";
 
 const JSON_H = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: JSON_H });
-const norm = (t) => String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[’']/g, " ");
+const norm = (t) => String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[’'\-]/g, " ").replace(/\s+/g, " ").trim();
 
-// Activités courantes -> codes d'activité officiels (NAF)
-const ACTS = [
-  [["coiff"], "Coiffeurs", "96.02A"],
-  [["esthetic", "institut de beaute", "beaute", "onglerie"], "Instituts de beauté", "96.02B"],
-  [["pizz"], "Pizzerias", "56.10A,56.10C", /pizz/i],
-  [["kebab"], "Kebabs", "56.10A,56.10C", /kebab|kebap|grill/i],
-  [["burger"], "Burgers", "56.10A,56.10C", /burger/i],
-  [["sushi", "japonais"], "Restaurants japonais", "56.10A,56.10C", /sushi|japon|maki|wok/i],
-  [["crep"], "Crêperies", "56.10A,56.10C", /cr[eê]pe/i],
-  [["restaurant", "resto"], "Restaurants", "56.10A"],
-  [["boulang"], "Boulangeries", "10.71C"],
-  [["patiss"], "Pâtisseries", "10.71D"],
-  [["boucher", "charcut"], "Boucheries", "47.22Z"],
-  [["fleur"], "Fleuristes", "47.76Z"],
-  [["garage", "mecani", "carross"], "Garages", "45.20A"],
-  [["hotel"], "Hôtels", "55.10Z"],
-  [["camping"], "Campings", "55.30Z"],
-  [["gite", "chambre d hote", "hebergement"], "Hébergements touristiques", "55.20Z"],
-  [["immobili", "immo "], "Agences immobilières", "68.31Z"],
-  [["plomb", "chauffag"], "Plombiers chauffagistes", "43.22A"],
-  [["electricien"], "Électriciens", "43.21A"],
-  [["macon"], "Maçons", "43.99C"],
-  [["menuisi"], "Menuisiers", "43.32A"],
-  [["peintre"], "Peintres en bâtiment", "43.34Z"],
-  [["opticien"], "Opticiens", "47.78A"],
-  [["pharmac"], "Pharmacies", "47.73Z"],
-  [["dentist"], "Dentistes", "86.23Z"],
-  [["medecin", "generaliste"], "Médecins", "86.21Z"],
-  [["kine"], "Kinésithérapeutes", "86.90E"],
-  [["avocat"], "Avocats", "69.10Z"],
-  [["comptab"], "Experts-comptables", "69.20Z"],
-  [["architect"], "Architectes", "71.11Z"],
-  [["assuran"], "Agents d'assurance", "66.22Z"],
-  [["salle de sport", "fitness", "sport"], "Salles de sport", "93.13Z"],
-  [["bar ", "bars", "cafe"], "Bars et cafés", "56.30Z"],
-  [["tabac"], "Bureaux de tabac", "47.26Z"],
-  [["vetement", "boutique", "pret a porter", "mode"], "Boutiques de vêtements", "47.71Z"],
-  [["epicerie", "superette"], "Épiceries", "47.11B"],
-  [["taxi"], "Taxis", "49.32Z"],
-  [["nettoyage", "menage"], "Entreprises de nettoyage", "81.21Z"],
-  [["informatique", "developpeur", "logiciel"], "Entreprises informatiques", "62.02A"],
-  [["traiteur"], "Traiteurs", "56.21Z"],
-  [["creche"], "Crèches", "88.91A"],
-  [["ehpad", "maison de retraite"], "Maisons de retraite", "87.10A"],
-  [["aide a domicile", "service a la personne", "services a la personne"], "Aide à domicile", "88.10A"],
-  [["transport"], "Transporteurs", "49.41A"],
-  [["ecole"], "Écoles", "85.20Z"],
-];
-// Tranches de salariés du registre : [minimum, code]
-const TRANCHES = [[1, "01"], [3, "02"], [6, "03"], [10, "11"], [20, "12"], [50, "21"], [100, "22"], [200, "31"], [250, "32"], [500, "41"], [1000, "42"], [2000, "51"], [5000, "52"], [10000, "53"]];
+// Paris, Lyon et Marseille sont découpés en arrondissements dans la base.
+const PLM = { "75056": Array.from({ length: 20 }, (_, i) => String(75101 + i)), "69123": Array.from({ length: 9 }, (_, i) => String(69381 + i)), "13055": Array.from({ length: 16 }, (_, i) => String(13201 + i)) };
+// Effectif minimum -> première tranche comptée : [inconnu, 1-2, 3-5, 6-9, 10-19, 20-49, 50+]
+const TAILLES = { toutes: null, "1+": 1, "3+": 2, "6+": 3, "10+": 4, "20+": 5, "50+": 6 };
 
-let LAST_ERR = null;
-const UA = "Acquisitor/1.0 (+https://acquisitor.fr; contact@acquisitor.fr)";
-const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-async function getJson(url, tries = 3) {
-  for (let i = 0; i < tries; i++) {
-    try {
-      const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, cf: { cacheTtl: 86400, cacheEverything: true }, signal: AbortSignal.timeout(8000) });
-      if (r.ok) return await r.json();
-      const txt = await r.text().catch(() => "");
-      LAST_ERR = { status: r.status, host: new URL(url).host, body: txt.slice(0, 300), at: new Date().toISOString() };
-      console.log("source", r.status, url);
-      if (r.status !== 429 && r.status < 500) throw new Error("source " + r.status);
-    } catch (e) { console.log("erreur source", e.message, url); if (i === tries - 1) throw e; }
-    await wait(400 * (i + 1));
-  }
-  throw new Error("source indisponible");
+// Données gardées en mémoire tant que le serveur reste chaud.
+const MEM = new Map();
+async function kv(env, key) {
+  if (MEM.has(key)) return MEM.get(key);
+  const v = await env.DONNEES.get(key, "json");
+  MEM.set(key, v);
+  return v;
 }
 
-async function estimate(text) {
+function dist(a, b) {
+  const R = 6371, r = (x) => (x * Math.PI) / 180;
+  const d = Math.sin(r(b[0] - a[0]) / 2) ** 2 + Math.cos(r(a[0])) * Math.cos(r(b[0])) * Math.sin(r(b[1] - a[1]) / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(d));
+}
+
+// Communes couvertes par la zone choisie (null = toute la France)
+function zoneCommunes(geo, lieu, rayon) {
+  if (!lieu || lieu.type === "fr") return null;
+  const set = new Set();
+  if (lieu.type === "dep") { for (const c in geo) if (geo[c][2] === lieu.code) set.add(c); return set; }
+  if (lieu.type === "reg") { for (const c in geo) if (geo[c][3] === lieu.code) set.add(c); return set; }
+  const centre = geo[lieu.code];
+  if (!centre) return set;
+  set.add(lieu.code);
+  for (const a of PLM[lieu.code] || []) set.add(a);
+  if (rayon > 0) for (const c in geo) if (dist(centre, geo[c]) <= rayon) set.add(c);
+  return set;
+}
+
+function somme(data, communes, g) {
+  if (!data) return 0;
+  let n = 0;
+  const add = (a) => { if (!a) return; for (let i = g == null ? 0 : g; i < a.length; i++) n += a[i]; };
+  if (communes) for (const c of communes) add(data[c]);
+  else for (const c in data) add(data[c]);
+  return n;
+}
+
+async function compter(env, sel) {
+  const acts = (sel.acts || []).filter((id) => METIERS[id]).slice(0, 20);
+  if (!acts.length) return { ok: false, message: "Choisissez au moins un métier." };
+  const geo = await kv(env, "geo");
+  if (!geo) return { ok: false, message: "Le comptage est en cours de mise à jour. Réessayez dans un instant." };
+  const lieu = sel.lieu && ["com", "dep", "reg", "fr"].includes(sel.lieu.type) ? sel.lieu : { type: "fr" };
+  const rayon = Math.max(0, Math.min(200, +sel.km || 0));
+  const g = TAILLES[sel.taille] ?? null;
+  const communes = zoneCommunes(geo, lieu, lieu.type === "com" ? rayon : 0);
+
+  const nafSet = new Set(acts.filter((id) => !METIERS[id].re).flatMap((id) => METIERS[id].naf.split(",")));
+  const parts = [];
+  let total = 0;
+  for (const code of nafSet) total += somme(await kv(env, "c:" + code), communes, g);
+  for (const id of acts) {
+    const m = METIERS[id];
+    if (!m.re) { let n = 0; for (const code of m.naf.split(",")) n += somme(await kv(env, "c:" + code), communes, g); parts.push({ l: m.l, n }); continue; }
+    // Repérées par leur nom, catégorie par catégorie : on n'ajoute que celles qui ne sont pas déjà comptées.
+    let n = 0, ajout = 0;
+    for (const code of m.naf.split(",")) { const x = somme(await kv(env, "r:" + id + ":" + code), communes, g); n += x; if (!nafSet.has(code)) ajout += x; }
+    total += ajout; parts.push({ l: m.l, n, inclus: ajout === 0 && n > 0 });
+  }
+  if (!MEM.has("maj")) MEM.set("maj", (await env.DONNEES.get("maj")) || "");
+  return { ok: true, total, parts, maj: MEM.get("maj") };
+}
+
+async function lieux(env, q, max = 8) {
+  const L = await kv(env, "lieux");
+  const t = norm(q);
+  if (!L || t.length < 2) return [];
+  const res = [];
+  for (const x of L) {
+    const n = norm(x[2]);
+    const i = n.indexOf(t);
+    if (i === -1 && !(x[0] === "dep" && x[1].toLowerCase() === t)) continue;
+    res.push([i === 0 || n === t ? 0 : 1, -x[4], x]);
+  }
+  res.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  return res.slice(0, max).map(([, , x]) => ({ type: x[0], code: x[1], label: x[2], sub: x[3] }));
+}
+
+// Une phrase -> une recherche guidée
+async function comprendre(env, text) {
   const t = " " + norm(text) + " ";
-  const act = ACTS.find(([keys]) => keys.some((k) => t.includes(k)));
-  const km = +((t.match(/(\d+)\s*km/) || t.match(/\+\s*(\d+)/) || [])[1] || 0);
+  const acts = [];
+  for (const f of CATALOGUE) for (const m of f.items) if (m.k.some((k) => { const n = norm(k); return n.length > 3 ? t.includes(n) : t.includes(" " + n + " "); })) acts.push(m.id);
+  const kmM = t.match(/(\d+)\s*km/) || t.match(/\+\s*(\d+)/);
   const sal = +((t.match(/(\d+)\s*salari/) || [])[1] || 0);
-  const notes = [];
-
-  // Zone : département, région ou ville
-  let zone = null;
-  const depM = t.match(/\b(\d{2}|2a|2b)\b(?!\s*(km|salari))/);
-  const after = (t.match(/(?:autour de|pres de|proche de|a cote de|dans le|dans la|dans les|en|sur|a|de)\s+([a-z\- ]{3,40}?)(?:\s+\d|\s+plus|\s+avec|\s+et\s|\s*$)/g) || []).map((s) => s.replace(/^(autour de|pres de|proche de|a cote de|dans le|dans la|dans les|en|sur|a|de)\s+/, "").trim()).filter((s) => s && !ACTS.some(([keys]) => keys.some((k) => s.includes(k.trim()))));
-  for (const cand of after.reverse()) {
-    const name = cand.replace(/\b(salaries?|km|plus|moins)\b.*$/, "").trim();
-    if (name.length < 3) continue;
-    const deps = await getJson(`https://geo.api.gouv.fr/departements?nom=${encodeURIComponent(name)}&fields=nom,code&limit=1`).catch(() => []);
-    if (deps[0] && norm(deps[0].nom) === name) { zone = { type: "dep", code: deps[0].code, label: deps[0].nom }; break; }
-    const regs = await getJson(`https://geo.api.gouv.fr/regions?nom=${encodeURIComponent(name)}&fields=nom,code&limit=1`).catch(() => []);
-    if (regs[0] && norm(regs[0].nom) === name) { zone = { type: "reg", code: regs[0].code, label: regs[0].nom }; break; }
-    const com = await getJson(`https://geo.api.gouv.fr/communes?nom=${encodeURIComponent(name)}&fields=nom,code,centre,codeDepartement&boost=population&limit=1`).catch(() => []);
-    if (com[0]) { zone = { type: "com", code: com[0].code, label: com[0].nom, dep: com[0].codeDepartement, centre: com[0].centre && com[0].centre.coordinates }; break; }
+  const taille = sal >= 50 ? "50+" : sal >= 20 ? "20+" : sal >= 10 ? "10+" : sal >= 6 ? "6+" : sal >= 3 ? "3+" : sal >= 1 ? "1+" : "toutes";
+  const L = (await kv(env, "lieux")) || [];
+  let best = null;
+  for (const x of L) {
+    const n = norm(x[2]);
+    if (n.length < 3 || !t.includes(" " + n + " ")) continue;
+    const score = (x[0] === "com" ? 0 : 1) * 1e12 + n.length * 1e9 + x[4];
+    if (!best || score > best[0]) best = [score, x];
   }
-  if (!zone && depM) zone = { type: "dep", code: depM[1].toUpperCase(), label: "département " + depM[1].toUpperCase() };
-
-  const p = new URLSearchParams({ per_page: "1", etat_administratif: "A" });
-  if (act) p.set("activite_principale", act[2]);
-  else {
-    const words = t.replace(/\b(je|cherche|chercher|les|des|du|de|la|le|a|au|aux|dans|autour|pres|km|plus|moins|salaries?|entreprises?|clients?|et|en|sur|qui|ont|avec)\b/g, " ").replace(/\d+/g, " ").trim().split(/\s+/).filter((w) => w.length > 3);
-    if (!words.length) return { ok: false, message: "Précisez le type d’entreprise, par exemple « coiffeurs » ou « garages »." };
-    p.set("q", words[0]);
-    notes.push("Activité estimée d’après le nom des entreprises.");
-  }
-  if (sal > 0) {
-    const codes = TRANCHES.filter(([min]) => min >= sal).map(([, c]) => c);
-    if (codes.length) p.set("tranche_effectif_salarie", codes.join(","));
-  }
-  let url = "https://recherche-entreprises.api.gouv.fr/search?";
-  let zoneLabel = "toute la France";
-  if (zone && zone.type === "com" && km > 0 && zone.centre) {
-    const r = Math.min(km, 50);
-    if (km > 50) notes.push("Rayon limité à 50 km pour l’estimation.");
-    url = "https://recherche-entreprises.api.gouv.fr/near_point?";
-    p.set("long", String(zone.centre[0])); p.set("lat", String(zone.centre[1])); p.set("radius", String(r));
-    zoneLabel = `${zone.label} + ${r} km`;
-  } else if (zone && zone.type === "com") { p.set("code_commune", zone.code); zoneLabel = zone.label; }
-  else if (zone && zone.type === "dep") { p.set("departement", zone.code); zoneLabel = zone.label; }
-  else if (zone && zone.type === "reg") { p.set("region", zone.code); zoneLabel = zone.label; }
-
-  let total, categorie = null;
-  if (act && act[3]) {
-    // Pas de code officiel pour ce métier : on compte exactement la catégorie officielle (restaurants),
-    // et, quand la zone est assez petite pour tout parcourir, les entreprises dont le nom ou l'enseigne correspond.
-    const re = act[3];
-    const nameOf = (r) => [r.nom_complet, r.nom_raison_sociale, r.siege && r.siege.nom_commercial, ...((r.siege && r.siege.liste_enseignes) || []), ...((r.matching_etablissements || []).flatMap((e) => [e.nom_commercial, ...(e.liste_enseignes || [])]))].filter(Boolean).join(" ");
-    p.set("per_page", "25"); p.set("page", "1");
-    const first = await getJson(url + p.toString());
-    const all = first.total_results || 0, pages = first.total_pages || 1;
-    categorie = { label: "restaurants (restauration traditionnelle et rapide)", total: all, plus: all >= 10000 };
-    total = null;
-    if (pages <= 10) {
-      let seen = first.results || [];
-      for (let pg = 2; pg <= pages; pg += 2) {
-        const batch = [];
-        for (let k = pg; k < pg + 2 && k <= pages; k++) { const q2 = new URLSearchParams(p); q2.set("page", String(k)); batch.push(getJson(url + q2.toString()).then((x) => x.results || [])); }
-        for (const r of await Promise.all(batch)) seen = seen.concat(r);
-      }
-      total = seen.filter((r) => re.test(nameOf(r))).length;
-    }
-  } else {
-    const d = await getJson(url + p.toString());
-    total = d.total_results || 0;
-    if (total >= 10000) notes.push("plus");
-  }
-  return {
-    ok: true,
-    total,
-    categorie,
-    activite: act ? act[1] : null,
-    zone: zoneLabel,
-    salaries: sal > 0 ? `plus de ${sal} salariés` : null,
-    notes,
-  };
+  let lieu = null;
+  if (/toute la france|en france|partout/.test(t)) lieu = { type: "fr", label: "Toute la France" };
+  else if (best) lieu = { type: best[1][0], code: best[1][1], label: best[1][2], sub: best[1][3] };
+  return { ok: true, acts: [...new Set(acts)], lieu, km: kmM ? +kmM[1] : (lieu && lieu.type === "com" ? 10 : 0), taille };
 }
 
 export default {
-  // Diagnostic temporaire : une recherche test depuis Cloudflare, résultat noté dans le stockage (clé diag:cron).
-  async scheduled(event, env, ctx) {
-    const out = { at: new Date().toISOString(), tests: [] };
-    await env.LISTE.put("diag:cron", JSON.stringify({ ...out, etat: "démarré" }), { expirationTtl: 86400 });
-    for (const q of ["coiffeurs à 20 km de Lyon", "pizzeria à 5 km de vendome", "garages en Gironde"]) {
-      LAST_ERR = null; const t0 = Date.now();
-      try { const r = await estimate(q); out.tests.push({ q, ok: true, total: r.total, ms: Date.now() - t0 }); }
-      catch (e) { out.tests.push({ q, ok: false, err: String(e && e.message || e), last: LAST_ERR, ms: Date.now() - t0 }); }
-      await env.LISTE.put("diag:cron", JSON.stringify(out), { expirationTtl: 86400 });
-    }
-    await env.LISTE.put("diag:cron", JSON.stringify(out), { expirationTtl: 86400 });
-  },
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.hostname === "www.acquisitor.fr") { url.hostname = "acquisitor.fr"; return Response.redirect(url.toString(), 301); }
-
-    if (url.pathname === "/api/estimation" && request.method === "GET") {
-      const q = (url.searchParams.get("q") || "").slice(0, 200);
-      if (q.trim().length < 3) return json({ ok: false, message: "Décrivez les clients que vous cherchez." }, 400);
-      try { return json(await estimate(q)); }
-      catch (e) { console.log("estimation", e && e.stack || e); return json({ ok: false, message: "Le comptage prend plus de temps que prévu. Réessayez dans un instant." }, 502); }
+    try {
+      if (url.pathname === "/api/metiers") return new Response(JSON.stringify(CATALOGUE.map((f) => ({ f: f.f, items: f.items.map((i) => ({ id: i.id, l: i.l, k: i.k })) }))), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "public, max-age=3600" } });
+      if (url.pathname === "/api/lieux") return json({ ok: true, lieux: await lieux(env, (url.searchParams.get("q") || "").slice(0, 60)) });
+      if (url.pathname === "/api/compter" && request.method === "POST") { let b = {}; try { b = await request.json(); } catch {} return json(await compter(env, b)); }
+      if (url.pathname === "/api/comprendre") return json(await comprendre(env, (url.searchParams.get("q") || "").slice(0, 200)));
+    } catch (e) {
+      console.log("api", e && e.stack || e);
+      return json({ ok: false, message: "Un souci technique est survenu. Réessayez dans un instant." }, 500);
     }
 
     if (url.pathname === "/api/liste" && request.method === "POST") {

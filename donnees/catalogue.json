@@ -1,0 +1,709 @@
+[
+ {
+  "f": "Restauration",
+  "items": [
+   {
+    "id": "restaurants",
+    "l": "Restaurants",
+    "naf": "56.10A",
+    "k": [
+     "restaurant",
+     "resto",
+     "brasserie",
+     "bistrot"
+    ]
+   },
+   {
+    "id": "rapide",
+    "l": "Restauration rapide",
+    "naf": "56.10C",
+    "k": [
+     "restauration rapide",
+     "fast food",
+     "snack",
+     "sandwich"
+    ]
+   },
+   {
+    "id": "pizzerias",
+    "l": "Pizzerias",
+    "naf": "56.10A,56.10C",
+    "re": "pizz",
+    "k": [
+     "pizz"
+    ]
+   },
+   {
+    "id": "kebabs",
+    "l": "Kebabs",
+    "naf": "56.10A,56.10C",
+    "re": "kebab|kebap",
+    "k": [
+     "kebab"
+    ]
+   },
+   {
+    "id": "burgers",
+    "l": "Burgers",
+    "naf": "56.10A,56.10C",
+    "re": "burger",
+    "k": [
+     "burger"
+    ]
+   },
+   {
+    "id": "japonais",
+    "l": "Restaurants japonais",
+    "naf": "56.10A,56.10C",
+    "re": "sushi|japon|maki|ramen",
+    "k": [
+     "sushi",
+     "japonais"
+    ]
+   },
+   {
+    "id": "creperies",
+    "l": "Crêperies",
+    "naf": "56.10A,56.10C",
+    "re": "cr[eê]pe",
+    "k": [
+     "crep"
+    ]
+   },
+   {
+    "id": "traiteurs",
+    "l": "Traiteurs",
+    "naf": "56.21Z",
+    "k": [
+     "traiteur"
+    ]
+   },
+   {
+    "id": "bars",
+    "l": "Bars et cafés",
+    "naf": "56.30Z",
+    "k": [
+     "bar ",
+     "bars",
+     "cafe",
+     "pub"
+    ]
+   },
+   {
+    "id": "boulangeries",
+    "l": "Boulangeries",
+    "naf": "10.71C",
+    "k": [
+     "boulang"
+    ]
+   },
+   {
+    "id": "patisseries",
+    "l": "Pâtisseries",
+    "naf": "10.71D",
+    "k": [
+     "patiss"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Commerce",
+  "items": [
+   {
+    "id": "boucheries",
+    "l": "Boucheries",
+    "naf": "47.22Z",
+    "k": [
+     "boucher",
+     "charcut"
+    ]
+   },
+   {
+    "id": "fleuristes",
+    "l": "Fleuristes",
+    "naf": "47.76Z",
+    "k": [
+     "fleur"
+    ]
+   },
+   {
+    "id": "epiceries",
+    "l": "Épiceries",
+    "naf": "47.11B",
+    "k": [
+     "epicerie"
+    ]
+   },
+   {
+    "id": "superettes",
+    "l": "Supérettes",
+    "naf": "47.11C",
+    "k": [
+     "superette"
+    ]
+   },
+   {
+    "id": "vetements",
+    "l": "Boutiques de vêtements",
+    "naf": "47.71Z",
+    "k": [
+     "vetement",
+     "boutique",
+     "pret a porter",
+     "mode"
+    ]
+   },
+   {
+    "id": "chaussures",
+    "l": "Magasins de chaussures",
+    "naf": "47.72A",
+    "k": [
+     "chaussure"
+    ]
+   },
+   {
+    "id": "bijouteries",
+    "l": "Bijouteries",
+    "naf": "47.77Z",
+    "k": [
+     "bijou",
+     "horlog"
+    ]
+   },
+   {
+    "id": "opticiens",
+    "l": "Opticiens",
+    "naf": "47.78A",
+    "k": [
+     "opticien",
+     "lunette"
+    ]
+   },
+   {
+    "id": "pharmacies",
+    "l": "Pharmacies",
+    "naf": "47.73Z",
+    "k": [
+     "pharmac"
+    ]
+   },
+   {
+    "id": "tabacs",
+    "l": "Bureaux de tabac",
+    "naf": "47.26Z",
+    "k": [
+     "tabac"
+    ]
+   },
+   {
+    "id": "librairies",
+    "l": "Librairies",
+    "naf": "47.61Z",
+    "k": [
+     "librair"
+    ]
+   },
+   {
+    "id": "sport-magasins",
+    "l": "Magasins de sport",
+    "naf": "47.64Z",
+    "k": [
+     "magasin de sport",
+     "articles de sport"
+    ]
+   },
+   {
+    "id": "cavistes",
+    "l": "Cavistes",
+    "naf": "47.25Z",
+    "k": [
+     "cave",
+     "caviste",
+     "vin"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Beauté et bien-être",
+  "items": [
+   {
+    "id": "coiffeurs",
+    "l": "Coiffeurs",
+    "naf": "96.02A",
+    "k": [
+     "coiff",
+     "barbier"
+    ]
+   },
+   {
+    "id": "instituts",
+    "l": "Instituts de beauté",
+    "naf": "96.02B",
+    "k": [
+     "esthetic",
+     "institut",
+     "beaute",
+     "ongle"
+    ]
+   },
+   {
+    "id": "salles-sport",
+    "l": "Salles de sport",
+    "naf": "93.13Z",
+    "k": [
+     "salle de sport",
+     "fitness",
+     "musculation"
+    ]
+   },
+   {
+    "id": "spas",
+    "l": "Spas et bien-être",
+    "naf": "96.04Z",
+    "k": [
+     "spa",
+     "massage",
+     "hammam"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Auto et transport",
+  "items": [
+   {
+    "id": "garages",
+    "l": "Garages",
+    "naf": "45.20A",
+    "k": [
+     "garage",
+     "mecani",
+     "carross"
+    ]
+   },
+   {
+    "id": "concessions",
+    "l": "Concessionnaires auto",
+    "naf": "45.11Z",
+    "k": [
+     "concession",
+     "vente de voiture"
+    ]
+   },
+   {
+    "id": "controle-technique",
+    "l": "Contrôle technique",
+    "naf": "71.20A",
+    "k": [
+     "controle technique"
+    ]
+   },
+   {
+    "id": "auto-ecoles",
+    "l": "Auto-écoles",
+    "naf": "85.53Z",
+    "k": [
+     "auto ecole",
+     "auto-ecole"
+    ]
+   },
+   {
+    "id": "taxis",
+    "l": "Taxis et VTC",
+    "naf": "49.32Z",
+    "k": [
+     "taxi",
+     "vtc"
+    ]
+   },
+   {
+    "id": "transporteurs",
+    "l": "Transporteurs",
+    "naf": "49.41A",
+    "k": [
+     "transport"
+    ]
+   },
+   {
+    "id": "ambulances",
+    "l": "Ambulances",
+    "naf": "86.90A",
+    "k": [
+     "ambulanc"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Bâtiment",
+  "items": [
+   {
+    "id": "plombiers",
+    "l": "Plombiers chauffagistes",
+    "naf": "43.22A",
+    "k": [
+     "plomb",
+     "chauffag"
+    ]
+   },
+   {
+    "id": "electriciens",
+    "l": "Électriciens",
+    "naf": "43.21A",
+    "k": [
+     "electricien"
+    ]
+   },
+   {
+    "id": "macons",
+    "l": "Maçons",
+    "naf": "43.99C",
+    "k": [
+     "macon",
+     "maconnerie"
+    ]
+   },
+   {
+    "id": "menuisiers",
+    "l": "Menuisiers",
+    "naf": "43.32A",
+    "k": [
+     "menuisi"
+    ]
+   },
+   {
+    "id": "peintres",
+    "l": "Peintres en bâtiment",
+    "naf": "43.34Z",
+    "k": [
+     "peintre"
+    ]
+   },
+   {
+    "id": "couvreurs",
+    "l": "Couvreurs",
+    "naf": "43.91B",
+    "k": [
+     "couvreur",
+     "toiture"
+    ]
+   },
+   {
+    "id": "carreleurs",
+    "l": "Carreleurs",
+    "naf": "43.33Z",
+    "k": [
+     "carrel"
+    ]
+   },
+   {
+    "id": "paysagistes",
+    "l": "Paysagistes",
+    "naf": "81.30Z",
+    "k": [
+     "paysag",
+     "jardinier"
+    ]
+   },
+   {
+    "id": "architectes",
+    "l": "Architectes",
+    "naf": "71.11Z",
+    "k": [
+     "architect"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Santé",
+  "items": [
+   {
+    "id": "medecins",
+    "l": "Médecins",
+    "naf": "86.21Z",
+    "k": [
+     "medecin",
+     "generaliste"
+    ]
+   },
+   {
+    "id": "dentistes",
+    "l": "Dentistes",
+    "naf": "86.23Z",
+    "k": [
+     "dentist"
+    ]
+   },
+   {
+    "id": "kines",
+    "l": "Kinésithérapeutes",
+    "naf": "86.90E",
+    "k": [
+     "kine"
+    ]
+   },
+   {
+    "id": "infirmiers",
+    "l": "Infirmiers",
+    "naf": "86.90D",
+    "k": [
+     "infirm"
+    ]
+   },
+   {
+    "id": "veterinaires",
+    "l": "Vétérinaires",
+    "naf": "75.00Z",
+    "k": [
+     "veterin"
+    ]
+   },
+   {
+    "id": "laboratoires",
+    "l": "Laboratoires d’analyses",
+    "naf": "86.90B",
+    "k": [
+     "laboratoire"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Immobilier",
+  "items": [
+   {
+    "id": "agences-immo",
+    "l": "Agences immobilières",
+    "naf": "68.31Z",
+    "k": [
+     "immobili",
+     "agence immo"
+    ]
+   },
+   {
+    "id": "syndics",
+    "l": "Syndics et gestion",
+    "naf": "68.32A",
+    "k": [
+     "syndic",
+     "gestion locative"
+    ]
+   },
+   {
+    "id": "promoteurs",
+    "l": "Promoteurs immobiliers",
+    "naf": "41.10A",
+    "k": [
+     "promoteur"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Hôtellerie et tourisme",
+  "items": [
+   {
+    "id": "hotels",
+    "l": "Hôtels",
+    "naf": "55.10Z",
+    "k": [
+     "hotel"
+    ]
+   },
+   {
+    "id": "gites",
+    "l": "Gîtes et chambres d’hôtes",
+    "naf": "55.20Z",
+    "k": [
+     "gite",
+     "chambre d hote",
+     "location de vacances"
+    ]
+   },
+   {
+    "id": "campings",
+    "l": "Campings",
+    "naf": "55.30Z",
+    "k": [
+     "camping"
+    ]
+   },
+   {
+    "id": "agences-voyage",
+    "l": "Agences de voyage",
+    "naf": "79.11Z",
+    "k": [
+     "agence de voyage",
+     "voyage"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Services aux entreprises",
+  "items": [
+   {
+    "id": "comptables",
+    "l": "Experts-comptables",
+    "naf": "69.20Z",
+    "k": [
+     "comptab"
+    ]
+   },
+   {
+    "id": "avocats",
+    "l": "Avocats",
+    "naf": "69.10Z",
+    "k": [
+     "avocat"
+    ]
+   },
+   {
+    "id": "communication",
+    "l": "Agences de communication",
+    "naf": "73.11Z",
+    "k": [
+     "communication",
+     "publicite",
+     "marketing"
+    ]
+   },
+   {
+    "id": "informatique",
+    "l": "Entreprises informatiques",
+    "naf": "62.02A",
+    "k": [
+     "informatique",
+     "logiciel",
+     "developpeur"
+    ]
+   },
+   {
+    "id": "nettoyage",
+    "l": "Entreprises de nettoyage",
+    "naf": "81.21Z",
+    "k": [
+     "nettoyage",
+     "menage"
+    ]
+   },
+   {
+    "id": "assurances",
+    "l": "Agents d’assurance",
+    "naf": "66.22Z",
+    "k": [
+     "assuran"
+    ]
+   },
+   {
+    "id": "conseil",
+    "l": "Cabinets de conseil",
+    "naf": "70.22Z",
+    "k": [
+     "conseil",
+     "consultant"
+    ]
+   },
+   {
+    "id": "securite",
+    "l": "Sécurité et gardiennage",
+    "naf": "80.10Z",
+    "k": [
+     "securite",
+     "gardiennage"
+    ]
+   },
+   {
+    "id": "imprimeries",
+    "l": "Imprimeries",
+    "naf": "18.12Z",
+    "k": [
+     "imprim"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Services à la personne",
+  "items": [
+   {
+    "id": "aide-domicile",
+    "l": "Aide à domicile",
+    "naf": "88.10A",
+    "k": [
+     "aide a domicile",
+     "service a la personne",
+     "services a la personne"
+    ]
+   },
+   {
+    "id": "creches",
+    "l": "Crèches",
+    "naf": "88.91A",
+    "k": [
+     "creche"
+    ]
+   },
+   {
+    "id": "ehpad",
+    "l": "Maisons de retraite",
+    "naf": "87.10A",
+    "k": [
+     "ehpad",
+     "maison de retraite"
+    ]
+   },
+   {
+    "id": "pompes-funebres",
+    "l": "Pompes funèbres",
+    "naf": "96.03Z",
+    "k": [
+     "pompes funebres",
+     "funeraire"
+    ]
+   }
+  ]
+ },
+ {
+  "f": "Enseignement et associations",
+  "items": [
+   {
+    "id": "ecoles",
+    "l": "Écoles",
+    "naf": "85.20Z",
+    "k": [
+     "ecole"
+    ]
+   },
+   {
+    "id": "colleges",
+    "l": "Collèges et lycées",
+    "naf": "85.31Z",
+    "k": [
+     "college",
+     "lycee"
+    ]
+   },
+   {
+    "id": "formation",
+    "l": "Organismes de formation",
+    "naf": "85.59A",
+    "k": [
+     "formation"
+    ]
+   },
+   {
+    "id": "associations",
+    "l": "Associations",
+    "naf": "94.99Z",
+    "k": [
+     "association",
+     "asso"
+    ]
+   }
+  ]
+ }
+]

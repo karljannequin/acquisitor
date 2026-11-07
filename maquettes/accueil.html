@@ -58,6 +58,40 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 .ask:focus-within{border-color:var(--blue);box-shadow:0 18px 50px rgba(30,94,255,.22)}
 .ask label{flex:1;display:flex;align-items:center;gap:10px;padding-left:10px;min-width:0}
 .ask input{border:0;outline:0;font:inherit;font-size:17px;width:100%;min-width:0;padding:10px 0;color:var(--ink);background:transparent}
+.guide{background:#fff;border:2px solid var(--blue-200);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:12px;box-shadow:0 18px 50px rgba(30,94,255,.14)}
+.gfield{position:relative;display:flex;flex-direction:column;gap:6px}
+.glab{font-weight:800;font-size:13px;color:var(--ink2);letter-spacing:.02em}
+.gbox{display:flex;flex-wrap:wrap;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:12px;padding:6px 8px;background:#fff;transition:border-color .15s,box-shadow .15s}
+.gbox:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,94,255,.12)}
+.gbox input{flex:1;min-width:160px;border:0;outline:0;font:inherit;font-size:16px;padding:7px 4px;background:transparent;color:var(--ink)}
+.tags{display:contents}
+.tag{display:inline-flex;align-items:center;gap:4px;background:var(--blue);color:#fff;border-radius:999px;padding:4px 6px 4px 12px;font-weight:700;font-size:14px}
+.tag button{border:0;background:rgba(255,255,255,.22);color:#fff;width:22px;height:22px;border-radius:50%;cursor:pointer;font-size:15px;line-height:1}
+.gchip{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:700;color:var(--ink2);cursor:pointer;white-space:nowrap}
+.gchip.on,.gchip:hover{background:var(--blue-50);border-color:var(--blue-200);color:var(--blue-d)}
+.glink{align-self:flex-start;border:0;background:none;color:var(--blue-d);font:inherit;font-size:13.5px;font-weight:700;cursor:pointer;padding:2px 0;text-decoration:underline;text-underline-offset:3px}
+.sugg{position:absolute;left:0;right:0;top:calc(100% - 4px);z-index:20;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px rgba(14,26,51,.16);padding:6px;display:flex;flex-direction:column;max-height:320px;overflow:auto}
+.sugg button{display:flex;justify-content:space-between;gap:10px;align-items:baseline;border:0;background:none;text-align:left;padding:10px 12px;border-radius:10px;font:inherit;cursor:pointer;color:var(--ink)}
+.sugg button:hover,.sugg button:focus{background:var(--blue-50)}
+.sugg small{color:var(--muted);font-size:12.5px;white-space:nowrap}
+.sugg .none{margin:0;padding:10px 12px;color:var(--muted);font-size:14px}
+.browse{border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-height:340px;overflow:auto;background:var(--bg)}
+.browse fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;min-width:0}
+.browse legend{font-weight:800;font-size:13px;margin-bottom:4px;color:var(--blue-d)}
+.browse label{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
+.browse input{accent-color:var(--blue)}
+.rayon{display:flex;align-items:center;gap:12px;padding:2px 4px}
+.rayon input{flex:1;accent-color:var(--blue)}
+.rayon output{font-weight:800;font-size:14px;color:var(--blue-d);min-width:110px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-size:14px;font-weight:700;color:var(--ink2);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--blue);border-color:var(--blue);color:#fff}
+.gbtn{width:100%}
+.phrase{display:flex;gap:8px;align-items:center;background:#fff;border:1px dashed var(--blue-200);border-radius:12px;padding:4px 10px}
+.phrase input{flex:1;min-width:0;border:0;outline:0;font:inherit;font-size:14px;padding:8px 2px;background:transparent}
+.parts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.parts li{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed var(--line);padding:4px 0}
+@media(max-width:560px){.browse{grid-template-columns:minmax(0,1fr)}.seg button{flex:1 1 40%}}
 .ideas{display:flex;flex-wrap:wrap;gap:6px}
 .ideas button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all .15s}
 .ideas button:hover{border-color:var(--blue-200);background:var(--blue-50);color:var(--blue-d);transform:translateY(-1px)}
@@ -262,20 +296,41 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <h1>Qui vous a dit que trouver des clients était compliqué&nbsp;?</h1>
         <p class="lead"><b class="pricel">Vos prochains clients à 0,07&nbsp;€ l’entreprise.</b> Dites qui vous cherchez, on les trouve, on leur écrit, vous recevez les réponses.</p>
 
-        <form class="ask" id="askf" autocomplete="off">
-          <label for="q"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E6A85" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg>
-            <input id="q" name="q" type="text" placeholder="Quels clients cherchez-vous ?" aria-label="Quels clients cherchez-vous ?" maxlength="200">
-          </label>
-          <button class="btn" type="submit" id="go">Combien sont-ils ?</button>
+        <form class="guide" id="guide" autocomplete="off">
+          <div class="gfield">
+            <span class="glab">Quoi ?</span>
+            <div class="gbox"><div class="tags" id="g-acts"></div><input id="g-act-in" type="text" placeholder="Coiffeurs, garages, pizzerias…" aria-label="Quel métier cherchez-vous ?"></div>
+            <div class="sugg" id="g-act-sugg" hidden></div>
+            <button type="button" class="glink" id="g-browse">Parcourir les métiers</button>
+          </div>
+          <div class="browse" id="browse" hidden></div>
+          <div class="gfield">
+            <span class="glab">Où ?</span>
+            <div class="gbox"><input id="g-lieu-in" type="text" placeholder="Ville, département ou région" aria-label="Où cherchez-vous ?"><button type="button" class="gchip" id="g-france">Toute la France</button></div>
+            <div class="sugg" id="g-lieu-sugg" hidden></div>
+            <div class="rayon" id="g-rayon" hidden><input type="range" id="g-km" min="0" max="100" step="5" value="10" aria-label="Rayon autour de la ville"><output id="g-kmo">10 km autour</output></div>
+          </div>
+          <div class="gfield">
+            <span class="glab">Taille ?</span>
+            <div class="seg" id="g-taille" role="group" aria-label="Nombre de salariés minimum">
+              <button type="button" data-t="toutes" aria-pressed="true">Toutes</button>
+              <button type="button" data-t="3+" aria-pressed="false">3 salariés et +</button>
+              <button type="button" data-t="10+" aria-pressed="false">10 et +</button>
+              <button type="button" data-t="20+" aria-pressed="false">20 et +</button>
+              <button type="button" data-t="50+" aria-pressed="false">50 et +</button>
+            </div>
+          </div>
+          <button class="btn gbtn" type="submit" id="go">Combien sont-ils ?</button>
         </form>
+        <form class="phrase" id="phrase" autocomplete="off"><input id="q" type="text" maxlength="200" placeholder="ou décrivez votre besoin en une phrase : « pizzerias à 5 km de Vendôme »" aria-label="Décrivez votre besoin en une phrase"><button type="submit" class="glink">Remplir</button></form>
         <div class="ideas" aria-label="Exemples">
-          <button type="button">Coiffeurs à 20 km de Lyon</button>
-          <button type="button">Garages en Gironde</button>
-          <button type="button">Restaurants à Lille plus de 10 salariés</button>
-          <button type="button">Agences immobilières en Bretagne</button>
+          <button type="button" data-ex="lyon">Coiffeurs à 20 km de Lyon</button>
+          <button type="button" data-ex="gironde">Garages en Gironde</button>
+          <button type="button" data-ex="lille">Restaurants à Lille, 10 salariés et +</button>
+          <button type="button" data-ex="bretagne">Agences immobilières en Bretagne</button>
         </div>
         <div class="result" id="res" hidden aria-live="polite"></div>
-        <div class="trust"><span>✓ Registre officiel des entreprises</span><span>✓ Contacts vérifiés</span><span>✓ Sans abonnement</span></div>
+        <div class="trust"><span>✓ Toute la France</span><span>✓ Contacts vérifiés</span><span>✓ Sans abonnement</span></div>
       </div>
 
       <div class="hright" aria-hidden="true">
@@ -349,13 +404,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="wrap">
       <div class="head rv"><span class="eyebrow">Conforme RGPD</span><h2>Des contacts qualifiés, dans les règles</h2></div>
       <div class="grid3">
-        <div class="card rv"><div class="ic">✓</div><h3>Seulement des contacts sûrs</h3><p>Entreprises actives au registre officiel, bonne zone, bonne activité, adresse vérifiée. Le reste est écarté.</p></div>
+        <div class="card rv"><div class="ic">✓</div><h3>Seulement des contacts sûrs</h3><p>Entreprises en activité, bonne zone, bonne activité, adresse vérifiée. Le reste est écarté.</p></div>
         <div class="card rv"><div class="ic">§</div><h3>Prospection entre professionnels</h3><p>Chaque e-mail concerne le métier de l’entreprise, dit qui écrit et d’où vient l’adresse, avec un lien « ne plus recevoir ».</p></div>
         <div class="card rv"><div class="ic">€</div><h3>Budget plafonné</h3><p>Vous fixez le maximum par mois. L’outil s’arrête de lui-même avant de le dépasser.</p></div>
       </div>
       <div class="seo rv">
         <h3>Mieux qu’un fichier de prospection</h3>
-        <p>Une base de données entreprises à jour (registre SIRENE), filtrée par activité, ville, rayon, département ou nombre de salariés. Et au lieu d’une simple liste de prospection, une prospection B2B automatisée : e-mails rédigés, envoyés, relancés, réponses triées. De la génération de leads conforme RGPD, sans fichier à acheter ni à nettoyer.</p>
+        <p>Une base de données entreprises à jour, filtrée par activité, ville, rayon, département ou nombre de salariés. Et au lieu d’une simple liste de prospection, une prospection B2B automatisée : e-mails rédigés, envoyés, relancés, réponses triées. De la génération de leads conforme RGPD, sans fichier à acheter ni à nettoyer.</p>
       </div>
     </div>
   </section>
@@ -401,51 +456,102 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const fmt=n=>Number(n).toLocaleString('fr-FR');
 const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- Estimation ---------- */
-let lastQ='';
-async function ask(q){
-  lastQ=q;const r=$('#res');r.hidden=false;r.innerHTML='<small>Recherche dans le registre officiel des entreprises…</small>';$('#go').disabled=true;
+/* ---------- Recherche guidée ---------- */
+const S={acts:[],lieu:null,km:10,taille:'toutes'};
+let CAT=[],ALL={};
+const nz=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’'\-]/g,' ');
+fetch('/api/metiers').then(r=>r.json()).then(c=>{CAT=c;c.forEach(f=>f.items.forEach(i=>ALL[i.id]=i));drawBrowse()}).catch(()=>{});
+
+function drawActs(){
+  $('#g-acts').innerHTML=S.acts.map(id=>`<span class="tag">${esc(ALL[id]?ALL[id].l:id)}<button type="button" data-rm="${id}" aria-label="Retirer ${esc(ALL[id]?ALL[id].l:id)}">×</button></span>`).join('');
+  $$('#g-acts [data-rm]').forEach(b=>b.onclick=()=>{S.acts=S.acts.filter(x=>x!==b.dataset.rm);drawActs();drawBrowse();$('#g-act-in').focus()});
+  $('#g-act-in').placeholder=S.acts.length?'Ajouter un autre métier…':'Coiffeurs, garages, pizzerias…';
+}
+function addAct(id){if(!S.acts.includes(id))S.acts.push(id);$('#g-act-in').value='';$('#g-act-sugg').hidden=true;drawActs();drawBrowse()}
+function suggActs(){
+  const t=nz($('#g-act-in').value.trim()),box=$('#g-act-sugg');
+  if(t.length<2){box.hidden=true;return}
+  const out=[];CAT.forEach(f=>f.items.forEach(i=>{const l=nz(i.l);const hit=l.includes(t)||i.k.some(k=>nz(k).includes(t)||t.includes(nz(k).trim()));if(hit&&!S.acts.includes(i.id))out.push([l.indexOf(t)===0?0:1,i,f.f])}));
+  out.sort((a,b)=>a[0]-b[0]);
+  box.innerHTML=out.slice(0,8).map(([,i,f])=>`<button type="button" data-id="${i.id}"><b>${esc(i.l)}</b><small>${esc(f)}</small></button>`).join('')||'<p class="none">Aucun métier trouvé. Essayez « Parcourir les métiers ».</p>';
+  box.hidden=false;$$('#g-act-sugg [data-id]').forEach(b=>b.onclick=()=>addAct(b.dataset.id));
+}
+function drawBrowse(){
+  if(!CAT.length)return;
+  $('#browse').innerHTML=CAT.map(f=>`<fieldset><legend>${esc(f.f)}</legend>${f.items.map(i=>`<label><input type="checkbox" value="${i.id}" ${S.acts.includes(i.id)?'checked':''}> ${esc(i.l)}</label>`).join('')}</fieldset>`).join('');
+  $$('#browse input').forEach(c=>c.onchange=()=>{c.checked?(S.acts.includes(c.value)||S.acts.push(c.value)):(S.acts=S.acts.filter(x=>x!==c.value));drawActs()});
+}
+$('#g-act-in').addEventListener('input',suggActs);
+$('#g-act-in').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const b=$('#g-act-sugg [data-id]');if(b)b.click()}if(e.key==='Backspace'&&!e.target.value&&S.acts.length){S.acts.pop();drawActs();drawBrowse()}});
+$('#g-browse').onclick=()=>{const b=$('#browse');b.hidden=!b.hidden;$('#g-browse').textContent=b.hidden?'Parcourir les métiers':'Fermer la liste'};
+
+let lt=null;
+function setLieu(l){S.lieu=l;$('#g-lieu-in').value=l?(l.type==='fr'?'Toute la France':l.label+(l.type==='com'&&l.sub?' ('+l.sub+')':'')):'';$('#g-lieu-sugg').hidden=true;$('#g-rayon').hidden=!(l&&l.type==='com');$('#g-france').classList.toggle('on',!!l&&l.type==='fr')}
+$('#g-lieu-in').addEventListener('input',()=>{S.lieu=null;$('#g-rayon').hidden=true;$('#g-france').classList.remove('on');clearTimeout(lt);const q=$('#g-lieu-in').value.trim();if(q.length<2){$('#g-lieu-sugg').hidden=true;return}
+  lt=setTimeout(async()=>{try{const d=await (await fetch('/api/lieux?q='+encodeURIComponent(q))).json();const box=$('#g-lieu-sugg');
+    box.innerHTML=(d.lieux||[]).map((l,i)=>`<button type="button" data-i="${i}"><b>${esc(l.label)}</b><small>${l.type==='com'?'Ville · '+esc(l.sub):l.type==='dep'?'Département '+esc(l.code):'Région'}</small></button>`).join('')||'<p class="none">Aucun lieu trouvé.</p>';
+    box.hidden=false;$$('#g-lieu-sugg [data-i]').forEach(b=>b.onclick=()=>setLieu(d.lieux[+b.dataset.i]))}catch(e){}},180)});
+$('#g-lieu-in').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const b=$('#g-lieu-sugg [data-i]');if(b)b.click()}});
+$('#g-france').onclick=()=>setLieu({type:'fr',label:'Toute la France'});
+$('#g-km').addEventListener('input',()=>{S.km=+$('#g-km').value;$('#g-kmo').textContent=S.km?S.km+' km autour':'la ville seule'});
+$$('#g-taille button').forEach(b=>b.onclick=()=>{S.taille=b.dataset.t;$$('#g-taille button').forEach(x=>x.setAttribute('aria-pressed',x===b))});
+document.addEventListener('click',e=>{if(!e.target.closest('.gfield')){$('#g-act-sugg').hidden=true;$('#g-lieu-sugg').hidden=true}});
+
+function cost(n){return (n*0.07).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € HT'}
+function zoneTxt(){const l=S.lieu;if(!l||l.type==='fr')return 'Toute la France';if(l.type==='com')return S.km?`${l.label} et communes à moins de ${S.km} km`:l.label;return l.label}
+const TL={'toutes':'','1+':'1 salarié et plus','3+':'3 salariés et plus','6+':'6 salariés et plus','10+':'10 salariés et plus','20+':'20 salariés et plus','50+':'50 salariés et plus'};
+async function compter(){
+  const r=$('#res');
+  if(!S.acts.length){$('#g-act-in').focus();r.hidden=false;r.innerHTML='<b>Choisissez au moins un métier.</b>';return}
+  if(!S.lieu){$('#g-lieu-in').focus();r.hidden=false;r.innerHTML='<b>Choisissez une ville, un département, une région ou toute la France.</b>';return}
+  r.hidden=false;r.innerHTML='<small>Comptage en cours…</small>';$('#go').disabled=true;
   try{
-    const res=await fetch('/api/estimation?q='+encodeURIComponent(q));const d=await res.json();
+    const d=await (await fetch('/api/compter',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({acts:S.acts,lieu:S.lieu,km:S.lieu.type==='com'?S.km:0,taille:S.taille})})).json();
     if(!d.ok)throw new Error(d.message||'');
     show(d);
-  }catch(e){
-    const msg=(e instanceof TypeError||!e.message)?'Le comptage n’est pas disponible pour le moment. Réessayez dans un instant.':e.message;r.innerHTML=`<b>${esc(msg)}</b>${wlForm()}`;bindWl();
-  }finally{$('#go').disabled=false}
+  }catch(e){r.innerHTML=`<b>${esc(e.message||'Le comptage n’a pas abouti. Réessayez dans un instant.')}</b>`}
+  finally{$('#go').disabled=false}
 }
-function cost(n){return (n*0.07).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € HT'}
 function show(d){
-  const chips=[d.activite,d.zone,d.salaries].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('');
-  const cat=d.categorie;
-  if(!cat&&!d.total){$('#res').innerHTML=`<b>Aucune entreprise ne correspond exactement.</b><small>Élargissez la zone (« + 50 km », le département) ou retirez le nombre de salariés.</small>`;return}
-  let top,price;
-  if(cat&&d.total==null){
-    top=`<div><div class="big num" id="rnum">0</div><b>${esc(cat.label)} dans la zone</b></div>`;
-    price=`<div class="reco"><div><small>${esc(d.activite)}</small><b>0,07 € HT par entreprise vérifiée</b><small>Le registre officiel n’a pas de code « ${esc(d.activite.toLowerCase())} ». Notre agent vérifie chaque restaurant un par un : seuls les vrais sont contactés et facturés.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>`;
-  }else{
-    top=`<div><div class="big num" id="rnum">0</div><b>${cat?'entreprises identifiées comme '+esc(d.activite.toLowerCase())+' par leur nom':'entreprise'+(d.total>1?'s':'')+' correspond'+(d.total>1?'ent':'')+' à votre recherche'}</b>${cat?`<small>sur ${cat.plus?'plus de ':''}${fmt(cat.total)} ${esc(cat.label)} de la zone, au registre officiel</small>`:''}</div>`;
-    price=`<div class="reco"><div><small>Les contacter toutes</small><b>${(d.notes||[]).includes('plus')?'plus de ':''}${cost(d.total)}</b><small>${(d.notes||[]).includes('plus')?'0,07 € HT par entreprise. Précisez la zone ou l’activité pour un chiffre exact.':fmt(d.total)+' × 0,07 € HT.'} Sans abonnement.${cat?' Notre agent vérifie aussi les autres restaurants : chaque vraie pizzeria trouvée en plus est ajoutée.':''}</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>`;
-  }
-  $('#res').innerHTML=`<div class="rtop">${top}<div class="chips">${chips}</div></div>
+  const chips=[...S.acts.map(id=>ALL[id]?ALL[id].l:id),zoneTxt(),TL[S.taille]].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('');
+  if(!d.total){$('#res').innerHTML=`<div class="chips">${chips}</div><b>Aucune entreprise en activité ne correspond.</b><small>Élargissez le rayon, choisissez le département ou ajoutez un métier voisin.</small>`;return}
+  const det=d.parts.length>1?`<ul class="parts">${d.parts.map(p=>`<li><span>${esc(p.l)}</span><b>${fmt(p.n)}${p.inclus?' (déjà comptées)':''}</b></li>`).join('')}</ul>`:'';
+  $('#res').innerHTML=`<div class="rtop"><div><div class="big num" id="rnum">0</div><b>entreprise${d.total>1?'s':''} en activité correspond${d.total>1?'ent':''} à votre recherche</b></div></div>
+   <div class="chips">${chips}</div>${det}
    <p class="wait">Ces contacts n’attendent que vous.</p>
-   ${price}
+   <div class="reco"><div><small>Les contacter toutes</small><b>${cost(d.total)}</b><small>${fmt(d.total)} × 0,07 € HT. Sans abonnement.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>
    <b>Lancement très bientôt : laissez votre adresse, vous serez parmi les premiers.</b>${wlForm('Je veux ces clients')}
-   <small>Source : registre officiel des entreprises (entreprises actives), chiffres exacts. Avant l’envoi, ACQUISITOR ne garde que les contacts vérifiés.</small>`;
-  const plus=(cat&&d.total==null)?cat.plus:(d.notes||[]).includes('plus');
-  count($('#rnum'),cat&&d.total==null?cat.total:d.total,900,plus?'plus de ':'');
-  bindWl();
+   <small>Chiffres exacts${d.maj?' ('+esc(d.maj)+')':''}. Avant l’envoi, ACQUISITOR ne garde que les contacts vérifiés.</small>`;
+  count($('#rnum'),d.total,900);bindWl();
 }
+$('#guide').onsubmit=e=>{e.preventDefault();compter()};
+
+// La phrase libre remplit les cases
+$('#phrase').onsubmit=async e=>{e.preventDefault();const q=$('#q').value.trim();if(q.length<3)return;
+  try{const d=await (await fetch('/api/comprendre?q='+encodeURIComponent(q))).json();
+    if(d.acts&&d.acts.length){S.acts=d.acts;drawActs();drawBrowse()}
+    if(d.lieu)setLieu(d.lieu);
+    S.km=d.km||10;$('#g-km').value=S.km;$('#g-kmo').textContent=S.km?S.km+' km autour':'la ville seule';
+    S.taille=d.taille||'toutes';$$('#g-taille button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.t===S.taille));
+    if(S.taille!=='toutes'&&!document.querySelector('#g-taille [data-t="'+S.taille+'"]')){const bt=document.createElement('button');bt.type='button';bt.dataset.t=S.taille;bt.textContent=TL[S.taille];bt.onclick=()=>{S.taille=bt.dataset.t;$$('#g-taille button').forEach(x=>x.setAttribute('aria-pressed',x===bt))};$('#g-taille').appendChild(bt);$$('#g-taille button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.t===S.taille))}
+    if(S.acts.length&&S.lieu)compter();else{$('#res').hidden=false;$('#res').innerHTML='<b>Vérifiez les cases ci-dessus : il manque '+(!S.acts.length?'le métier':'le lieu')+'.</b>'}
+  }catch(e){}};
+
+// Exemples prêts à l'emploi
+const EX={lyon:{acts:['coiffeurs'],lieu:{type:'com',code:'69123',label:'Lyon',sub:'69'},km:20,taille:'toutes'},gironde:{acts:['garages'],lieu:{type:'dep',code:'33',label:'Gironde'},km:0,taille:'toutes'},lille:{acts:['restaurants'],lieu:{type:'com',code:'59350',label:'Lille',sub:'59'},km:0,taille:'10+'},bretagne:{acts:['agences-immo'],lieu:{type:'reg',code:'53',label:'Bretagne'},km:0,taille:'toutes'}};
+$$('.ideas button').forEach(b=>b.onclick=()=>{const x=EX[b.dataset.ex];S.acts=[...x.acts];drawActs();drawBrowse();setLieu(x.lieu);S.km=x.km||10;$('#g-km').value=S.km;$('#g-kmo').textContent=S.km+' km autour';S.taille=x.taille;$$('#g-taille button').forEach(y=>y.setAttribute('aria-pressed',y.dataset.t===S.taille));compter()});
+
+let lastQ='';
 function wlForm(label){return`<form class="wl" id="wl1"><input type="email" name="email" required placeholder="Votre adresse e-mail professionnelle" aria-label="Votre adresse e-mail"><input class="hp" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">${label||'Être prévenu'}</button></form><span class="msg" id="wl1m" role="status"></span>`}
-function bindWl(){const f=$('#wl1');if(f)f.onsubmit=e=>{e.preventDefault();join(f,$('#wl1m'),lastQ)}}
+function bindWl(){const f=$('#wl1');lastQ=[S.acts.join(','),zoneTxt(),S.taille].join(' | ');if(f)f.onsubmit=e=>{e.preventDefault();join(f,$('#wl1m'),lastQ)}}
 async function join(f,m,besoin){
   const email=f.email.value.trim();m.className=m.className.replace(/\b(ok|bad)\b/g,'').trim();m.textContent='Envoi…';
   try{const r=await fetch('/api/liste',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,besoin,site:f.site.value})});const d=await r.json();
     if(!d.ok)throw new Error(d.message||'');m.classList.add('ok');m.textContent='C’est noté ! Nous vous écrivons dès l’ouverture.';f.reset()}
   catch(e){m.classList.add('bad');m.textContent=e.message||'L’inscription n’a pas fonctionné. Réessayez dans un instant.'}
 }
-$('#askf').onsubmit=e=>{e.preventDefault();const q=$('#q').value.trim();if(q.length<3){$('#q').focus();return}ask(q)};
-$$('.ideas button').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent;ask(b.textContent)});
 $('#wl2').onsubmit=e=>{e.preventDefault();join($('#wl2'),$('#wl2m'),'')};
+drawActs();
 
 /* ---------- Compteurs ---------- */
 function count(el,to,ms,pre){if(!el)return;pre=pre||'';if(calm){el.textContent=pre+fmt(to);return}const t0=performance.now();const f=now=>{const t=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-t,3);el.textContent=pre+fmt(Math.round(to*e));if(t<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
