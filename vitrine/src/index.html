@@ -47,7 +47,8 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 .hleft{display:flex;flex-direction:column;gap:18px;min-width:0}
 .tagline{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--blue-100);color:var(--blue-d);font-weight:800;font-size:13px;border-radius:999px;padding:7px 14px}
 .tagline span{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(18,122,75,.5);animation:pulse 2s infinite}
-.hero h1{font-size:clamp(38px,6vw,68px);line-height:1.02;font-weight:800}
+.hero h1{font-size:clamp(36px,5.4vw,62px);line-height:1.04;font-weight:800}
+.pricel{display:block;font-family:var(--fd);font-size:clamp(22px,2.8vw,30px);color:var(--blue);letter-spacing:-.02em;margin-bottom:6px}
 .hl{color:var(--blue);position:relative;white-space:nowrap}
 .hl:after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.18em;background:var(--blue-100);border-radius:6px;z-index:-1;transform-origin:left;animation:underline .9s .3s cubic-bezier(.2,.8,.2,1) both}
 .hook{margin:0;font-family:var(--fd);font-weight:700;font-size:clamp(18px,2.2vw,22px);color:var(--blue-d);letter-spacing:-.01em}
@@ -68,6 +69,7 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 .result .chips span{background:var(--blue-50);color:var(--blue-d);border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
 .result small{color:var(--muted)}
 .rtop{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.rtop small{display:block;margin-top:2px}
 .wait{margin:0;font-family:var(--fd);font-weight:800;font-size:clamp(22px,3vw,28px)}
 .reco{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:linear-gradient(135deg,var(--blue),var(--blue-d));color:#fff;border-radius:14px;padding:16px 18px}
 .reco b{display:block;font-family:var(--fd);font-size:26px;margin:2px 0}
@@ -256,9 +258,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="wrap hgrid">
       <div class="hleft">
         <span class="tagline"><span aria-hidden="true"></span>L’apporteur de contacts qualifiés, conforme RGPD</span>
-        <p class="hook">Qui vous a dit que trouver des prospects, des leads et des clients était compliqué&nbsp;?</p>
-        <h1>Vos prochains clients, <span class="hl">à&nbsp;0,07&nbsp;€</span> l’entreprise.</h1>
-        <p class="lead">Dites qui vous cherchez. ACQUISITOR les trouve, leur écrit à votre place et vous transmet les réponses. <b>Sans abonnement, vous payez seulement ce qui part.</b></p>
+        <h1>Qui vous a dit que trouver des clients était compliqué&nbsp;?</h1>
+        <p class="lead"><b class="pricel">Vos prochains clients à 0,07&nbsp;€ l’entreprise.</b> Dites qui vous cherchez, on les trouve, on leur écrit, vous recevez les réponses.</p>
 
         <form class="ask" id="askf" autocomplete="off">
           <label for="q"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#5E6A85" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg>
@@ -413,14 +414,23 @@ async function ask(q){
 function cost(n){return (n*0.07).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € HT'}
 function show(d){
   const chips=[d.activite,d.zone,d.salaries].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('');
-  if(!d.total){$('#res').innerHTML=`<b>Aucune entreprise ne correspond exactement.</b><small>Élargissez la zone (« + 50 km », le département) ou retirez le nombre de salariés.</small>`;return}
-  $('#res').innerHTML=`<div class="rtop"><div><div class="big num" id="rnum">0</div><b>entreprise${d.total>1?'s':''} correspond${d.total>1?'ent':''} à votre recherche</b></div><div class="chips">${chips}</div></div>
+  const cat=d.categorie;
+  if(!cat&&!d.total){$('#res').innerHTML=`<b>Aucune entreprise ne correspond exactement.</b><small>Élargissez la zone (« + 50 km », le département) ou retirez le nombre de salariés.</small>`;return}
+  let top,price;
+  if(cat&&d.total==null){
+    top=`<div><div class="big num" id="rnum">0</div><b>${esc(cat.label)} dans la zone</b></div>`;
+    price=`<div class="reco"><div><small>${esc(d.activite)}</small><b>0,07 € HT par entreprise vérifiée</b><small>Le registre officiel n’a pas de code « ${esc(d.activite.toLowerCase())} ». Notre agent vérifie chaque restaurant un par un : seuls les vrais sont contactés et facturés.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>`;
+  }else{
+    top=`<div><div class="big num" id="rnum">0</div><b>${cat?'entreprises identifiées comme '+esc(d.activite.toLowerCase())+' par leur nom':'entreprise'+(d.total>1?'s':'')+' correspond'+(d.total>1?'ent':'')+' à votre recherche'}</b>${cat?`<small>sur ${cat.plus?'plus de ':''}${fmt(cat.total)} ${esc(cat.label)} de la zone, au registre officiel</small>`:''}</div>`;
+    price=`<div class="reco"><div><small>Les contacter toutes</small><b>${(d.notes||[]).includes('plus')?'plus de ':''}${cost(d.total)}</b><small>${(d.notes||[]).includes('plus')?'0,07 € HT par entreprise. Précisez la zone ou l’activité pour un chiffre exact.':fmt(d.total)+' × 0,07 € HT.'} Sans abonnement.${cat?' Notre agent vérifie aussi les autres restaurants : chaque vraie pizzeria trouvée en plus est ajoutée.':''}</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>`;
+  }
+  $('#res').innerHTML=`<div class="rtop">${top}<div class="chips">${chips}</div></div>
    <p class="wait">Ces contacts n’attendent que vous.</p>
-   <div class="reco"><div><small>Les contacter toutes</small><b>${cost(d.total)}</b><small>${fmt(d.total)} × 0,07 € HT. Sans abonnement.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>
+   ${price}
    <b>Lancement très bientôt : laissez votre adresse, vous serez parmi les premiers.</b>${wlForm('Je veux ces clients')}
-   ${d.notes&&d.notes.length?`<small>${d.notes.map(esc).join(' ')}</small>`:''}
-   <small>Source : registre officiel des entreprises (entreprises actives). Avant l’envoi, ACQUISITOR ne garde que les contacts sûrs.</small>`;
-  count($('#rnum'),d.total,900);
+   <small>Source : registre officiel des entreprises (entreprises actives), chiffres exacts. Avant l’envoi, ACQUISITOR ne garde que les contacts vérifiés.</small>`;
+  const plus=(cat&&d.total==null)?cat.plus:(d.notes||[]).includes('plus');
+  count($('#rnum'),cat&&d.total==null?cat.total:d.total,900,plus?'plus de ':'');
   bindWl();
 }
 function wlForm(label){return`<form class="wl" id="wl1"><input type="email" name="email" required placeholder="Votre adresse e-mail professionnelle" aria-label="Votre adresse e-mail"><input class="hp" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">${label||'Être prévenu'}</button></form><span class="msg" id="wl1m" role="status"></span>`}
@@ -436,7 +446,7 @@ $$('.ideas button').forEach(b=>b.onclick=()=>{$('#q').value=b.textContent;ask(b.
 $('#wl2').onsubmit=e=>{e.preventDefault();join($('#wl2'),$('#wl2m'),'')};
 
 /* ---------- Compteurs ---------- */
-function count(el,to,ms){if(!el)return;if(calm){el.textContent=fmt(to);return}const t0=performance.now();const f=now=>{const t=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-t,3);el.textContent=fmt(Math.round(to*e));if(t<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+function count(el,to,ms,pre){if(!el)return;pre=pre||'';if(calm){el.textContent=pre+fmt(to);return}const t0=performance.now();const f=now=>{const t=Math.min(1,(now-t0)/ms),e=1-Math.pow(1-t,3);el.textContent=pre+fmt(Math.round(to*e));if(t<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
 
 /* ---------- Carte animée (exemples illustratifs) ---------- */
 const SC=[

@@ -114,31 +114,35 @@ async function estimate(text) {
   else if (zone && zone.type === "dep") { p.set("departement", zone.code); zoneLabel = zone.label; }
   else if (zone && zone.type === "reg") { p.set("region", zone.code); zoneLabel = zone.label; }
 
-  let total;
+  let total, categorie = null;
   if (act && act[3]) {
-    // Pas de code officiel pour ce métier : on garde les entreprises dont le nom ou l'enseigne correspond.
+    // Pas de code officiel pour ce métier : on compte exactement la catégorie officielle (restaurants),
+    // et, quand la zone est assez petite pour tout parcourir, les entreprises dont le nom ou l'enseigne correspond.
     const re = act[3];
     const nameOf = (r) => [r.nom_complet, r.nom_raison_sociale, r.siege && r.siege.nom_commercial, ...((r.siege && r.siege.liste_enseignes) || []), ...((r.matching_etablissements || []).flatMap((e) => [e.nom_commercial, ...(e.liste_enseignes || [])]))].filter(Boolean).join(" ");
     p.set("per_page", "25"); p.set("page", "1");
     const first = await getJson(url + p.toString());
-    const all = first.total_results || 0, pages = Math.min(first.total_pages || 1, 12);
-    let seen = first.results || [];
-    for (let pg = 2; pg <= pages; pg += 4) {
-      const batch = [];
-      for (let k = pg; k < pg + 4 && k <= pages; k++) { const q2 = new URLSearchParams(p); q2.set("page", String(k)); batch.push(getJson(url + q2.toString()).then((x) => x.results || []).catch(() => [])); }
-      for (const r of await Promise.all(batch)) seen = seen.concat(r);
+    const all = first.total_results || 0, pages = first.total_pages || 1;
+    categorie = { label: "restaurants (restauration traditionnelle et rapide)", total: all, plus: all >= 10000 };
+    total = null;
+    if (pages <= 16) {
+      let seen = first.results || [];
+      for (let pg = 2; pg <= pages; pg += 4) {
+        const batch = [];
+        for (let k = pg; k < pg + 4 && k <= pages; k++) { const q2 = new URLSearchParams(p); q2.set("page", String(k)); batch.push(getJson(url + q2.toString()).then((x) => x.results || [])); }
+        for (const r of await Promise.all(batch)) seen = seen.concat(r);
+      }
+      total = seen.filter((r) => re.test(nameOf(r))).length;
     }
-    const hits = seen.filter((r) => re.test(nameOf(r))).length;
-    if (seen.length >= all) total = hits;
-    else { total = Math.round(hits / Math.max(1, seen.length) * all); notes.push("Estimation : beaucoup d’entreprises dans cette zone, le chiffre exact sera calculé dans l’outil."); }
-    notes.push(`${act[1]} : repérage par le nom ou l’enseigne, car le registre officiel n’a pas de code d’activité pour ce métier.`);
   } else {
     const d = await getJson(url + p.toString());
     total = d.total_results || 0;
+    if (total >= 10000) notes.push("plus");
   }
   return {
     ok: true,
     total,
+    categorie,
     activite: act ? act[1] : null,
     zone: zoneLabel,
     salaries: sal > 0 ? `plus de ${sal} salariés` : null,
