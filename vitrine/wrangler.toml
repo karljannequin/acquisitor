@@ -15,3 +15,8 @@ routes = [
   { pattern = "acquisitor.fr", custom_domain = true },
   { pattern = "www.acquisitor.fr", custom_domain = true },
 ]
+
+# Liste d'attente (inscriptions de la page d'accueil)
+[[kv_namespaces]]
+binding = "LISTE"
+id = "b1d42f3276524237839ec6fc2f6bc53c"
