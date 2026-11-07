@@ -34,7 +34,7 @@
 
 ## ACQUISITOR : organisation du code
 
-- `vitrine/` : le site public (Worker `acquisitor-vitrine`, https://acquisitor.fr et www). Page `src/index.html`, servie par `src/worker.js`, avec `/mentions-legales` et `/confidentialite` (éditeur : MEDDLEY, comme ZeBooster), `/api/estimation` (comptage dans le registre officiel) et `/api/liste` (liste d'attente, KV `acquisitor-vitrine`, binding `LISTE`). En ligne depuis le 07/11/2026 (version actuelle `761d9554`).
+- `vitrine/` : le site public (Worker `acquisitor-vitrine`, https://acquisitor.fr et www). Page `src/index.html`, servie par `src/worker.js`, avec `/mentions-legales` et `/confidentialite` (éditeur : MEDDLEY, comme ZeBooster), `/api/estimation` (comptage dans le registre officiel) et `/api/liste` (liste d'attente, KV `acquisitor-vitrine`, binding `LISTE`). En ligne depuis le 07/11/2026 (version actuelle `588394aa`).
 - `maquettes/` : `outil.html` (maquette cliquable complète de l'outil, données fictives) et `accueil.html` (page d'accueil). Elles servent de référence pour construire l'application.
 - `app/` (à venir) : l'application (Worker, base D1, fichiers R2).
 - Domaine `acquisitor.fr` : acheté chez IONOS, serveurs de noms Cloudflare (`greg` / `martha`), zone Cloudflare `9053f85f129a5daf94a4700e2222b9ad`.
