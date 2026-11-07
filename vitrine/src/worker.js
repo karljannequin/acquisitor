@@ -67,7 +67,7 @@ const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 async function getJson(url, tries = 3) {
   for (let i = 0; i < tries; i++) {
     try {
-      const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, cf: { cacheTtl: 86400, cacheEverything: true } });
+      const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, cf: { cacheTtl: 86400, cacheEverything: true }, signal: AbortSignal.timeout(8000) });
       if (r.ok) return await r.json();
       const txt = await r.text().catch(() => "");
       LAST_ERR = { status: r.status, host: new URL(url).host, body: txt.slice(0, 300), at: new Date().toISOString() };
@@ -166,10 +166,12 @@ export default {
   // Diagnostic temporaire : une recherche test depuis Cloudflare, résultat noté dans le stockage (clé diag:cron).
   async scheduled(event, env, ctx) {
     const out = { at: new Date().toISOString(), tests: [] };
+    await env.LISTE.put("diag:cron", JSON.stringify({ ...out, etat: "démarré" }), { expirationTtl: 86400 });
     for (const q of ["coiffeurs à 20 km de Lyon", "pizzeria à 5 km de vendome", "garages en Gironde"]) {
       LAST_ERR = null; const t0 = Date.now();
       try { const r = await estimate(q); out.tests.push({ q, ok: true, total: r.total, ms: Date.now() - t0 }); }
       catch (e) { out.tests.push({ q, ok: false, err: String(e && e.message || e), last: LAST_ERR, ms: Date.now() - t0 }); }
+      await env.LISTE.put("diag:cron", JSON.stringify(out), { expirationTtl: 86400 });
     }
     await env.LISTE.put("diag:cron", JSON.stringify(out), { expirationTtl: 86400 });
   },
