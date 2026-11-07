@@ -5,10 +5,12 @@
 // - "/api/compter"   : nombre exact d'entreprises (copie de la base officielle, stockage DONNEES)
 // - "/api/comprendre": transforme une phrase en recherche guidée
 // - "/api/liste"     : inscription à la liste d'attente (stockage LISTE)
+// - "/api/enquete/*" : le détective (agent.js) cherche les contacts sûrs, base D1 BASE
 import PAGE from "./index.html";
 import MENTIONS from "./mentions-legales.html";
 import CONFIDENTIALITE from "./confidentialite.html";
 import { CATALOGUE, METIERS } from "./catalogue.js";
+import { demarrer, avancer, exporter, SCHEMA, diag, remplirCarte } from "./agent.js";
 
 const JSON_H = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: JSON_H });
@@ -21,6 +23,7 @@ const TAILLES = { toutes: null, "1+": 1, "3+": 2, "6+": 3, "10+": 4, "20+": 5, "
 
 // Données gardées en mémoire tant que le serveur reste chaud.
 const MEM = new Map();
+let SCHEMA_OK = false;
 async function kv(env, key) {
   if (MEM.has(key)) return MEM.get(key);
   const v = await env.DONNEES.get(key, "json");
@@ -121,6 +124,10 @@ async function comprendre(env, text) {
 }
 
 export default {
+  // Tâche de fond (adresse de test seulement pour l'instant) : charge la carte de France petit à petit
+  async scheduled(event, env, ctx) {
+    if (env.REMPLIR_CARTE) ctx.waitUntil(remplirCarte(env, (k) => kv(env, k)).then((r) => console.log("carte", JSON.stringify(r))));
+  },
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.hostname === "www.acquisitor.fr") { url.hostname = "acquisitor.fr"; return Response.redirect(url.toString(), 301); }
@@ -128,10 +135,25 @@ export default {
       if (url.pathname === "/api/metiers") return new Response(JSON.stringify(CATALOGUE.map((f) => ({ f: f.f, items: f.items.map((i) => ({ id: i.id, l: i.l, k: i.k })) }))), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "public, max-age=3600" } });
       if (url.pathname === "/api/lieux") return json({ ok: true, lieux: await lieux(env, (url.searchParams.get("q") || "").slice(0, 60)) });
       if (url.pathname === "/api/compter" && request.method === "POST") { let b = {}; try { b = await request.json(); } catch {} return json(await compter(env, b)); }
+      if (url.pathname.startsWith("/api/enquete/")) {
+        if (!SCHEMA_OK) { for (const q of SCHEMA) await env.BASE.prepare(q).run(); SCHEMA_OK = true; }
+        if (url.pathname === "/api/enquete/start" && request.method === "POST") { let b = {}; try { b = await request.json(); } catch {} return json(await demarrer(env, (k) => kv(env, k), b)); }
+        if (url.pathname === "/api/enquete/step" && request.method === "POST") { let b = {}; try { b = await request.json(); } catch {} diag(b.diag && env.ADMIN_CLE && b.cle === env.ADMIN_CLE); return json(await avancer(env, String(b.id || ""))); }
+        if (url.pathname === "/api/enquete/carte") {
+          if (!env.ADMIN_CLE || url.searchParams.get("cle") !== env.ADMIN_CLE) return json({ ok: false, message: "Accès réservé." }, 403);
+          return json(await remplirCarte(env, (k) => kv(env, k), +url.searchParams.get("n") || 3));
+        }
+        if (url.pathname === "/api/enquete/export") {
+          if (!env.ADMIN_CLE || url.searchParams.get("cle") !== env.ADMIN_CLE) return json({ ok: false, message: "Accès réservé." }, 403);
+          const csv = await exporter(env, url.searchParams.get("id") || "");
+          if (!csv) return json({ ok: false, message: "Enquête introuvable." }, 404);
+          return new Response(csv, { headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": 'attachment; filename="acquisitor-contacts.csv"', "cache-control": "no-store" } });
+        }
+      }
       if (url.pathname === "/api/comprendre") return json(await comprendre(env, (url.searchParams.get("q") || "").slice(0, 200)));
     } catch (e) {
       console.log("api", e && e.stack || e);
-      return json({ ok: false, message: "Un souci technique est survenu. Réessayez dans un instant." }, 500);
+      return json({ ok: false, message: "Un souci technique est survenu. Réessayez dans un instant.", ...(env.ADMIN_CLE && url.searchParams.get("cle") === env.ADMIN_CLE ? { detail: String(e && e.stack || e) } : {}) }, 500);
     }
 
     if (url.pathname === "/api/liste" && request.method === "POST") {

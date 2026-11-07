@@ -9,7 +9,7 @@
 <meta name="description" content="Trouvez des clients sans acheter de fichier de prospection : ACQUISITOR trouve les entreprises de votre secteur, rédige votre campagne et l’envoie pour vous. Contacts qualifiés, conforme RGPD, 0,07 € HT l’entreprise contactée.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231E5EFF'/%3E%3Cg transform='translate%289 7%29 scale%28.82%29'%3E%3Ccircle cx='44' cy='60' r='20' fill='%231E5EFF' stroke='%23fff' stroke-width='11'/%3E%3Cpath d='M58.5 74.5L80 96' stroke='%23fff' stroke-width='13' stroke-linecap='round'/%3E%3Cg transform='translate%2844 40%29 rotate%28-12%29 scale%28.78%29 translate%28-50 -40%29'%3E%3Cpath d='M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z' fill='%23fff'/%3E%3Crect x='30' y='32' width='40' height='6' fill='%230E1A33'/%3E%3Cpath d='M12 41Q50 31 88 41Q50 49 12 41Z' fill='%23fff'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@500;700&display=swap">
 <style>
 /* Page de vente ACQUISITOR : blanc et un seul bleu ; prix mis en avant ; Geist pour les titres et le texte. */
 :root{--ink:#0E1A33;--ink2:#2B3856;--muted:#5E6A85;--line:#E3E8F2;--bg:#F5F7FB;--blue:#1E5EFF;--blue-d:#1747C9;--blue-dd:#0F2F8F;--blue-50:#EEF3FF;--blue-100:#DCE6FF;--blue-200:#B9CDFF;--ok:#127A4B;--bad:#B4233C;--f:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;--fd:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
@@ -238,6 +238,42 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media(max-width:760px){.steps,.grid3{grid-template-columns:minmax(0,1fr)}.mbar{display:flex}footer{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}}
 @media(max-width:560px){.ask{flex-direction:column}.ask .btn{width:100%}section.blk{padding-block:56px}.pband,.final{padding-block:60px}.pright{padding:20px}.live{transform:none;animation:none}}
 
+
+/* Enquête du détective */
+.dossier{background:#0E1A33;color:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px;margin:-6px;position:relative;overflow:hidden}
+.dossier:before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(91,140,255,.18) 1px,transparent 1px);background-size:16px 16px;opacity:.5;pointer-events:none}
+.dossier>*{position:relative}
+.dhead{display:flex;gap:14px;align-items:center}
+.dscan{width:66px;height:66px;flex-shrink:0;border-radius:16px;background:#1E5EFF;position:relative;overflow:hidden;display:grid;place-items:center}
+.dscan .det{width:52px;height:52px;overflow:visible}
+.det-l{animation:hunt 2.4s ease-in-out infinite;transform-origin:44px 60px}
+.det-h{animation:hat 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center bottom}
+.dbeam{position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);animation:beam 1.6s linear infinite}
+.done .det-l,.done .det-h,.done .dbeam{animation:none}.done .dbeam{display:none}
+@keyframes hunt{0%,100%{transform:translate(-6px,2px) rotate(-6deg)}25%{transform:translate(5px,-4px) rotate(4deg)}50%{transform:translate(7px,4px) rotate(8deg)}75%{transform:translate(-4px,-3px) rotate(-2deg)}}
+@keyframes hat{0%,100%{transform:translateY(0)}20%{transform:translateY(-3px) rotate(-4deg)}40%{transform:translateY(0)}}
+@keyframes beam{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.dlab{font:700 11px 'Geist Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:#8FB0FF}
+.dtitle{display:block;font-family:var(--fd);font-size:20px;letter-spacing:-.02em;margin:2px 0 6px}
+.dchips span{background:rgba(255,255,255,.1)!important;color:#DCE6FF!important}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.dstats div{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:10px 12px}
+.dstats b{display:block;font-family:var(--fd);font-size:24px;line-height:1.1}
+.dstats small{color:#AFC0E6!important;font-size:12px}
+.dstats .dok{background:#1E5EFF;border-color:#1E5EFF}.dstats .dok b{font-size:30px}.dstats .dok small{color:#DCE6FF!important}
+.dbar{height:4px;background:rgba(255,255,255,.1);border-radius:4px;overflow:hidden}.dbar span{display:block;height:100%;width:0;background:#5B8CFF;transition:width .5s}
+.dfeed{list-style:none;margin:0;padding:10px 12px;max-height:180px;overflow:auto;font:500 12.5px/1.55 'Geist Mono',monospace;background:rgba(0,0,0,.25);border-radius:10px;color:#AFC0E6}
+.dfeed li{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:fade .3s}
+.dfeed .dy{color:#7CF0B4}.dfeed .dx{color:#7F8DB0}.dfeed .dl{color:#DCE6FF}
+.stamp{align-self:flex-start;font:700 13px 'Geist Mono',monospace;letter-spacing:.16em;color:#7CF0B4;border:2px solid #7CF0B4;border-radius:6px;padding:6px 12px;transform:rotate(-4deg);animation:stamp .45s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes stamp{from{opacity:0;transform:rotate(-4deg) scale(2.2)}to{opacity:1;transform:rotate(-4deg) scale(1)}}
+#dend{display:flex;flex-direction:column;gap:12px}#dend small{color:#AFC0E6}
+.dlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:6px;max-height:260px;overflow:auto}
+.dlist li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;background:rgba(255,255,255,.06);border-radius:10px;padding:8px 12px;font-size:14px}
+.dlist span{color:#AFC0E6;font-size:13px}.dlist em{grid-column:2;grid-row:1/3;align-self:center;font:700 10.5px 'Geist Mono',monospace;color:#7CF0B4;font-style:normal;text-transform:uppercase;letter-spacing:.06em;max-width:150px;text-align:right}
+@media(max-width:560px){.dstats b{font-size:20px}.dstats .dok b{font-size:24px}.dlist em{display:none}.dlist li{grid-template-columns:1fr}}
+#dend .wl input{background:#fff}
+
 /* Animation d’ouverture */
 #intro{position:fixed;inset:0;z-index:100;background:#fff;display:flex;align-items:center;justify-content:center;transition:opacity .6s ease}
 #intro.out{opacity:0;pointer-events:none}
@@ -312,7 +348,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
             <span class="glab">Où ?</span>
             <div class="gbox"><input id="g-lieu-in" type="text" placeholder="Ville, département ou région" aria-label="Où cherchez-vous ?"><button type="button" class="gchip" id="g-france">Toute la France</button></div>
             <div class="sugg" id="g-lieu-sugg" hidden></div>
-            <div class="rayon" id="g-rayon" hidden><input type="range" id="g-km" min="0" max="100" step="5" value="10" aria-label="Rayon autour de la ville"><output id="g-kmo">10 km autour</output></div>
+            <div class="rayon" id="g-rayon" hidden><input type="range" id="g-km" min="0" max="30" step="5" value="10" aria-label="Rayon autour de la ville"><output id="g-kmo">10 km autour</output></div>
           </div>
           <div class="gfield">
             <span class="glab">Taille ?</span>
@@ -324,7 +360,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
               <button type="button" data-t="50+" aria-pressed="false">50 et +</button>
             </div>
           </div>
-          <button class="btn gbtn" type="submit" id="go">Combien sont-ils ?</button>
+          <button class="btn gbtn" type="submit" id="go">Lancer l’enquête</button>
         </form>
         <form class="phrase" id="phrase" autocomplete="off"><input id="q" type="text" maxlength="200" placeholder="ou décrivez votre besoin en une phrase : « pizzerias à 5 km de Vendôme »" aria-label="Décrivez votre besoin en une phrase"><button type="submit" class="glink">Remplir</button></form>
         <div class="ideas" aria-label="Exemples">
@@ -516,17 +552,61 @@ async function compter(){
   }catch(e){r.innerHTML=`<b>${esc(e.message||'Le comptage n’a pas abouti. Réessayez dans un instant.')}</b>`}
   finally{$('#go').disabled=false}
 }
+function chipsHtml(){return [...S.acts.map(id=>ALL[id]?ALL[id].l:id),zoneTxt(),TL[S.taille]].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('')}
 function show(d){
-  const chips=[...S.acts.map(id=>ALL[id]?ALL[id].l:id),zoneTxt(),TL[S.taille]].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('');
-  if(!d.total){$('#res').innerHTML=`<div class="chips">${chips}</div><b>Aucune entreprise en activité ne correspond.</b><small>Élargissez le rayon, choisissez le département ou ajoutez un métier voisin.</small>`;return}
-  const det=d.parts.length>1?`<ul class="parts">${d.parts.map(p=>`<li><span>${esc(p.l)}</span><b>${fmt(p.n)}${p.inclus?' (déjà comptées)':''}</b></li>`).join('')}</ul>`:'';
-  $('#res').innerHTML=`<div class="rtop"><div><div class="big num" id="rnum">0</div><b>entreprise${d.total>1?'s':''} en activité correspond${d.total>1?'ent':''} à votre recherche</b></div></div>
-   <div class="chips">${chips}</div>${det}
-   <p class="wait">Vous ne payez que les contacts vérifiés.</p>
-   <div class="reco"><div><small>Au maximum</small><b>${cost(d.total)}</b><small>Vous ne payez que les entreprises réellement contactées, 0,07 € HT chacune. Sans abonnement.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>
-   <b>Lancement très bientôt : laissez votre adresse, vous serez parmi les premiers.</b>${wlForm('Je veux ces clients')}
-   <small>Nombre exact d’entreprises en activité${d.maj?' ('+esc(d.maj)+')':''}. Toutes n’ont pas d’adresse e-mail publique : ACQUISITOR ne contacte que celles dont le contact est vérifié, et vous ne payez rien pour les autres.</small>`;
-  count($('#rnum'),d.total,900);bindWl();
+  const chips=chipsHtml();
+  if(!d.total){$('#res').innerHTML=`<div class="chips">${chips}</div><b>Aucune entreprise en activité ne correspond.</b><small>Élargissez le rayon ou ajoutez un métier voisin.</small>`;return}
+  if(S.lieu.type!=='com'){
+    $('#res').innerHTML=`<div class="rtop"><div><div class="big num" id="rnum">0</div><b>entreprise${d.total>1?'s':''} en activité dans cette zone</b></div></div>
+     <div class="chips">${chips}</div>
+     <p class="wait">Le détective enquête autour d’une ville.</p>
+     <small>Choisissez une ville et un rayon (jusqu’à 30 km) : il fouille les sites des entreprises et ne garde que les contacts prouvés. Vous ne payez que ce qu’il trouve, 0,07 € HT le contact.</small>`;
+    count($('#rnum'),d.total,900);return}
+  enquete(d);
+}
+const DET=`<svg viewBox='0 0 100 100' class='det'><g class='det-l'><circle cx='44' cy='60' r='20' fill='rgba(91,140,255,.18)' stroke='#fff' stroke-width='11'/><path d='M30 50a16 16 0 0 1 9-6' stroke='#fff' stroke-width='4' stroke-linecap='round' fill='none' opacity='.7'/><path d='M58.5 74.5L80 96' stroke='#fff' stroke-width='13' stroke-linecap='round'/><g class='det-h'><g transform='translate(44 40) rotate(-12) scale(.78) translate(-50 -40)'><path d='M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z' fill='#fff'/><rect x='30' y='32' width='40' height='6' fill='#1E5EFF'/><path d='M12 41Q50 31 88 41Q50 49 12 41Z' fill='#fff'/></g></g></g></svg>`;
+async function enquete(d){
+  const r=$('#res');const go=$('#go');go.disabled=true;
+  r.innerHTML=`<div class="dossier" id="dos">
+    <div class="dhead"><div class="dscan">${DET}<span class="dbeam"></span></div>
+      <div><span class="dlab">Enquête en cours</span><b class="dtitle" id="dtitle">Le détective fouille la zone…</b><div class="chips dchips">${chipsHtml()}</div></div></div>
+    <div class="dstats">
+      <div><b class="num" id="dz">${fmt(d.total)}</b><small>entreprises en activité dans la zone</small></div>
+      <div><b class="num" id="ds">0</b><small>sites examinés</small></div>
+      <div class="dok"><b class="num" id="dn">0</b><small>contacts prouvés</small></div></div>
+    <div class="dbar"><span id="dbar"></span></div>
+    <ol class="dfeed" id="dfeed"><li class="dl">› Recherche des entreprises qui ont un site internet…</li></ol>
+    <div id="dend"></div></div>`;
+  const feed=$('#dfeed');const line=(t,c)=>{const li=document.createElement('li');li.className=c||'';li.textContent=t;feed.prepend(li);while(feed.children.length>40)feed.lastChild.remove()};
+  const found=[];let n=0,lus=0;
+  const add=list=>{for(const x of list){found.push(x);n++;line(`✓ ${x.nom} (${x.cp}) · ${x.email} · ${x.preuve}`,'dy')}count($('#dn'),n,400)};
+  try{
+    const st=await (await fetch('/api/enquete/start',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({acts:S.acts,lieu:S.lieu,km:S.km||10,taille:S.taille})})).json();
+    if(!st.ok)throw new Error(st.message||'');
+    if(st.trouves.length){line(`› ${st.trouves.length} contact${st.trouves.length>1?'s':''} déjà prouvé${st.trouves.length>1?'s':''} lors d’une enquête précédente`,'dl');add(st.trouves)}
+    line(`› ${fmt(st.sites)} lieux avec un site internet dans le secteur · ${fmt(st.a_lire)} piste${st.a_lire>1?'s':''} à vérifier`,'dl');
+    let fini=!st.a_lire;const tot=st.a_lire||1;
+    while(!fini){
+      const s=await (await fetch('/api/enquete/step',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({id:st.id})})).json();
+      if(!s.ok)throw new Error(s.message||'');
+      for(const j of s.journal){lus++;if(!j.ok)line(`✗ ${j.lieu} · ${j.h} · ${j.pourquoi}`,'dx')}
+      add(s.trouves);$('#ds').textContent=fmt(lus);$('#dbar').style.width=Math.round(100*s.pos/tot)+'%';fini=s.fini;
+    }
+    $('#dbar').style.width='100%';
+    fin(found,st);
+  }catch(e){line('! '+(e.message||'L’enquête a été interrompue. Réessayez dans un instant.'),'dx');$('#dtitle').textContent='Enquête interrompue'}
+  finally{go.disabled=false}
+}
+function fin(found,st){
+  const n=found.length;$('#dos').classList.add('done');$('#dtitle').textContent=n?'Dossier bouclé':'Dossier bouclé, sans contact prouvé';
+  document.querySelector('#dos .dlab').textContent='Enquête terminée';
+  $('#dend').innerHTML=n?`<div class="stamp">DOSSIER BOUCLÉ</div>
+    <div class="reco"><div><small>${n} contact${n>1?'s':''} prouvé${n>1?'s':''}, prêt${n>1?'s':''} à télécharger</small><b>${cost(n)}</b><small>${n} × 0,07 € HT. Vous payez exactement ce que vous téléchargez.</small></div></div>
+    <ul class="dlist">${found.map(x=>`<li><b>${esc(x.nom)}</b><span>${esc(x.cp)} · ${esc(x.email)}</span><em>${esc(x.preuve)}</em></li>`).join('')}</ul>
+    <b>Lancement très bientôt : laissez votre adresse, vous serez parmi les premiers.</b>${wlForm('Je veux ces contacts')}
+    <small>Chaque contact est prouvé : le site de l’entreprise affiche son numéro officiel ou son nom et son adresse, et l’adresse e-mail est publiée sur ce site et peut recevoir des messages. Les autres sont écartés.</small>`
+   :`<small>Aucun site de la zone ne prouve assez clairement son adresse e-mail. Élargissez le rayon ou ajoutez un métier voisin : le détective ne vous vendra jamais un contact douteux.</small>`;
+  if(n)bindWl();
 }
 $('#guide').onsubmit=e=>{e.preventDefault();compter()};
 

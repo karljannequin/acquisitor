@@ -29,3 +29,8 @@ crons = []
 [[kv_namespaces]]
 binding = "DONNEES"
 id = "9af436fb43c54e26b9ba815f9881a116"
+
+[[d1_databases]]
+binding = "BASE"
+database_name = "acquisitor-base"
+database_id = "150c1770-2f2c-4e05-85d4-3f4c4ab569eb"
