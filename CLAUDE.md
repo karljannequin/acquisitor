@@ -26,7 +26,7 @@
 ## ACQUISITOR : ce que c'est
 
 - Outil de prospection **multi-marques** de Karl : il collecte des contacts d'entreprises (base unique qui grandit et n'est jamais effacée), puis envoie des campagnes pour chaque marque (ZeBooster, Speedy Pizz, Yellow Immo, Hébergements Insolites Vendôme, futures licences…). Baseline : « Aucun contact ne lui échappe ».
-- Usage interne d'abord. Vente éventuelle plus tard, uniquement du logiciel (jamais des contacts) : chaque client aurait sa base et ses boîtes d'envoi.
+- Usage interne d'abord. Vente ensuite : Karl est d'accord pour fournir des contacts d'entreprises et des campagnes à des clients (voir § 11 du cahier des charges : pas de revente d'e-mails nominatifs ni de données Google Maps).
 - Toutes les décisions prises avec Karl sont dans `documents/cahier-des-charges.md` : le lire avant de construire une partie.
 - Charte de l'outil : blanc et bleu `#1E5EFF`, texte `#0E1A33`, polices Sora (titres, logo) et Manrope (texte). Logo : loupe blanche dans un carré bleu. Rien de ZeBooster dans l'interface.
 - Charte des e-mails : celle de chaque marque, reprise de son site (voir le cahier des charges).
