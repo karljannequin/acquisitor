@@ -6,7 +6,7 @@
 <meta name="color-scheme" content="light only">
 <meta name="theme-color" content="#ffffff">
 <title>ACQUISITOR · Fichier de prospection et campagnes B2B, conforme RGPD</title>
-<meta name="description" content="Trouvez des clients sans acheter de fichier de prospection : ACQUISITOR trouve les entreprises de votre secteur, rédige votre campagne et l’envoie pour vous. Contacts qualifiés, conforme RGPD, dès 0,05 € l’entreprise.">
+<meta name="description" content="Trouvez des clients sans acheter de fichier de prospection : ACQUISITOR trouve les entreprises de votre secteur, rédige votre campagne et l’envoie pour vous. Contacts qualifiés, conforme RGPD, 0,07 € HT l’entreprise contactée.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231E5EFF'/%3E%3Ccircle cx='226' cy='226' r='110' fill='none' stroke='%23fff' stroke-width='44'/%3E%3Cpath d='M310 310l92 92' stroke='%23fff' stroke-width='44' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap">
@@ -108,7 +108,17 @@ section.alt{background:var(--bg)}
 .plan ul{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-direction:column;gap:7px;font-size:14.5px;flex:1}
 .plan li{display:flex;gap:8px}.plan li:before{content:"✓";color:var(--blue);font-weight:800}
 .plan .per{font-size:13px;color:var(--muted)}
-.rule{margin-top:22px;background:#fff;border:1px dashed var(--blue-200);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;font-size:14.5px}
+.price1{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:16px;align-items:stretch;max-width:900px;margin:0 auto}
+.pmain{background:#fff;border:2px solid var(--blue);border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:12px;box-shadow:0 14px 40px rgba(30,94,255,.14)}
+.pmain .price{font-size:clamp(44px,7vw,64px);color:var(--blue)}
+.pmain>b{font-size:18px}
+.pmain ul{list-style:none;margin:4px 0;padding:0;display:flex;flex-direction:column;gap:8px}
+.pmain li{display:flex;gap:8px}.pmain li:before{content:"✓";color:var(--blue);font-weight:800}
+.gift{background:var(--blue-50);border-radius:12px;padding:12px 14px;font-weight:600}
+.popt{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;display:flex;flex-direction:column;gap:8px}
+.popt h3{font-size:20px}.popt p{margin:0;color:var(--muted);font-size:14.5px}.popt small{color:var(--muted)}
+@media(max-width:760px){.price1{grid-template-columns:minmax(0,1fr)}}
+.rule{max-width:900px;margin-left:auto;margin-right:auto;margin-top:22px;background:#fff;border:1px dashed var(--blue-200);border-radius:14px;padding:16px 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;font-size:14.5px}
 .rule b{display:block}
 
 /* Garanties */
@@ -180,7 +190,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
   <div class="wrap">
     <a class="logo" href="#haut" aria-label="ACQUISITOR, retour en haut"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg></i><b>ACQUISITOR</b></a>
     <nav class="links" aria-label="Menu">
-      <a href="#comment">Comment ça marche</a><a href="#comparer">Comparer</a><a href="#tarifs">Tarifs</a><a href="#questions">Questions</a>
+      <a href="#comment">Comment ça marche</a><a href="#comparer">Comparer</a><a href="#tarifs">Tarif</a><a href="#questions">Questions</a>
       <a class="btn" href="#haut" style="min-height:40px;padding:8px 16px;font-size:14px">Essayer</a>
     </nav>
   </div>
@@ -226,40 +236,45 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
   <section class="blk" id="comparer">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Comparez par vous-même</span><h2>Le prix, c’est nous !</h2><p>Ailleurs, il faut acheter un fichier, puis payer un outil d’envoi, puis écrire soi-même. Chez nous, tout est compris.</p></div>
+      <div class="head"><span class="eyebrow">Comparez par vous-même</span><h2>Le prix, c’est nous !</h2><p>Ailleurs, il faut acheter un fichier, payer un outil d’envoi, puis écrire soi-même. Chez nous, tout est compris.</p></div>
       <div class="compare">
         <table>
-          <thead><tr><th>Pour contacter 1 000 entreprises</th><th>Fichier acheté + outil d’envoi</th><th class="us">ACQUISITOR</th></tr></thead>
+          <thead><tr><th>Pour contacter 1 000 entreprises</th><th>Ailleurs</th><th class="us">ACQUISITOR</th></tr></thead>
           <tbody>
-            <tr><td>Les contacts</td><td>0,10 € à 0,35 € par contact, soit 100 € à 350 €</td><td class="us">Compris</td></tr>
-            <tr><td>L’outil d’envoi</td><td>Environ 50 € à 120 € par mois et par utilisateur</td><td class="us">Compris</td></tr>
-            <tr><td>Contacts vérifiés avant l’envoi</td><td>Selon le fournisseur</td><td class="us"><span class="yes">Oui</span>, seulement les contacts sûrs</td></tr>
-            <tr><td>Campagne rédigée à vos couleurs</td><td><span class="no">Non</span>, à faire vous-même</td><td class="us"><span class="yes">Oui</span>, par l’IA, en 2 minutes</td></tr>
-            <tr><td>Relance automatique</td><td>Selon l’outil</td><td class="us"><span class="yes">Oui</span>, comprise</td></tr>
-            <tr><td>Réponses triées</td><td><span class="no">Non</span></td><td class="us"><span class="yes">Oui</span></td></tr>
-            <tr><td>Contacts en erreur ou déjà contactés</td><td>Payés quand même</td><td class="us">Jamais facturés</td></tr>
-            <tr class="total"><td>Total</td><td>150 € à 470 € et plus</td><td class="us num">69 €</td></tr>
+            <tr class="total"><td>Fichier de contacts + outil d’envoi</td><td>150 € à 470 € HT</td><td class="us num">70 € HT</td></tr>
+            <tr><td>Campagne rédigée pour vous, relance comprise</td><td><span class="no">Non</span></td><td class="us"><span class="yes">Oui</span></td></tr>
+            <tr><td>Adresses en erreur facturées</td><td>Oui</td><td class="us"><span class="yes">Jamais</span></td></tr>
           </tbody>
         </table>
       </div>
-      <p class="src">Prix constatés sur les sites des fournisseurs de fichiers et des outils d’envoi d’e-mails en novembre 2026. ACQUISITOR : formule Pro, 1 000 entreprises contactées par mois.</p>
+      <p class="src">« Ailleurs » : fichier de prospection B2B à 0,10 € – 0,35 € HT le contact, plus un outil d’envoi d’e-mails à 50 € – 120 € HT par mois et par utilisateur, prix publics relevés en novembre 2026. ACQUISITOR : 1 000 entreprises contactées à 0,07 € HT.</p>
       <p class="bang">Comparez par vous-même : <em>le prix, c’est nous !</em></p>
     </div>
   </section>
 
   <section class="blk alt" id="tarifs">
     <div class="wrap">
-      <div class="head"><span class="eyebrow">Tarifs</span><h2>Vous payez les entreprises contactées. Rien d’autre.</h2><p>Campagne, envoi, relance et tri des réponses compris dans chaque formule. Sans engagement.</p></div>
-      <div class="plans">
-        <div class="plan"><h3>Essai</h3><div class="price">0 €</div><span class="per">une fois</span><ul><li>100 entreprises contactées offertes</li><li>Campagne rédigée par l’IA</li><li>Réponses triées</li></ul><a class="btn ghost" href="#haut">Essayer gratuitement</a></div>
-        <div class="plan"><h3>Essentiel</h3><div class="price">29 € <small>/ mois</small></div><span class="per">soit 0,10 € l’entreprise</span><ul><li>300 entreprises contactées par mois</li><li>1 campagne active</li><li>Relance automatique</li><li>Suivi lu, cliqué, répondu</li></ul><a class="btn ghost" href="#haut">Choisir</a></div>
-        <div class="plan star"><h3>Pro</h3><div class="price">69 € <small>/ mois</small></div><span class="per">soit 0,07 € l’entreprise</span><ul><li>1 000 entreprises contactées par mois</li><li>Campagnes illimitées</li><li>Agent de recherche chaque nuit</li><li>Tout l’Essentiel</li></ul><a class="btn" href="#haut">Choisir</a></div>
-        <div class="plan"><h3>Agence</h3><div class="price">149 € <small>/ mois</small></div><span class="per">soit 0,05 € l’entreprise</span><ul><li>3 000 entreprises contactées par mois</li><li>Plusieurs marques et adresses d’envoi</li><li>Tout le Pro</li></ul><a class="btn ghost" href="#haut">Choisir</a></div>
+      <div class="head"><span class="eyebrow">Tarif</span><h2>Un seul prix. Rien d’autre.</h2><p>Pas d’abonnement obligatoire, pas de formule à choisir. Vous payez les entreprises réellement contactées.</p></div>
+      <div class="price1">
+        <div class="pmain">
+          <div class="price">0,07 € <small>HT</small></div>
+          <b>par entreprise contactée</b>
+          <ul><li>Recherche des entreprises et vérification des contacts</li><li>Campagne rédigée par l’IA à vos couleurs</li><li>Envoi depuis votre adresse et relance automatique</li><li>Suivi lu, cliqué, répondu et réponses triées</li></ul>
+          <div class="gift">🎁 Les <b>100 premières entreprises</b> sont offertes</div>
+          <a class="btn" href="#haut">Commencer gratuitement</a>
+        </div>
+        <div class="popt">
+          <span class="eyebrow">En option</span>
+          <h3>Agent automatique</h3>
+          <div class="price" style="font-size:28px">19 € <small>HT / mois</small></div>
+          <p>Chaque semaine, il trouve les nouvelles entreprises de votre cible et les contacte pour vous. Vous n’y pensez plus. Les contacts restent à 0,07 € HT.</p>
+          <small>Sans engagement, arrêt en un clic.</small>
+        </div>
       </div>
       <div class="rule">
-        <div><b>Au-delà de votre formule</b>0,06 € par entreprise contactée en plus, avec un plafond que vous fixez. Jamais de mauvaise surprise.</div>
-        <div><b>Ce qui n’est jamais facturé</b>Les relances, les adresses en erreur, les entreprises déjà contactées récemment et les désinscrits.</div>
-        <div><b>Sans abonnement</b>Pack ponctuel : 500 entreprises contactées, une fois, pour 39 €.</div>
+        <div><b>Jamais facturé</b>Les relances, les adresses en erreur, les entreprises déjà contactées récemment et les désinscrits.</div>
+        <div><b>Vous fixez un plafond</b>Un budget maximum par mois : ACQUISITOR s’arrête avant de le dépasser.</div>
+        <div><b>Exemple</b>457 garages contactés : 100 offerts, puis 357 × 0,07 € = 24,99 € HT.</div>
       </div>
     </div>
   </section>
@@ -299,7 +314,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <details><summary>Dois-je écrire la campagne moi-même ?</summary><p>Non. L’IA la rédige à partir de votre site et de quelques mots sur ce que vous vendez, avec vos couleurs et vos boutons. Vous pouvez la modifier si vous le souhaitez.</p></details>
         <details><summary>Depuis quelle adresse partent les e-mails ?</summary><p>Depuis une adresse à votre nom. Les réponses arrivent chez vous et dans votre espace ACQUISITOR.</p></details>
         <details><summary>Quelle différence avec l’achat d’un fichier de prospection ?</summary><p>Un fichier se paie à l’avance, contient souvent des adresses périmées et il reste à écrire et envoyer les e-mails. Avec ACQUISITOR, vous ne payez que les entreprises réellement contactées, la campagne est rédigée pour vous et les adresses en erreur ne sont jamais facturées.</p></details>
-        <details><summary>Puis-je arrêter quand je veux ?</summary><p>Oui, les formules sont sans engagement.</p></details>
+        <details><summary>Y a-t-il un abonnement ?</summary><p>Non. Vous payez 0,07 € HT par entreprise contactée. L’agent automatique est une option à 19 € HT par mois, sans engagement, que vous arrêtez en un clic.</p></details>
       </div>
     </div>
   </section>
@@ -339,22 +354,15 @@ async function ask(q){
     const msg=(e instanceof TypeError||!e.message)?'Le comptage n’est pas disponible pour le moment. Réessayez dans un instant.':e.message;r.innerHTML=`<b>${esc(msg)}</b>${wlForm()}`;bindWl();
   }finally{$('#go').disabled=false}
 }
-function plan(n){
-  if(n<=100)return{nom:'Essai',prix:'0 €',detail:'les 100 premières entreprises contactées sont offertes'};
-  if(n<=300)return{nom:'Essentiel',prix:'29 € par mois',detail:'jusqu’à 300 entreprises contactées par mois'};
-  if(n<=500)return{nom:'Pack ponctuel',prix:'39 € une fois',detail:'500 entreprises contactées, sans abonnement'};
-  if(n<=1000)return{nom:'Pro',prix:'69 € par mois',detail:'jusqu’à 1 000 entreprises contactées par mois'};
-  if(n<=3000)return{nom:'Agence',prix:'149 € par mois',detail:'jusqu’à 3 000 entreprises contactées par mois'};
-  const extra=Math.round((n-3000)*0.06);return{nom:'Agence',prix:`149 € + ${fmt(extra)} € une fois`,detail:`3 000 par mois inclus, ${fmt(n-3000)} de plus à 0,06 €, ou étalé sur ${Math.ceil(n/3000)} mois sans supplément`};
-}
+function cost(n){const pay=Math.max(0,n-100);return pay?(pay*0.07).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' € HT':'Offert'}
 function show(d){
   const chips=[d.activite,d.zone,d.salaries].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('');
   if(!d.total){$('#res').innerHTML=`<b>Aucune entreprise ne correspond exactement.</b><small>Élargissez la zone (« + 50 km », le département) ou retirez le nombre de salariés.</small>`;return}
-  const p=plan(d.total);
+  
   $('#res').innerHTML=`<div class="rtop"><div><div class="big num">${fmt(d.total)}</div><b>entreprise${d.total>1?'s':''} correspond${d.total>1?'ent':''} à votre recherche</b></div><div class="chips">${chips}</div></div>
    <p class="wait">Ces contacts n’attendent que vous.</p>
-   <div class="reco"><div><small>Pour toutes les contacter</small><b>${esc(p.nom)} · ${esc(p.prix)}</b><small>${esc(p.detail)}. Sans engagement.</small></div><a class="btn ghost" href="#tarifs">Voir les formules</a></div>
-   <b>Démarrez sans engagement : vos 100 premières entreprises contactées sont offertes.</b>${wlForm('Je veux ces clients')}
+   <div class="reco"><div><small>Les contacter toutes</small><b>${cost(d.total)}</b><small>${d.total>100?`100 offertes, puis ${fmt(d.total-100)} × 0,07 € HT.`:'Les 100 premières entreprises sont offertes.'} Sans abonnement.</small></div><a class="btn ghost" href="#tarifs">Voir le tarif</a></div>
+   <b>Démarrez gratuitement : vos 100 premières entreprises contactées sont offertes.</b>${wlForm('Je veux ces clients')}
    ${d.notes&&d.notes.length?`<small>${d.notes.map(esc).join(' ')}</small>`:''}
    <small>Source : registre officiel des entreprises (entreprises actives). Avant l’envoi, ACQUISITOR ne garde que les contacts sûrs.</small>`;
   bindWl();

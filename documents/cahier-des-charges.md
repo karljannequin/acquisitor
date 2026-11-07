@@ -104,11 +104,15 @@ Reprises des sites, pas seulement des logos. L'outil final ira lire le site de c
 - Proposition en attente de validation par Karl : **abonnement mensuel** (l'agent travaille chaque nuit, relances, réponses, la base continue de grandir) plus un **pack ponctuel** sans abonnement pour essayer.
 - Proposition en attente de validation par Karl : **la base reste la propriété de Karl**. Le client utilise les contacts de sa cible tant qu'il est abonné ; il garde pour lui ses résultats (contacts qui ont répondu ou se sont montrés intéressés) et ses propres contacts importés. Pas d'export de la base complète.
 
-## 12. Tarifs proposés (page d'accueil, à valider par Karl avant la mise en ligne)
+## 12. Tarif (décision de Karl du 07/11/2026 : formule super simple)
 
-- Facturation au **contact réellement contacté** (premier e-mail reçu). Jamais facturés : relances, adresses en erreur, entreprises retirées (déjà contactées, désinscrites, exclusions).
-- Essai : 100 entreprises contactées offertes. Essentiel 29 €/mois (300). Pro 69 €/mois (1 000). Agence 149 €/mois (3 000). Au-delà : 0,06 € par entreprise, avec plafond fixé par le client. Pack ponctuel : 500 entreprises, 39 €.
-- Repères du marché (novembre 2026) : fichiers B2B 0,10 à 0,35 € le contact ; outils d'envoi 50 à 120 € par mois et par utilisateur ; Apollo (plus gros acteur) : formule gratuite, puis environ 49 à 149 $ par utilisateur et par mois avec des crédits.
-- Coût estimé pour Karl : registre officiel gratuit ; lecture d'un site par l'IA (Claude Haiku 5.5, 0,10 $ / 0,50 $ par million de jetons) ≈ 0,0004 $ par page ; boîtes d'envoi et domaines secondaires en abonnement mensuel.
-- Page d'accueil : comptage en direct des entreprises (`/api/estimation`, registre officiel via recherche-entreprises.api.gouv.fr et geo.api.gouv.fr) et liste d'attente (`/api/liste`, KV `acquisitor-vitrine`).
-- Baseline : « L'apporteur de contacts qualifiés, conforme RGPD ». Pas de « numéro 1 » sans preuve (publicité trompeuse).
+- **Un seul prix : 0,07 € HT par entreprise contactée**, tout compris (recherche, vérification, campagne IA, envoi, relance, suivi, tri des réponses). Pas d'abonnement obligatoire.
+- **Les 100 premières entreprises sont offertes.**
+- **Option « Agent automatique » : 19 € HT par mois**, sans engagement : chaque semaine il trouve et contacte les nouvelles entreprises de la cible (contacts toujours à 0,07 € HT). C'est la source de revenu mensuel.
+- Entreprise contactée = premier e-mail bien reçu. Jamais facturés : relances, adresses en erreur, entreprises retirées (déjà contactées, désinscrites, exclusions). Plafond de budget mensuel fixé par le client.
+- Prix affichés **HT** (clients professionnels).
+- Comparatif court sur la page : pour 1 000 entreprises, fichier + outil d'envoi 150 à 470 € HT ailleurs contre 70 € HT. Aucun concurrent nommé ; fourchettes publiques relevées en novembre 2026 (fichiers 0,10–0,35 € HT le contact, outils d'envoi 50–120 € HT par mois et par utilisateur).
+- Coût pour Karl : registre officiel gratuit ; lecture d'un site par l'IA (Claude Haiku 5.5) ≈ 0,0004 $ par page ; boîtes d'envoi en abonnement mensuel.
+- Page d'accueil : comptage en direct (`/api/estimation`) avec le prix pour contacter toutes les entreprises trouvées, liste d'attente (`/api/liste`).
+- Baseline : « L'apporteur de contacts qualifiés, conforme RGPD ». Pas de « numéro 1 » sans preuve.
+- **À faire avant toute vente** : mentions légales, politique de confidentialité, conditions générales de vente, contrat de traitement des données (RGPD).
