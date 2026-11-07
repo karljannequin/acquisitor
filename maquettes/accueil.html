@@ -9,15 +9,15 @@
 <meta name="description" content="Trouvez des clients sans acheter de fichier de prospection : ACQUISITOR trouve les entreprises de votre secteur, rédige votre campagne et l’envoie pour vous. Contacts qualifiés, conforme RGPD, 0,07 € HT l’entreprise contactée.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231E5EFF'/%3E%3Ccircle cx='226' cy='226' r='110' fill='none' stroke='%23fff' stroke-width='44'/%3E%3Cpath d='M310 310l92 92' stroke='%23fff' stroke-width='44' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap">
 <style>
-/* Page de vente ACQUISITOR : blanc et un seul bleu ; prix mis en avant ; Bricolage Grotesque pour les titres, Manrope pour le texte. */
-:root{--ink:#0E1A33;--ink2:#2B3856;--muted:#5E6A85;--line:#E3E8F2;--bg:#F5F7FB;--blue:#1E5EFF;--blue-d:#1747C9;--blue-dd:#0F2F8F;--blue-50:#EEF3FF;--blue-100:#DCE6FF;--blue-200:#B9CDFF;--ok:#127A4B;--bad:#B4233C;--f:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;--fd:"Bricolage Grotesque",Manrope,system-ui,sans-serif;color-scheme:light}
+/* Page de vente ACQUISITOR : blanc et un seul bleu ; prix mis en avant ; Geist pour les titres et le texte. */
+:root{--ink:#0E1A33;--ink2:#2B3856;--muted:#5E6A85;--line:#E3E8F2;--bg:#F5F7FB;--blue:#1E5EFF;--blue-d:#1747C9;--blue-dd:#0F2F8F;--blue-50:#EEF3FF;--blue-100:#DCE6FF;--blue-200:#B9CDFF;--ok:#127A4B;--bad:#B4233C;--f:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;--fd:Geist,system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:var(--ink);font-family:var(--f);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:var(--fd);margin:0;text-wrap:balance;letter-spacing:-.025em}
+h1,h2,h3{font-family:var(--fd);margin:0;text-wrap:balance;letter-spacing:-.035em;font-weight:700}
 a{color:var(--blue-d)}
 :focus-visible{outline:3px solid var(--blue);outline-offset:2px}
 .wrap{max-width:1160px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
@@ -47,7 +47,7 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 .hleft{display:flex;flex-direction:column;gap:18px;min-width:0}
 .tagline{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--blue-100);color:var(--blue-d);font-weight:800;font-size:13px;border-radius:999px;padding:7px 14px}
 .tagline span{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(18,122,75,.5);animation:pulse 2s infinite}
-.hero h1{font-size:clamp(36px,5.4vw,62px);line-height:1.04;font-weight:800}
+.hero h1{font-size:clamp(36px,5.4vw,62px);line-height:1.04;font-weight:700}
 .pricel{display:block;font-family:var(--fd);font-size:clamp(22px,2.8vw,30px);color:var(--blue);letter-spacing:-.02em;margin-bottom:6px}
 .hl{color:var(--blue);position:relative;white-space:nowrap}
 .hl:after{content:"";position:absolute;left:0;right:0;bottom:.06em;height:.18em;background:var(--blue-100);border-radius:6px;z-index:-1;transform-origin:left;animation:underline .9s .3s cubic-bezier(.2,.8,.2,1) both}
@@ -127,7 +127,7 @@ section.alt{background:var(--bg)}
 .pband{background:radial-gradient(800px 400px at 15% 0%,#3B74FF,transparent 60%),linear-gradient(135deg,var(--blue) 0%,var(--blue-dd) 100%);color:#fff;padding-block:88px;position:relative;overflow:hidden}
 .pgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center}
 .pleft,.pright{display:flex;flex-direction:column;gap:14px;min-width:0}
-.bigprice{font-family:var(--fd);font-weight:800;font-size:clamp(84px,14vw,150px);line-height:.9;letter-spacing:-.04em}
+.bigprice{font-family:var(--fd);font-weight:700;font-size:clamp(84px,14vw,150px);line-height:.9;letter-spacing:-.04em}
 .bigprice small{font-family:var(--f);font-size:22px;font-weight:700;letter-spacing:0;margin-left:8px;color:#BFD0FF}
 .pper{font-size:22px;font-weight:700;margin:0}
 .pleft ul,.pcheck{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
@@ -237,8 +237,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <rect x="462" y="178" width="76" height="76" rx="20" fill="#1E5EFF"/>
       <circle cx="495" cy="211" r="17" fill="none" stroke="#fff" stroke-width="7"/>
       <path d="M508 224l13 13" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
-      <text class="wt" x="500" y="334" text-anchor="middle" style="font:800 68px 'Bricolage Grotesque',Manrope,sans-serif;letter-spacing:3px" fill="#0E1A33">ACQUISITOR</text>
-      <text class="tg" x="500" y="378" text-anchor="middle" style="font:600 20px Manrope,sans-serif" fill="#1E5EFF">L’apporteur de contacts qualifiés, conforme RGPD</text>
+      <text class="wt" x="500" y="334" text-anchor="middle" style="font:800 68px Geist,sans-serif;letter-spacing:3px" fill="#0E1A33">ACQUISITOR</text>
+      <text class="tg" x="500" y="378" text-anchor="middle" style="font:600 20px Geist,sans-serif" fill="#1E5EFF">L’apporteur de contacts qualifiés, conforme RGPD</text>
     </g>
   </svg>
 </div>
@@ -494,9 +494,9 @@ const metro=pts=>{let d=`M${pts[0][0]} ${pts[0][1]}`;for(let i=1;i<pts.length;i+
 let s='';L.forEach((cs,i)=>{s+=`<path class="line" d="${metro(cs.map(P))}" fill="none" stroke="#A8C2FF" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="animation-delay:${i*.18}s"/>`});
 [...new Set(L.flat())].forEach((c,i)=>{const[x,y]=P(c);const big=c==='Paris';const below=['Tours','Toulouse','Marseille','Grenoble','Clermont-Ferrand','Dijon','Strasbourg'].includes(c);const lft=LEFT.includes(c);
  s+=`<circle class="st" cx="${x}" cy="${y}" r="${big?15:9}" fill="#fff" stroke="${big?'#1E5EFF':'#7FA4FF'}" stroke-width="${big?6:4}" style="animation-delay:${.9+i*.05}s"/>`;
- s+=`<text class="lbl" font-family="Manrope,sans-serif" font-size="${big?19:15}" font-weight="${big?800:600}" fill="${big?'#0E1A33':'#5E6A85'}" x="${lft?x-(big?22:14):x+(big?20:14)}" text-anchor="${lft?'end':'start'}" y="${below?y+24:y-12}" style="animation-delay:${1.1+i*.05}s">${c}</text>`});
+ s+=`<text class="lbl" font-family="Geist,sans-serif" font-size="${big?19:15}" font-weight="${big?800:600}" fill="${big?'#0E1A33':'#5E6A85'}" x="${lft?x-(big?22:14):x+(big?20:14)}" text-anchor="${lft?'end':'start'}" y="${below?y+24:y-12}" style="animation-delay:${1.1+i*.05}s">${c}</text>`});
 $('#mapg').innerHTML=s;
-$('#hits').innerHTML=H.map(([c,t],i)=>{const[x,y]=P(c);const w=t.length*7.4+26;const left=c==='Marseille';const ox=x+(left?-w-18:22),oy=y+(c==='Lille'?30:-58);return`<g class="hit" id="hit${i}"><line x1="${x}" y1="${y}" x2="${ox+(left?w:0)}" y2="${oy+16}" stroke="#7FA4FF" stroke-width="1.5" stroke-dasharray="3 3"/><rect x="${ox}" y="${oy}" width="${w}" height="32" rx="16" fill="#1E5EFF"/><text x="${ox+13}" y="${oy+21}" style="font:700 13px Manrope,sans-serif" fill="#fff">${t}</text></g>`}).join('');
+$('#hits').innerHTML=H.map(([c,t],i)=>{const[x,y]=P(c);const w=t.length*7.4+26;const left=c==='Marseille';const ox=x+(left?-w-18:22),oy=y+(c==='Lille'?30:-58);return`<g class="hit" id="hit${i}"><line x1="${x}" y1="${y}" x2="${ox+(left?w:0)}" y2="${oy+16}" stroke="#7FA4FF" stroke-width="1.5" stroke-dasharray="3 3"/><rect x="${ox}" y="${oy}" width="${w}" height="32" rx="16" fill="#1E5EFF"/><text x="${ox+13}" y="${oy+21}" style="font:700 13px Geist,sans-serif" fill="#fff">${t}</text></g>`}).join('');
 function lens(x,y,r){['#lensc','#lensbg','#lensring'].forEach(q=>{$(q).setAttribute('cx',x);$(q).setAttribute('cy',y);$(q).setAttribute('r',r)});
  $('#lensuse').setAttribute('transform',`translate(${x} ${y}) scale(2.2) translate(${-x} ${-y})`);
  const k=Math.max(0,60-(r-78)*.4),hx=x+r*.7071+4,hy=y+r*.7071+4;$('#lenshandle').setAttribute('x1',hx);$('#lenshandle').setAttribute('y1',hy);$('#lenshandle').setAttribute('x2',hx+k);$('#lenshandle').setAttribute('y2',hy+k)}
