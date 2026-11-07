@@ -7,7 +7,7 @@
 <meta name="theme-color" content="#ffffff">
 <title>ACQUISITOR · Fichier de prospection et campagnes B2B, conforme RGPD</title>
 <meta name="description" content="Trouvez des clients sans acheter de fichier de prospection : ACQUISITOR trouve les entreprises de votre secteur, rédige votre campagne et l’envoie pour vous. Contacts qualifiés, conforme RGPD, 0,07 € HT l’entreprise contactée.">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231E5EFF'/%3E%3Ccircle cx='226' cy='226' r='110' fill='none' stroke='%23fff' stroke-width='44'/%3E%3Cpath d='M310 310l92 92' stroke='%23fff' stroke-width='44' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231E5EFF'/%3E%3Cg transform='translate%289 7%29 scale%28.82%29'%3E%3Ccircle cx='44' cy='60' r='20' fill='%231E5EFF' stroke='%23fff' stroke-width='11'/%3E%3Cpath d='M58.5 74.5L80 96' stroke='%23fff' stroke-width='13' stroke-linecap='round'/%3E%3Cg transform='translate%2844 40%29 rotate%28-12%29 scale%28.78%29 translate%28-50 -40%29'%3E%3Cpath d='M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z' fill='%23fff'/%3E%3Crect x='30' y='32' width='40' height='6' fill='%230E1A33'/%3E%3Cpath d='M12 41Q50 31 88 41Q50 49 12 41Z' fill='%23fff'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap">
 <style>
@@ -35,7 +35,8 @@ header.top{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.88);bac
 header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:12px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
 .logo i{width:36px;height:36px;border-radius:10px;background:var(--blue);display:grid;place-items:center;flex-shrink:0}
-.logo b{font-family:var(--fd);font-weight:800;letter-spacing:.08em;font-size:17px}
+.logo .mk{flex-shrink:0;transition:transform .25s}.logo:hover .mk{transform:rotate(-6deg) scale(1.06)}
+.logo b{font-family:var(--fd);font-weight:900;letter-spacing:.06em;font-size:19px}
 nav.links{display:flex;gap:22px;align-items:center;font-weight:700;font-size:14px}
 nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.btn):hover{color:var(--blue)}
 @media(max-width:760px){nav.links a:not(.btn){display:none}}
@@ -43,6 +44,8 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 /* Accroche */
 .hero{position:relative;padding-block:64px 56px;overflow:hidden}
 .glow{position:absolute;inset:-200px -100px auto;height:640px;background:radial-gradient(520px 320px at 78% 30%,rgba(30,94,255,.16),transparent 70%),radial-gradient(420px 260px at 10% 10%,rgba(30,94,255,.08),transparent 70%);pointer-events:none}
+.giant{position:absolute;right:-170px;top:-40px;width:760px;height:760px;opacity:.085;pointer-events:none;transform:rotate(8deg)}
+@media(max-width:900px){.giant{width:520px;height:520px;right:-200px;top:10px}}
 .hgrid{position:relative;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center}
 .hleft{display:flex;flex-direction:column;gap:18px;min-width:0}
 .tagline{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--blue-100);color:var(--blue-d);font-weight:800;font-size:13px;border-radius:999px;padding:7px 14px}
@@ -247,6 +250,8 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .word{opacity:0;transition:opacity .35s}.word.on{opacity:1}
 .word .wt{opacity:0;transition:opacity .6s ease .35s}.word.on .wt{opacity:1}
 .word .tg{opacity:0;transition:opacity .6s ease .8s}.word.on .tg{opacity:1}
+.hatdrop{opacity:0;transform-box:fill-box;transform-origin:center}.word.on .hatdrop{animation:hatdrop .75s .15s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes hatdrop{0%{opacity:0;transform:translateY(-90px) rotate(-25deg)}40%{opacity:1}100%{opacity:1;transform:none}}
 @keyframes draw{to{stroke-dashoffset:0}}
 @keyframes pop{0%{opacity:0;transform:scale(.3)}70%{opacity:1;transform:scale(1.15)}100%{opacity:1;transform:scale(1)}}
 @keyframes fade{to{opacity:1}}
@@ -266,12 +271,10 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
       <circle id="lensring" cx="-200" cy="-200" r="78" fill="none" stroke="#1E5EFF" stroke-width="7"/>
       <line id="lenshandle" x1="0" y1="0" x2="0" y2="0" stroke="#1E5EFF" stroke-width="16" stroke-linecap="round"/>
     </g>
-    <circle id="eraser" cx="500" cy="216" r="0" fill="#fff"/>
+    <circle id="eraser" cx="493" cy="175" r="0" fill="#fff"/>
     <g class="word" id="word">
-      <rect x="462" y="178" width="76" height="76" rx="20" fill="#1E5EFF"/>
-      <circle cx="495" cy="211" r="17" fill="none" stroke="#fff" stroke-width="7"/>
-      <path d="M508 224l13 13" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
-      <text class="wt" x="500" y="334" text-anchor="middle" style="font:800 68px Geist,sans-serif;letter-spacing:3px" fill="#0E1A33">ACQUISITOR</text>
+      <g transform="translate(430 96) scale(1.4)"><rect width="100" height="100" rx="24" fill="#1E5EFF"/><g transform="translate(9 7) scale(.82)"><circle cx="44" cy="60" r="20" fill="#1E5EFF" stroke="#fff" stroke-width="11"/><path d="M58.5 74.5L80 96" stroke="#fff" stroke-width="13" stroke-linecap="round"/><g class="hatdrop"><g transform="translate(44 40) rotate(-12) scale(.78) translate(-50 -40)"><path d="M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z" fill="#fff"/><rect x="30" y="32" width="40" height="6" fill="#0E1A33"/><path d="M12 41Q50 31 88 41Q50 49 12 41Z" fill="#fff"/></g></g></g></g>
+      <text class="wt" x="500" y="330" text-anchor="middle" style="font:800 68px Geist,sans-serif;letter-spacing:3px" fill="#0E1A33">ACQUISITOR</text>
       <text class="tg" x="500" y="378" text-anchor="middle" style="font:600 20px Geist,sans-serif" fill="#1E5EFF">L’apporteur de contacts qualifiés, conforme RGPD</text>
     </g>
   </svg>
@@ -279,7 +282,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="#haut" aria-label="ACQUISITOR, retour en haut"><i><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"><circle cx="10" cy="10" r="6.5"/><path d="M15 15l6 6"/></svg></i><b>ACQUISITOR</b></a>
+    <a class="logo" href="#haut" aria-label="ACQUISITOR, retour en haut"><svg class="mk" width="40" height="40" viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" rx="24" fill="#1E5EFF"/><g transform="translate(9 7) scale(.82)"><circle cx="44" cy="60" r="20" fill="#1E5EFF" stroke="#fff" stroke-width="11"/><path d="M58.5 74.5L80 96" stroke="#fff" stroke-width="13" stroke-linecap="round"/><g transform="translate(44 40) rotate(-12) scale(.78) translate(-50 -40)"><path d="M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z" fill="#fff"/><rect x="30" y="32" width="40" height="6" fill="#0E1A33"/><path d="M12 41Q50 31 88 41Q50 49 12 41Z" fill="#fff"/></g></g></svg><b>ACQUISITOR</b></a>
     <nav class="links" aria-label="Menu">
       <a href="#comment">Comment ça marche</a><a href="#prix">Prix</a><a href="#questions">Questions</a>
       <a class="btn sm" href="#haut">Essayer →</a>
@@ -290,6 +293,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 <main id="haut">
   <section class="hero">
     <div class="glow" aria-hidden="true"></div>
+    <svg class="giant" viewBox="0 0 100 100" aria-hidden="true"><circle cx="44" cy="60" r="20" fill="none" stroke="#1E5EFF" stroke-width="11"/><path d="M58.5 74.5L80 96" stroke="#1E5EFF" stroke-width="13" stroke-linecap="round"/><g transform="translate(44 40) rotate(-12) scale(.78) translate(-50 -40)"><path d="M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z" fill="#1E5EFF"/><rect x="30" y="32" width="40" height="6" fill="#fff"/><path d="M12 41Q50 31 88 41Q50 49 12 41Z" fill="#1E5EFF"/></g></svg>
     <div class="wrap hgrid">
       <div class="hleft">
         <span class="tagline"><span aria-hidden="true"></span>Ouverture prochaine · L’apporteur de contacts qualifiés, conforme RGPD</span>
@@ -607,16 +611,16 @@ function lens(x,y,r){['#lensc','#lensbg','#lensring'].forEach(q=>{$(q).setAttrib
  $('#lensuse').setAttribute('transform',`translate(${x} ${y}) scale(2.2) translate(${-x} ${-y})`);
  const k=Math.max(0,60-(r-78)*.4),hx=x+r*.7071+4,hy=y+r*.7071+4;$('#lenshandle').setAttribute('x1',hx);$('#lenshandle').setAttribute('y1',hy);$('#lenshandle').setAttribute('x2',hx+k);$('#lenshandle').setAttribute('y2',hy+k)}
 const path=[...H.map(h=>P(h[0])),P('Paris')];let raf;
-setTimeout(()=>{if(!I.isConnected)return;$('#lens').style.opacity=1;const pts=[[path[0][0]-160,path[0][1]+120],...path],t0=performance.now(),seg=520;
+setTimeout(()=>{if(!I.isConnected)return;$('#lens').style.opacity=1;const pts=[[path[0][0]-160,path[0][1]+120],...path],t0=performance.now(),seg=380;
  const step=now=>{if(!I.isConnected)return;const t=Math.max(0,(now-t0)/seg),i=Math.min(Math.floor(t),pts.length-2),f=Math.min(1,t-i),e=f<.5?2*f*f:1-Math.pow(-2*f+2,2)/2;
   const x=pts[i][0]+(pts[i+1][0]-pts[i][0])*e,y=pts[i][1]+(pts[i+1][1]-pts[i][1])*e;lens(x,y,78);
   if(f>.85&&i<H.length)$('#hit'+i).classList.add('on');
   if(t<pts.length-1)raf=requestAnimationFrame(step);else toLogo(x,y)};
- raf=requestAnimationFrame(step)},1900);
+ raf=requestAnimationFrame(step)},1300);
 function toLogo(x,y){$('#hits').style.transition='opacity .4s';$('#hits').style.opacity=0;const t0=performance.now();
- const mv=now=>{if(!I.isConnected)return;const t=Math.min(1,(now-t0)/650),e=1-Math.pow(1-t,3);lens(x+(500-x)*e,y+(216-y)*e,78-42*e);if(t<1)raf=requestAnimationFrame(mv);else erase()};raf=requestAnimationFrame(mv)}
+ const mv=now=>{if(!I.isConnected)return;const t=Math.min(1,(now-t0)/650),e=1-Math.pow(1-t,3);lens(x+(493-x)*e,y+(175-y)*e,78-55*e);if(t<1)raf=requestAnimationFrame(mv);else erase()};raf=requestAnimationFrame(mv)}
 function erase(){$('#lens').style.opacity=0;$('#word').classList.add('on');const t1=performance.now();
- const er=now=>{if(!I.isConnected)return;const t=Math.min(1,(now-t1)/850),e=1-Math.pow(1-t,3);$('#eraser').setAttribute('r',e*1250);if(t<1)raf=requestAnimationFrame(er);else setTimeout(end,2300)};raf=requestAnimationFrame(er)}
+ const er=now=>{if(!I.isConnected)return;const t=Math.min(1,(now-t1)/850),e=1-Math.pow(1-t,3);$('#eraser').setAttribute('r',e*1250);if(t<1)raf=requestAnimationFrame(er);else setTimeout(end,1700)};raf=requestAnimationFrame(er)}
 })();
 </script>
 </body>

@@ -1,0 +1,40 @@
+<!doctype html><html><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;800;900&family=Geist+Mono:wght@700&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box}body{margin:0;font-family:Geist,sans-serif;background:#EEF2FB;padding:36px;color:#0E1A33;width:1400px}
+.t{font-weight:900;font-size:30px;letter-spacing:-.02em;margin:0 0 6px}.s{margin:0 0 24px;color:#51607d;font-size:16px}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:28px}
+.c{background:#fff;border-radius:24px;padding:26px;box-shadow:0 10px 30px rgba(14,26,51,.06)}
+.c h3{font:700 12px 'Geist Mono',monospace;letter-spacing:.12em;color:#1E5EFF;margin:0 0 4px}
+.c h4{font-size:21px;font-weight:900;margin:0 0 6px}.c p{font-size:14px;color:#51607d;margin:0 0 18px;min-height:58px;line-height:1.4}
+.row{display:flex;gap:14px;align-items:flex-end;margin-bottom:18px}
+.lock{display:flex;align-items:center;gap:11px;font-weight:900;font-size:22px}
+.hero{position:relative;overflow:hidden;border-radius:28px;height:520px;background:#0E1A33;color:#fff;display:flex;align-items:center;padding:0 64px}
+.hero .bg{position:absolute;right:-60px;top:-30px}
+.hero .txt{position:relative;max-width:640px}.hero h2{font-weight:900;font-size:58px;line-height:.98;letter-spacing:-.035em;margin:26px 0 16px}
+.hero h2 em{font-style:normal;color:#5B8CFF}
+.hero .b{display:inline-block;background:#1E5EFF;color:#fff;font-weight:800;padding:16px 26px;border-radius:14px;font-size:17px;margin-top:10px}
+.hero .lab{position:absolute;top:24px;right:40px;font:700 12px 'Geist Mono',monospace;letter-spacing:.12em;color:#8b9bc0}
+.case{display:inline-block;font:700 12px 'Geist Mono',monospace;letter-spacing:.12em;border:1.5px solid #5B8CFF;color:#5B8CFF;padding:6px 10px;border-radius:6px;transform:rotate(-3deg);margin-top:18px}
+</style></head><body>
+<p class="t">ACQUISITOR, le détective des contacts</p><p class="s">Un personnage à nous : chapeau de détective et loupe. On le reconnaît de loin et il raconte le métier, enquêter pour trouver vos clients.</p>
+<div class="g" id="g"></div>
+<div class="hero"><span class="lab">EN SITUATION · VERSION 1 EN FOND, EN GRAND</span><div class="bg" id="hbg"></div>
+<div class="txt"><div class="lock" id="hl"></div><h2>Vos futurs clients ont une adresse. <em>On mène l'enquête.</em></h2><p style="font-size:19px;color:#b8c4e0;margin:0">Aucun contact ne lui échappe. 0,07 € HT l'entreprise.</p><span class="b">Ouvrir l'enquête</span><br><span class="case">DOSSIER N° 221 · RESTAURANTS · LILLE</span></div></div>
+<script>
+const blue='#1E5EFF',navy='#0E1A33';
+const hat=(c,band)=>`<path d="M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z" fill="${c}"/><rect x="30" y="32" width="40" height="6" fill="${band}"/><path d="M12 41Q50 31 88 41Q50 49 12 41Z" fill="${c}"/>`;
+const D={
+1:(c)=>`<circle cx="44" cy="60" r="20" fill="${c.lens}" stroke="${c.ring}" stroke-width="11"/><path d="M58.5 74.5L80 96" stroke="${c.ring}" stroke-width="13" stroke-linecap="round"/><g transform="translate(44 40) rotate(-12) scale(.78) translate(-50 -40)">${hat(c.hat,c.band)}</g>`,
+2:(c)=>`<g transform="translate(0 2)">${hat(c.hat,c.band)}</g><circle cx="36" cy="60" r="4.5" fill="${c.hat}"/><circle cx="62" cy="61" r="15" fill="${c.lens}" stroke="${c.ring}" stroke-width="6.5"/><circle cx="62" cy="61" r="6.5" fill="${c.hat}"/><circle cx="59.5" cy="58.5" r="2" fill="${c.lens}"/><path d="M73 72L86 88" stroke="${c.ring}" stroke-width="8" stroke-linecap="round"/><path d="M32 78Q38 82 45 78" stroke="${c.hat}" stroke-width="3.5" stroke-linecap="round" fill="none"/>`,
+3:(c)=>`<path d="M14 100L34 68L50 86L66 68L86 100Z" fill="${c.hat}"/><path d="M36 64Q50 74 64 64L60 80L50 86L40 80Z" fill="${c.band}"/><g transform="translate(0 4)">${hat(c.hat,c.band)}</g><circle cx="58" cy="60" r="12" fill="${c.lens}" stroke="${c.ring}" stroke-width="5"/><path d="M52 55a7 7 0 0 1 5-4" stroke="#fff" stroke-width="2.6" stroke-linecap="round" fill="none"/>`};
+const info={1:['1 · LE CHAPEAU','La loupe porte le chapeau du détective. Simple, drôle, mémorable : la loupe devient un personnage.'],
+2:['2 · L’INSPECTEUR','Un visage : chapeau, un œil normal et l’autre agrandi derrière la loupe. Une vraie mascotte, sympathique, parfaite pour les e-mails et les réseaux.'],
+3:['3 · L’OMBRE','Le détective de film noir : chapeau, col du trench relevé, seule la loupe brille. Le plus classe, le plus mystérieux.']};
+const sv=(k,c,s,bg)=>`<svg width="${s}" height="${s}" viewBox="0 0 100 100">${bg?`<rect width="100" height="100" rx="24" fill="${bg}"/>`:''}<clipPath id="cp${k}${s}"><rect width="100" height="100" rx="24"/></clipPath><g clip-path="${bg?`url(#cp${k}${s})`:''}"><g ${bg?(k==3?'transform="translate(12 8) scale(.76)"':'transform="translate(9 7) scale(.82)"'):''}>${D[k](c)}</g></g></svg>`;
+const W={1:{ring:blue,lens:'#fff',hat:navy,band:blue},2:{ring:blue,lens:'#fff',hat:navy,band:blue},3:{ring:blue,lens:'#DCE6FF',hat:navy,band:blue}};
+const B={1:{ring:'#fff',lens:blue,hat:'#fff',band:navy},2:{ring:'#fff',lens:blue,hat:'#fff',band:navy},3:{ring:'#fff',lens:blue,hat:'#fff',band:navy}};
+const N={1:{ring:'#5B8CFF',lens:navy,hat:'#fff',band:'#5B8CFF'},2:{ring:'#5B8CFF',lens:navy,hat:'#fff',band:'#5B8CFF'},3:{ring:'#5B8CFF',lens:blue,hat:'#fff',band:'#5B8CFF'}};
+let h='';for(const k of [1,2,3]){h+=`<div class="c"><h3>${info[k][0]}</h3><h4>${['','Le chapeau','L’inspecteur','L’ombre'][k]}</h4><p>${info[k][1]}</p><div class="row">${sv(k,W[k],130)}${sv(k,B[k],74,blue)}${sv(k,N[k],46,navy)}</div><div class="lock">${sv(k,B[k],40,blue)}ACQUISITOR</div></div>`}
+document.getElementById('g').innerHTML=h;
+document.getElementById('hl').innerHTML=sv(1,B[1],44,blue)+'ACQUISITOR';
+document.getElementById('hbg').innerHTML=`<svg width="640" height="640" viewBox="0 0 100 100" style="opacity:.16">${D[1]({ring:'#5B8CFF',lens:'none',hat:'#5B8CFF',band:navy})}</svg>`;
+</script></body></html>
