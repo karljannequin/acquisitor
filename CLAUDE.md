@@ -18,10 +18,11 @@
 - Les données (contacts, entreprises, campagnes envoyées) se créent dans l'outil ou dans le stockage Cloudflare, jamais dans le code.
 - Toujours expliquer en français simple, sans jargon.
 
-## RÈGLE ABSOLUE : Domino's Pizza exclu
+## RÈGLE ABSOLUE : exclusions permanentes
 
-- **Domino's Pizza est exclu de tout Acquisitor, sans aucune exception** : jamais collecté, jamais gardé dans la base, jamais contacté, jamais fourni à un client, pour aucune marque. Cela vaut aussi pour ses franchisés, ses restaurants et tout ce qui s'en rapproche (nom ou enseigne contenant « Domino », domaines `dominos.fr` / `dominos.com`).
-- Cette exclusion se vérifie à l'entrée de la base (collecte, import), avant chaque envoi et avant chaque fourniture de contacts. Elle ne doit pas pouvoir être désactivée dans l'interface.
+- Sont exclus de tout Acquisitor, sans aucune exception : **Domino's Pizza Vendôme** (le restaurant de Vendôme uniquement, les autres Domino's ne sont pas concernés), **la société RYD** (et tous ses établissements), **Malek Hassani** (ou Hassanni, toutes orthographes) **et toutes les sociétés qu'il dirige ou possède**, dont son groupe d'entreprises à Blois.
+- Jamais collectés, jamais gardés dans la base, jamais contactés, jamais fournis à un client, pour aucune marque. Reconnaissance par numéro d'entreprise (SIREN), nom, adresse et nom des dirigeants au registre officiel.
+- Vérification à l'entrée de la base (collecte, import), avant chaque envoi et avant chaque fourniture de contacts. Impossible à désactiver dans l'interface.
 
 ## ACQUISITOR : ce que c'est
 

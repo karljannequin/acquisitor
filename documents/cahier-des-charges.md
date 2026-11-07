@@ -2,9 +2,9 @@
 
 Décisions prises avec Karl le 07/11/2026. La maquette `maquettes/outil.html` montre chaque écran.
 
-## 0. Règle absolue : Domino's Pizza exclu
+## 0. Règle absolue : exclusions permanentes
 
-Domino's Pizza est exclu de tout l'outil, sans exception : jamais collecté, jamais gardé, jamais contacté, jamais fourni à un client, pour toutes les marques. Franchisés et restaurants compris, et tout ce qui s'en rapproche (nom ou enseigne contenant « Domino », sites et e-mails `dominos.fr` / `dominos.com`). Contrôle à l'entrée de la base, avant chaque envoi et avant chaque fourniture. Visible dans Marques & réglages (« Exclusions permanentes »), impossible à retirer. Une ancienne fiche qui correspond est supprimée automatiquement.
+Exclus de tout l'outil, sans exception : **Domino's Pizza Vendôme** (uniquement ce restaurant ; les autres Domino's sont des contacts comme les autres), **la société RYD** et ses établissements, **Malek Hassani / Hassanni** et toutes les sociétés qu'il dirige ou possède (groupe d'entreprises à Blois). Jamais collectés, jamais gardés, jamais contactés, jamais fournis, pour toutes les marques et tous les clients. Reconnaissance : SIREN, nom, adresse, dirigeants au registre officiel (toutes orthographes). Contrôle à l'entrée de la base, avant chaque envoi et avant chaque fourniture. Visible dans Marques & réglages (« Exclusions permanentes »), impossible à retirer. Une ancienne fiche qui correspond est supprimée automatiquement.
 
 ## 1. Le principe
 
@@ -100,4 +100,6 @@ Reprises des sites, pas seulement des logos. L'outil final ira lire le site de c
 - Karl est d'accord pour **fournir des contacts et des campagnes** à des clients.
 - Contacts fournis : entreprises (registre officiel, sites web) avec leurs coordonnées professionnelles. Pas de revente d'e-mails nominatifs collectés sans information des personnes (risque CNIL), pas de revente de données Google Maps.
 - Parcours client visé, automatique : le client décrit les clients qu'il cherche → nombre d'entreprises affiché aussitôt → formule et paiement (Stripe) → campagne → envoi depuis sa propre adresse → réponses dans son espace.
-- Question ouverte : campagne faite pour le client ou par le client (voir proposition dans la conversation : l'IA la fait, le client valide ou modifie ; option faite à la main par Karl).
+- **Zéro sur-mesure** (proposition de Karl, approuvée) : tout est automatique. L'IA fabrique la campagne à partir du site du client (couleurs, logo, pages) et de sa description, le client valide ou la modifie lui-même avec l'éditeur. Aucun travail manuel de Karl.
+- Proposition en attente de validation par Karl : **abonnement mensuel** (l'agent travaille chaque nuit, relances, réponses, la base continue de grandir) plus un **pack ponctuel** sans abonnement pour essayer.
+- Proposition en attente de validation par Karl : **la base reste la propriété de Karl**. Le client utilise les contacts de sa cible tant qu'il est abonné ; il garde pour lui ses résultats (contacts qui ont répondu ou se sont montrés intéressés) et ses propres contacts importés. Pas d'export de la base complète.

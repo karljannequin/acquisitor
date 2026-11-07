@@ -215,6 +215,7 @@ td.bc,th.bc{text-align:center}
 .journal{list-style:none;margin:0;padding:0 0 0 18px;border-left:2px solid var(--blue-100);display:flex;flex-direction:column;gap:14px}
 .journal li{position:relative}
 .excl{border-color:#F3B8C2!important;background:linear-gradient(180deg,#FDF3F5,#fff 60%)}
+.exlist{display:flex;flex-direction:column;gap:10px}.exrow{display:flex;gap:12px;align-items:flex-start}.exrow small{display:block;color:var(--muted);margin-top:3px;line-height:1.45}
 .lockb{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--bad);color:#fff;font-weight:800;flex-shrink:0}
 .mail{max-width:720px!important;background:#fff}
 .stage.mobile .mail{max-width:380px!important}
@@ -830,7 +831,7 @@ body.stopped .pulse{background:var(--bad);animation:none}
           <div class="mission"><label class="switch"><input type="checkbox" checked aria-label="Validation obligatoire"><span></span></label><div><b>Votre accord avant chaque nouvel envoi</b><small>L’agent prépare, vous validez. Recommandé.</small></div></div>
           <div class="mission"><label class="switch"><input type="checkbox" checked aria-label="Relances automatiques"><span></span></label><div><b>Relances automatiques sans accord</b><small>Une seule relance, seulement si pas de réponse.</small></div></div>
           <div class="mission"><label class="switch"><input type="checkbox" checked aria-label="Une marque à la fois"><span></span></label><div><b>Une seule marque à la fois par contact</b><small>Une entreprise contactée par ZeBooster ne reçoit rien d’une autre marque pendant 3 mois.</small></div></div>
-          <div class="mission"><span class="lockb" aria-hidden="true">✕</span><div><b>Domino’s Pizza exclu, sans exception</b><small>Règle interne permanente : jamais contacté, jamais fourni, pour aucune marque et aucun client.</small></div></div>
+          <div class="mission"><span class="lockb" aria-hidden="true">✕</span><div><b>Exclusions permanentes</b><small>Domino’s Vendôme, société RYD, Malek Hassani et ses sociétés : jamais contactés, jamais fournis, pour aucune marque et aucun client.</small></div></div>
           <div class="mission"><label class="switch"><input type="checkbox" checked aria-label="Liste ne plus contacter"><span></span></label><div><b>Liste « ne plus contacter » commune</b><small>Toujours appliquée, ne peut pas être désactivée dans la vraie version.</small></div></div>
         </div>
       </div>
@@ -950,13 +951,12 @@ body.stopped .pulse{background:var(--bad);animation:none}
       </div>
       <div class="card excl" style="margin-top:16px">
         <h3>🔒 Exclusions permanentes <span class="tag bad">Règle interne · ne peut pas être retirée</span></h3>
-        <div class="it" style="display:flex;gap:12px;align-items:flex-start">
-          <span class="lockb" aria-hidden="true">✕</span>
-          <div style="flex:1;min-width:0"><b style="font-size:15px">Domino’s Pizza</b>
-            <small style="display:block;color:var(--muted);margin-top:4px;line-height:1.5">Exclu de tout l’outil, sans exception, pour toutes les marques et tous les clients : jamais collecté, jamais gardé, jamais contacté, jamais fourni.<br>
-            Reconnu par : nom ou enseigne contenant « Domino » (Domino’s, Dominos, Domino’s Pizza), sites et e-mails en <b>dominos.fr</b> / <b>dominos.com</b>, sociétés et franchisés exploitant l’enseigne, adresses de leurs restaurants.</small></div>
+        <div class="exlist">
+          <div class="exrow"><span class="lockb" aria-hidden="true">✕</span><div><b>Domino’s Pizza Vendôme</b><small>Le restaurant de Vendôme uniquement. Les autres Domino’s ne sont pas concernés.</small></div></div>
+          <div class="exrow"><span class="lockb" aria-hidden="true">✕</span><div><b>Société RYD</b><small>La société et tous ses établissements, reconnus par son numéro d’entreprise (SIREN) et son nom.</small></div></div>
+          <div class="exrow"><span class="lockb" aria-hidden="true">✕</span><div><b>Malek Hassani (ou Hassanni)</b><small>Lui et toutes les sociétés qu’il dirige ou possède, dont son groupe d’entreprises à Blois. Reconnu par le nom des dirigeants au registre officiel, toutes orthographes.</small></div></div>
         </div>
-        <p class="small muted" style="margin:12px 0 0">Une fiche qui ressemble à Domino’s est écartée avant même d’entrer dans la base. Si une ancienne fiche correspond, elle est supprimée automatiquement.</p>
+        <p class="small muted" style="margin:12px 0 0">Jamais collectés, jamais gardés, jamais contactés, jamais fournis, pour toutes les marques et tous les clients. Une fiche concernée est écartée avant d’entrer dans la base ; une ancienne fiche est supprimée automatiquement.</p>
       </div>
 
       <div class="card">
@@ -1466,7 +1466,7 @@ function renderRecherche(){
      <div><i>✓</i><span><b>${L[4]} e-mails vérifiés</b><small>L’adresse existe et répond, sans envoyer de message.</small></span></div>
      <div><i>✓</i><span><b>${m.closed} entreprise${m.closed>1?'s':''} fermée${m.closed>1?'s':''} écartée${m.closed>1?'s':''}</b><small>Radiées au registre officiel.</small></span></div>
      <div><i>✓</i><span><b>Zone et activité respectées</b><small>Chaque fiche est contrôlée : bonne ville, bon code d’activité.</small></span></div>
-     <div><i>✓</i><span><b>Exclusions permanentes respectées</b><small>Domino’s Pizza et ses franchisés : ${m.b==='zb'||m.t.toLowerCase().includes('pizz')?'1 fiche écartée':'aucune fiche concernée'}.</small></span></div>
+     <div><i>✓</i><span><b>Exclusions permanentes respectées</b><small>Domino’s Vendôme, société RYD, sociétés de Malek Hassani : ${m.t.toLowerCase().includes('vendôme')&&m.t.toLowerCase().includes('pizz')?'1 fiche écartée':'aucune fiche concernée'}.</small></span></div>
      <div><i>✓</i><span><b>${L[3]-L[4]} fiche${L[3]-L[4]>1?'s':''} écartée${L[3]-L[4]>1?'s':''}</b><small>Pas assez sûres (e-mail douteux ou absent) : jamais ajoutées à la base.</small></span></div>
     </div>
     <h4>Exemples de contacts ajoutés</h4>
