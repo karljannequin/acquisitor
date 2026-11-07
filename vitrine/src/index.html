@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light only">
 <meta name="theme-color" content="#ffffff">
-<title>ACQUISITOR · L’apporteur de contacts qualifiés, conforme RGPD</title>
-<meta name="description" content="Dites quels clients vous cherchez : ACQUISITOR trouve les entreprises, rédige votre campagne à vos couleurs, l’envoie depuis votre adresse et vous transmet les réponses. Vous payez seulement les entreprises contactées.">
+<title>ACQUISITOR · Fichier de prospection et campagnes B2B, conforme RGPD</title>
+<meta name="description" content="Trouvez des clients sans acheter de fichier de prospection : ACQUISITOR trouve les entreprises de votre secteur, rédige votre campagne et l’envoie pour vous. Contacts qualifiés, conforme RGPD, dès 0,05 € l’entreprise.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='120' fill='%231E5EFF'/%3E%3Ccircle cx='226' cy='226' r='110' fill='none' stroke='%23fff' stroke-width='44'/%3E%3Cpath d='M310 310l92 92' stroke='%23fff' stroke-width='44' stroke-linecap='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap">
@@ -57,6 +57,11 @@ nav.links a{color:var(--ink2);text-decoration:none}nav.links a:hover{color:var(-
 .result .chips{display:flex;flex-wrap:wrap;gap:6px}
 .result .chips span{background:var(--blue-50);color:var(--blue-d);border-radius:999px;padding:4px 10px;font-size:13px;font-weight:700}
 .result small{color:var(--muted)}
+.rtop{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-end}
+.wait{margin:0;font-family:var(--fd);font-weight:800;font-size:clamp(20px,3vw,26px);color:var(--ink)}
+.reco{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;background:var(--blue-50);border-radius:12px;padding:14px 16px}
+.reco b{display:block;font-family:var(--fd);font-size:18px;margin:2px 0}
+.reco small{display:block}
 .wl{display:flex;gap:8px;flex-wrap:wrap}
 .wl input[type=email]{flex:1;min-width:220px;font:inherit;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px}
 .wl input[type=email]:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 3px rgba(30,94,255,.14)}
@@ -273,6 +278,17 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     </div>
   </section>
 
+  <section class="blk alt">
+    <div class="wrap seo">
+      <div class="head"><span class="eyebrow">Fichier de prospection</span><h2>Mieux qu’un fichier de prospection : des clients qui vous répondent</h2></div>
+      <div class="grid3">
+        <div class="card"><h3>Base de données entreprises à jour</h3><p>Toutes les entreprises actives du registre officiel (SIRENE), par activité, ville, rayon, département ou nombre de salariés. Mise à jour chaque nuit, sans fichier à acheter ni à nettoyer.</p></div>
+        <div class="card"><h3>Prospection B2B automatisée</h3><p>Une liste de prospection ne suffit pas : ACQUISITOR rédige et envoie vos e-mails de prospection, relance et trie les réponses. Vous gagnez des clients, pas des lignes de tableur.</p></div>
+        <div class="card"><h3>Génération de leads, conforme RGPD</h3><p>Contacts professionnels qualifiés et vérifiés, prospection par e-mail dans les règles : lien de désinscription, source indiquée, aucun contact revendu.</p></div>
+      </div>
+    </div>
+  </section>
+
   <section class="blk alt" id="questions">
     <div class="wrap">
       <div class="head"><span class="eyebrow">Questions</span><h2>Vous vous demandez sans doute…</h2></div>
@@ -282,6 +298,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
         <details><summary>Est-ce que je récupère les contacts ?</summary><p>Vous gardez tous les contacts qui vous ont répondu ou qui se sont montrés intéressés, ainsi que ceux que vous avez importés vous-même. La base complète reste chez ACQUISITOR : c’est elle qui se met à jour chaque nuit pour vous.</p></details>
         <details><summary>Dois-je écrire la campagne moi-même ?</summary><p>Non. L’IA la rédige à partir de votre site et de quelques mots sur ce que vous vendez, avec vos couleurs et vos boutons. Vous pouvez la modifier si vous le souhaitez.</p></details>
         <details><summary>Depuis quelle adresse partent les e-mails ?</summary><p>Depuis une adresse à votre nom. Les réponses arrivent chez vous et dans votre espace ACQUISITOR.</p></details>
+        <details><summary>Quelle différence avec l’achat d’un fichier de prospection ?</summary><p>Un fichier se paie à l’avance, contient souvent des adresses périmées et il reste à écrire et envoyer les e-mails. Avec ACQUISITOR, vous ne payez que les entreprises réellement contactées, la campagne est rédigée pour vous et les adresses en erreur ne sont jamais facturées.</p></details>
         <details><summary>Puis-je arrêter quand je veux ?</summary><p>Oui, les formules sont sans engagement.</p></details>
       </div>
     </div>
@@ -319,24 +336,35 @@ async function ask(q){
     if(!d.ok)throw new Error(d.message||'');
     show(d);
   }catch(e){
-    r.innerHTML=`<b>${esc(e.message||'Le comptage n’est pas disponible pour le moment.')}</b>${wlForm()}`;bindWl();
+    const msg=(e instanceof TypeError||!e.message)?'Le comptage n’est pas disponible pour le moment. Réessayez dans un instant.':e.message;r.innerHTML=`<b>${esc(msg)}</b>${wlForm()}`;bindWl();
   }finally{$('#go').disabled=false}
+}
+function plan(n){
+  if(n<=100)return{nom:'Essai',prix:'0 €',detail:'les 100 premières entreprises contactées sont offertes'};
+  if(n<=300)return{nom:'Essentiel',prix:'29 € par mois',detail:'jusqu’à 300 entreprises contactées par mois'};
+  if(n<=500)return{nom:'Pack ponctuel',prix:'39 € une fois',detail:'500 entreprises contactées, sans abonnement'};
+  if(n<=1000)return{nom:'Pro',prix:'69 € par mois',detail:'jusqu’à 1 000 entreprises contactées par mois'};
+  if(n<=3000)return{nom:'Agence',prix:'149 € par mois',detail:'jusqu’à 3 000 entreprises contactées par mois'};
+  const extra=Math.round((n-3000)*0.06);return{nom:'Agence',prix:`149 € + ${fmt(extra)} € une fois`,detail:`3 000 par mois inclus, ${fmt(n-3000)} de plus à 0,06 €, ou étalé sur ${Math.ceil(n/3000)} mois sans supplément`};
 }
 function show(d){
   const chips=[d.activite,d.zone,d.salaries].filter(Boolean).map(x=>`<span>${esc(x)}</span>`).join('');
-  $('#res').innerHTML=`<div><div class="big num">${fmt(d.total)}</div><b>entreprise${d.total>1?'s':''} correspond${d.total>1?'ent':''} à votre recherche</b></div>
-   <div class="chips">${chips}</div>
+  if(!d.total){$('#res').innerHTML=`<b>Aucune entreprise ne correspond exactement.</b><small>Élargissez la zone (« + 50 km », le département) ou retirez le nombre de salariés.</small>`;return}
+  const p=plan(d.total);
+  $('#res').innerHTML=`<div class="rtop"><div><div class="big num">${fmt(d.total)}</div><b>entreprise${d.total>1?'s':''} correspond${d.total>1?'ent':''} à votre recherche</b></div><div class="chips">${chips}</div></div>
+   <p class="wait">Ces contacts n’attendent que vous.</p>
+   <div class="reco"><div><small>Pour toutes les contacter</small><b>${esc(p.nom)} · ${esc(p.prix)}</b><small>${esc(p.detail)}. Sans engagement.</small></div><a class="btn ghost" href="#tarifs">Voir les formules</a></div>
+   <b>Démarrez sans engagement : vos 100 premières entreprises contactées sont offertes.</b>${wlForm('Je veux ces clients')}
    ${d.notes&&d.notes.length?`<small>${d.notes.map(esc).join(' ')}</small>`:''}
-   <small>Source : registre officiel des entreprises (entreprises actives). Avant l’envoi, ACQUISITOR ne garde que les contacts sûrs.</small>
-   <b>Le lancement approche : recevez vos 100 premières entreprises contactées offertes.</b>${wlForm()}`;
+   <small>Source : registre officiel des entreprises (entreprises actives). Avant l’envoi, ACQUISITOR ne garde que les contacts sûrs.</small>`;
   bindWl();
 }
-function wlForm(){return`<form class="wl" id="wl1"><input type="email" name="email" required placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail"><input class="hp" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">Être prévenu</button></form><span class="msg" id="wl1m" role="status"></span>`}
+function wlForm(label){return`<form class="wl" id="wl1"><input type="email" name="email" required placeholder="Votre adresse e-mail professionnelle" aria-label="Votre adresse e-mail"><input class="hp" type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true"><button class="btn" type="submit">${label||'Être prévenu'}</button></form><span class="msg" id="wl1m" role="status"></span>`}
 function bindWl(){const f=$('#wl1');if(f)f.onsubmit=e=>{e.preventDefault();join(f,$('#wl1m'),lastQ)}}
 async function join(f,m,besoin){
   const email=f.email.value.trim();m.className='msg';m.textContent='Envoi…';
   try{const r=await fetch('/api/liste',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,besoin,site:f.site.value})});const d=await r.json();
-    if(!d.ok)throw new Error(d.message||'');m.className='msg ok';m.textContent='C’est noté ! Vous serez prévenu au lancement.';f.reset()}
+    if(!d.ok)throw new Error(d.message||'');m.className='msg ok';m.textContent='C’est noté ! Nous vous écrivons dès l’ouverture, avec vos 100 entreprises offertes.';f.reset()}
   catch(e){m.className='msg bad';m.textContent=e.message||'L’inscription n’a pas fonctionné. Réessayez dans un instant.'}
 }
 $('#askf').onsubmit=e=>{e.preventDefault();const q=$('#q').value.trim();if(q.length<3){$('#q').focus();return}ask(q)};
