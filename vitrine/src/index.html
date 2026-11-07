@@ -275,7 +275,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <button type="button">Agences immobilières en Bretagne</button>
         </div>
         <div class="result" id="res" hidden aria-live="polite"></div>
-        <div class="trust"><span>✓ Registre officiel des entreprises</span><span>✓ Contacts vérifiés</span><span>✓ Sans abonnement</span></div>
+        <div class="trust"><span>✓ Toute la France</span><span>✓ Contacts vérifiés</span><span>✓ Sans abonnement</span></div>
       </div>
 
       <div class="hright" aria-hidden="true">
@@ -349,13 +349,13 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="wrap">
       <div class="head rv"><span class="eyebrow">Conforme RGPD</span><h2>Des contacts qualifiés, dans les règles</h2></div>
       <div class="grid3">
-        <div class="card rv"><div class="ic">✓</div><h3>Seulement des contacts sûrs</h3><p>Entreprises actives au registre officiel, bonne zone, bonne activité, adresse vérifiée. Le reste est écarté.</p></div>
+        <div class="card rv"><div class="ic">✓</div><h3>Seulement des contacts sûrs</h3><p>Entreprises en activité, bonne zone, bonne activité, adresse vérifiée. Le reste est écarté.</p></div>
         <div class="card rv"><div class="ic">§</div><h3>Prospection entre professionnels</h3><p>Chaque e-mail concerne le métier de l’entreprise, dit qui écrit et d’où vient l’adresse, avec un lien « ne plus recevoir ».</p></div>
         <div class="card rv"><div class="ic">€</div><h3>Budget plafonné</h3><p>Vous fixez le maximum par mois. L’outil s’arrête de lui-même avant de le dépasser.</p></div>
       </div>
       <div class="seo rv">
         <h3>Mieux qu’un fichier de prospection</h3>
-        <p>Une base de données entreprises à jour (registre SIRENE), filtrée par activité, ville, rayon, département ou nombre de salariés. Et au lieu d’une simple liste de prospection, une prospection B2B automatisée : e-mails rédigés, envoyés, relancés, réponses triées. De la génération de leads conforme RGPD, sans fichier à acheter ni à nettoyer.</p>
+        <p>Une base de données entreprises à jour, filtrée par activité, ville, rayon, département ou nombre de salariés. Et au lieu d’une simple liste de prospection, une prospection B2B automatisée : e-mails rédigés, envoyés, relancés, réponses triées. De la génération de leads conforme RGPD, sans fichier à acheter ni à nettoyer.</p>
       </div>
     </div>
   </section>
@@ -404,7 +404,7 @@ const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* ---------- Estimation ---------- */
 let lastQ='';
 async function ask(q){
-  lastQ=q;const r=$('#res');r.hidden=false;r.innerHTML='<small>Recherche dans le registre officiel des entreprises…</small>';$('#go').disabled=true;
+  lastQ=q;const r=$('#res');r.hidden=false;r.innerHTML='<small>Recherche en cours…</small>';$('#go').disabled=true;
   try{
     const res=await fetch('/api/estimation?q='+encodeURIComponent(q));const d=await res.json();
     if(!d.ok)throw new Error(d.message||'');
@@ -421,16 +421,16 @@ function show(d){
   let top,price;
   if(cat&&d.total==null){
     top=`<div><div class="big num" id="rnum">0</div><b>${esc(cat.label)} dans la zone</b></div>`;
-    price=`<div class="reco"><div><small>${esc(d.activite)}</small><b>0,07 € HT par entreprise vérifiée</b><small>Le registre officiel n’a pas de code « ${esc(d.activite.toLowerCase())} ». Notre agent vérifie chaque restaurant un par un : seuls les vrais sont contactés et facturés.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>`;
+    price=`<div class="reco"><div><small>${esc(d.activite)}</small><b>0,07 € HT par entreprise vérifiée</b><small>Notre agent vérifie chaque établissement un par un : seuls les vrais sont contactés et facturés.</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>`;
   }else{
-    top=`<div><div class="big num" id="rnum">0</div><b>${cat?'entreprises identifiées comme '+esc(d.activite.toLowerCase())+' par leur nom':'entreprise'+(d.total>1?'s':'')+' correspond'+(d.total>1?'ent':'')+' à votre recherche'}</b>${cat?`<small>sur ${cat.plus?'plus de ':''}${fmt(cat.total)} ${esc(cat.label)} de la zone, au registre officiel</small>`:''}</div>`;
+    top=`<div><div class="big num" id="rnum">0</div><b>${cat?'entreprises identifiées comme '+esc(d.activite.toLowerCase())+' par leur nom':'entreprise'+(d.total>1?'s':'')+' correspond'+(d.total>1?'ent':'')+' à votre recherche'}</b>${cat?`<small>sur ${cat.plus?'plus de ':''}${fmt(cat.total)} ${esc(cat.label)} de la zone</small>`:''}</div>`;
     price=`<div class="reco"><div><small>Les contacter toutes</small><b>${(d.notes||[]).includes('plus')?'plus de ':''}${cost(d.total)}</b><small>${(d.notes||[]).includes('plus')?'0,07 € HT par entreprise. Précisez la zone ou l’activité pour un chiffre exact.':fmt(d.total)+' × 0,07 € HT.'} Sans abonnement.${cat?' Notre agent vérifie aussi les autres restaurants : chaque vraie pizzeria trouvée en plus est ajoutée.':''}</small></div><a class="btn ghost" href="#prix">Voir le prix</a></div>`;
   }
   $('#res').innerHTML=`<div class="rtop">${top}<div class="chips">${chips}</div></div>
    <p class="wait">Ces contacts n’attendent que vous.</p>
    ${price}
    <b>Lancement très bientôt : laissez votre adresse, vous serez parmi les premiers.</b>${wlForm('Je veux ces clients')}
-   <small>Source : registre officiel des entreprises (entreprises actives), chiffres exacts. Avant l’envoi, ACQUISITOR ne garde que les contacts vérifiés.</small>`;
+   <small>Entreprises en activité. Avant l’envoi, ACQUISITOR ne garde que les contacts vérifiés.</small>`;
   const plus=(cat&&d.total==null)?cat.plus:(d.notes||[]).includes('plus');
   count($('#rnum'),cat&&d.total==null?cat.total:d.total,900,plus?'plus de ':'');
   bindWl();

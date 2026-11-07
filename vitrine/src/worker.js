@@ -61,10 +61,19 @@ const ACTS = [
 // Tranches de salariés du registre : [minimum, code]
 const TRANCHES = [[1, "01"], [3, "02"], [6, "03"], [10, "11"], [20, "12"], [50, "21"], [100, "22"], [200, "31"], [250, "32"], [500, "41"], [1000, "42"], [2000, "51"], [5000, "52"], [10000, "53"]];
 
-async function getJson(url) {
-  const r = await fetch(url, { headers: { accept: "application/json" }, cf: { cacheTtl: 86400, cacheEverything: true } });
-  if (!r.ok) throw new Error("source " + r.status);
-  return r.json();
+const UA = "Acquisitor/1.0 (+https://acquisitor.fr; contact@acquisitor.fr)";
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+async function getJson(url, tries = 3) {
+  for (let i = 0; i < tries; i++) {
+    try {
+      const r = await fetch(url, { headers: { accept: "application/json", "user-agent": UA }, cf: { cacheTtl: 86400, cacheEverything: true } });
+      if (r.ok) return await r.json();
+      console.log("source", r.status, url);
+      if (r.status !== 429 && r.status < 500) throw new Error("source " + r.status);
+    } catch (e) { console.log("erreur source", e.message, url); if (i === tries - 1) throw e; }
+    await wait(400 * (i + 1));
+  }
+  throw new Error("source indisponible");
 }
 
 async function estimate(text) {
@@ -125,11 +134,11 @@ async function estimate(text) {
     const all = first.total_results || 0, pages = first.total_pages || 1;
     categorie = { label: "restaurants (restauration traditionnelle et rapide)", total: all, plus: all >= 10000 };
     total = null;
-    if (pages <= 16) {
+    if (pages <= 10) {
       let seen = first.results || [];
-      for (let pg = 2; pg <= pages; pg += 4) {
+      for (let pg = 2; pg <= pages; pg += 2) {
         const batch = [];
-        for (let k = pg; k < pg + 4 && k <= pages; k++) { const q2 = new URLSearchParams(p); q2.set("page", String(k)); batch.push(getJson(url + q2.toString()).then((x) => x.results || [])); }
+        for (let k = pg; k < pg + 2 && k <= pages; k++) { const q2 = new URLSearchParams(p); q2.set("page", String(k)); batch.push(getJson(url + q2.toString()).then((x) => x.results || [])); }
         for (const r of await Promise.all(batch)) seen = seen.concat(r);
       }
       total = seen.filter((r) => re.test(nameOf(r))).length;
@@ -159,7 +168,7 @@ export default {
       const q = (url.searchParams.get("q") || "").slice(0, 200);
       if (q.trim().length < 3) return json({ ok: false, message: "Décrivez les clients que vous cherchez." }, 400);
       try { return json(await estimate(q)); }
-      catch (e) { return json({ ok: false, message: "Le registre des entreprises ne répond pas pour le moment. Réessayez dans un instant." }, 502); }
+      catch (e) { console.log("estimation", e && e.stack || e); return json({ ok: false, message: "Le comptage prend plus de temps que prévu. Réessayez dans un instant." }, 502); }
     }
 
     if (url.pathname === "/api/liste" && request.method === "POST") {
