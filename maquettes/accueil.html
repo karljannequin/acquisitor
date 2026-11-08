@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="light only">
 <meta name="theme-color" content="#ffffff">
-<title>ACQUISITOR · Fichier de prospection et campagnes B2B, conforme RGPD</title>
+<title>ACQUISITOR · Il trouve tout, partout</title>
 <meta name="description" content="Trouvez des clients sans acheter de fichier de prospection : ACQUISITOR trouve les entreprises de votre secteur, rédige votre campagne et l’envoie pour vous. Contacts qualifiés, conforme RGPD, 0,07 € HT l’entreprise contactée.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%231E5EFF'/%3E%3Cg transform='translate%289 7%29 scale%28.82%29'%3E%3Ccircle cx='44' cy='60' r='20' fill='%231E5EFF' stroke='%23fff' stroke-width='11'/%3E%3Cpath d='M58.5 74.5L80 96' stroke='%23fff' stroke-width='13' stroke-linecap='round'/%3E%3Cg transform='translate%2844 40%29 rotate%28-12%29 scale%28.78%29 translate%28-50 -40%29'%3E%3Cpath d='M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z' fill='%23fff'/%3E%3Crect x='30' y='32' width='40' height='6' fill='%230E1A33'/%3E%3Cpath d='M12 41Q50 31 88 41Q50 49 12 41Z' fill='%23fff'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,7 +78,7 @@ nav.links a:not(.btn){color:var(--ink2);text-decoration:none}nav.links a:not(.bt
 .sugg button:hover,.sugg button:focus{background:var(--blue-50)}
 .sugg small{color:var(--muted);font-size:12.5px;white-space:nowrap}
 .sugg .none{margin:0;padding:10px 12px;color:var(--muted);font-size:14px}
-.browse{border:1px solid var(--line);border-radius:14px;padding:12px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-height:340px;overflow:auto;background:var(--bg)}
+.browse{border:1px solid var(--line);border-radius:14px;padding:12px;display:block;max-height:420px;overflow:auto;background:var(--bg)}
 .browse fieldset{border:0;margin:0;padding:0;display:flex;flex-direction:column;gap:4px;min-width:0}
 .browse legend{font-weight:800;font-size:13px;margin-bottom:4px;color:var(--blue-d)}
 .browse label{display:flex;gap:8px;align-items:center;font-size:14px;cursor:pointer}
@@ -239,6 +239,22 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 @media(max-width:560px){.ask{flex-direction:column}.ask .btn{width:100%}section.blk{padding-block:56px}.pband,.final{padding-block:60px}.pright{padding:20px}.live{transform:none;animation:none}}
 
 
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 4px}
+.stats div{background:#fff;border:1px solid var(--blue-100);border-radius:14px;padding:12px 14px;box-shadow:0 8px 24px rgba(30,94,255,.06)}
+.stats b{display:block;font-family:var(--fd);font-size:clamp(22px,2.6vw,28px);color:var(--blue);letter-spacing:-.02em;line-height:1.1}
+.stats small{color:var(--muted);font-size:13px;line-height:1.3;display:block;margin-top:2px}
+@media(max-width:560px){.stats{gap:6px}.stats div{padding:10px}.stats small{font-size:11.5px}}
+.btabs{display:flex;gap:6px;flex-wrap:wrap;position:sticky;top:-12px;background:var(--bg);padding:2px 0 8px;z-index:1}
+.btabs button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;color:var(--ink2)}
+.btabs button[aria-selected=true]{background:var(--blue);border-color:var(--blue);color:#fff}
+.bgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.bsec{border-top:1px solid var(--line);padding:6px 0}
+.bsec summary{cursor:pointer;font-weight:800;font-size:14px;display:flex;justify-content:space-between;gap:10px;padding:6px 0}
+.bsec summary small{color:var(--muted);font-weight:600}
+.bsec fieldset{margin:6px 0 10px 4px}
+@media(max-width:560px){.bgrid{grid-template-columns:minmax(0,1fr)}}
+
 /* Enquête du détective */
 .dossier{background:#0E1A33;color:#fff;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:14px;margin:-6px;position:relative;overflow:hidden}
 .dossier:before{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(91,140,255,.18) 1px,transparent 1px);background-size:16px 16px;opacity:.5;pointer-events:none}
@@ -333,15 +349,16 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
     <div class="wrap hgrid">
       <div class="hleft">
         <span class="tagline"><span aria-hidden="true"></span>Ouverture prochaine · L’apporteur de contacts qualifiés, conforme RGPD</span>
-        <h1>Qui vous a dit que trouver des clients était compliqué&nbsp;?</h1>
-        <p class="lead"><b class="pricel">Vos prochains clients à 0,07&nbsp;€ l’entreprise.</b> Dites qui vous cherchez, on les trouve, on leur écrit, vous recevez les réponses.</p>
+        <h1>Il trouve tout, partout.</h1>
+        <p class="lead"><b class="pricel">Trouvez vos clients dans la France entière.</b> Configurez et envoyez vos campagnes marketing directement en ligne.</p>
+        <div class="stats" id="stats"><div><b class="num" id="st-m">732</b><small>métiers</small></div><div><b class="num" id="st-o">26</b><small>types d’organismes publics et associations</small></div><div><b class="num" id="st-e">14,2 millions</b><small>d’établissements en France</small></div></div>
 
         <form class="guide" id="guide" autocomplete="off">
           <div class="gfield">
             <span class="glab">Quoi ?</span>
-            <div class="gbox"><div class="tags" id="g-acts"></div><input id="g-act-in" type="text" placeholder="Coiffeurs, garages, pizzerias…" aria-label="Quel métier cherchez-vous ?"></div>
+            <div class="gbox"><div class="tags" id="g-acts"></div><input id="g-act-in" type="text" placeholder="Métier, mairies, hôpitaux, associations…" aria-label="Quel métier cherchez-vous ?"></div>
             <div class="sugg" id="g-act-sugg" hidden></div>
-            <button type="button" class="glink" id="g-browse">Parcourir les métiers</button>
+            <button type="button" class="glink" id="g-browse">Parcourir les 732 métiers et les organismes</button>
           </div>
           <div class="browse" id="browse" hidden></div>
           <div class="gfield">
@@ -360,7 +377,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
               <button type="button" data-t="50+" aria-pressed="false">50 et +</button>
             </div>
           </div>
-          <button class="btn gbtn" type="submit" id="go">Lancer l’enquête</button>
+          <button class="btn gbtn" type="submit" id="go">Combien sont-ils ?</button>
         </form>
         <form class="phrase" id="phrase" autocomplete="off"><input id="q" type="text" maxlength="200" placeholder="ou décrivez votre besoin en une phrase : « pizzerias à 5 km de Vendôme »" aria-label="Décrivez votre besoin en une phrase"><button type="submit" class="glink">Remplir</button></form>
         <div class="ideas" aria-label="Exemples">
@@ -370,7 +387,7 @@ footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
           <button type="button" data-ex="bretagne">Agences immobilières en Bretagne</button>
         </div>
         <div class="result" id="res" hidden aria-live="polite"></div>
-        <div class="trust"><span>✓ Toute la France</span><span>✓ Contacts vérifiés</span><span>✓ Sans abonnement</span></div>
+        <div class="trust"><span>✓ Toute la France</span><span>✓ Entreprises, mairies, administrations, associations</span><span>✓ Sans abonnement</span></div>
       </div>
 
       <div class="hright" aria-hidden="true">
@@ -498,32 +515,51 @@ const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- Recherche guidée ---------- */
 const S={acts:[],lieu:null,km:10,taille:'toutes'};
-let CAT=[],ALL={};
+let CAT=[],ALL={},NAFT=[],ORGL=[],TAB='courants';
+const ENQ='__ENQUETE__'==='1';
+fetch('/api/metiers').then(r=>r.json()).then(c=>{
+  CAT=c.courants;NAFT=c.naf;ORGL=c.orgs;
+  CAT.forEach(f=>f.items.forEach(i=>ALL[i.id]={...i,f:f.f,t:0}));
+  ORGL.forEach(o=>ALL[o.id]={...o,f:'Organisme public ou association',t:1});
+  NAFT.forEach(f=>f.d.forEach(d=>d.items.forEach(([id,l])=>{if(!ALL[id])ALL[id]={id,l,k:[],f:d.l,t:2}})));
+  if(c.stats){const e=c.stats.etablissements;$('#st-e').textContent=(e/1e6).toLocaleString('fr-FR',{maximumFractionDigits:1})+' millions';$('#st-m').textContent=c.stats.metiers;$('#st-o').textContent=c.stats.organismes}
+  drawBrowse();drawActs()}).catch(()=>{});
 const nz=t=>String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[’'\-]/g,' ');
-fetch('/api/metiers').then(r=>r.json()).then(c=>{CAT=c;c.forEach(f=>f.items.forEach(i=>ALL[i.id]=i));drawBrowse()}).catch(()=>{});
 
 function drawActs(){
   $('#g-acts').innerHTML=S.acts.map(id=>`<span class="tag">${esc(ALL[id]?ALL[id].l:id)}<button type="button" data-rm="${id}" aria-label="Retirer ${esc(ALL[id]?ALL[id].l:id)}">×</button></span>`).join('');
   $$('#g-acts [data-rm]').forEach(b=>b.onclick=()=>{S.acts=S.acts.filter(x=>x!==b.dataset.rm);drawActs();drawBrowse();$('#g-act-in').focus()});
-  $('#g-act-in').placeholder=S.acts.length?'Ajouter un autre métier…':'Coiffeurs, garages, pizzerias…';
+  $('#g-act-in').placeholder=S.acts.length?'Ajouter un autre métier ou organisme…':'Métier, mairies, hôpitaux, associations…';
 }
 function addAct(id){if(!S.acts.includes(id))S.acts.push(id);$('#g-act-in').value='';$('#g-act-sugg').hidden=true;drawActs();drawBrowse()}
 function suggActs(){
   const t=nz($('#g-act-in').value.trim()),box=$('#g-act-sugg');
   if(t.length<2){box.hidden=true;return}
-  const out=[];CAT.forEach(f=>f.items.forEach(i=>{const l=nz(i.l);const hit=l.includes(t)||i.k.some(k=>nz(k).includes(t)||t.includes(nz(k).trim()));if(hit&&!S.acts.includes(i.id))out.push([l.indexOf(t)===0?0:1,i,f.f])}));
-  out.sort((a,b)=>a[0]-b[0]);
-  box.innerHTML=out.slice(0,8).map(([,i,f])=>`<button type="button" data-id="${i.id}"><b>${esc(i.l)}</b><small>${esc(f)}</small></button>`).join('')||'<p class="none">Aucun métier trouvé. Essayez « Parcourir les métiers ».</p>';
+  const out=[];
+  for(const id in ALL){const i=ALL[id];if(S.acts.includes(id))continue;const l=nz(i.l);
+    const hit=l.includes(t)||i.k.some(k=>{const n=nz(k);return n.includes(t)||(n.length>3&&t.includes(n))});
+    if(hit)out.push([i.t===2?1:0,l.indexOf(t)===0?0:1,i])}
+  out.sort((a,b)=>a[0]-b[0]||a[1]-b[1]||a[2].l.length-b[2].l.length);
+  box.innerHTML=out.slice(0,10).map(([,,i])=>`<button type="button" data-id="${i.id}"><b>${esc(i.l)}</b><small>${esc(i.f)}</small></button>`).join('')||'<p class="none">Rien trouvé. Essayez « Parcourir les 732 métiers et les organismes ».</p>';
   box.hidden=false;$$('#g-act-sugg [data-id]').forEach(b=>b.onclick=()=>addAct(b.dataset.id));
 }
 function drawBrowse(){
   if(!CAT.length)return;
-  $('#browse').innerHTML=CAT.map(f=>`<fieldset><legend>${esc(f.f)}</legend>${f.items.map(i=>`<label><input type="checkbox" value="${i.id}" ${S.acts.includes(i.id)?'checked':''}> ${esc(i.l)}</label>`).join('')}</fieldset>`).join('');
+  const cb=(id,l)=>`<label><input type="checkbox" value="${id}" ${S.acts.includes(id)?'checked':''}> ${esc(l)}</label>`;
+  const tabs=`<div class="btabs" role="tablist">${[['courants','Métiers courants'],['tous','Tous les métiers (732)'],['orgs','Organismes publics et associations ('+ORGL.length+')']].map(([k,l])=>`<button type="button" role="tab" data-tab="${k}" aria-selected="${TAB===k}">${l}</button>`).join('')}</div>`;
+  let body='';
+  if(TAB==='courants')body=`<div class="bgrid">${CAT.map(f=>`<fieldset><legend>${esc(f.f)}</legend>${f.items.map(i=>cb(i.id,i.l)).join('')}</fieldset>`).join('')}</div>`;
+  if(TAB==='orgs')body=`<div class="bgrid"><fieldset><legend>Organismes publics et associations</legend>${ORGL.map(o=>cb(o.id,o.l)).join('')}</fieldset></div>`;
+  if(TAB==='tous')body=NAFT.map(f=>`<details class="bsec"><summary>${esc(f.f)}<small>${f.d.reduce((n,d)=>n+d.items.length,0)} métiers</small></summary>${f.d.map(d=>`<fieldset><legend>${esc(d.l)}</legend>${d.items.map(([id,l])=>cb(id,l)).join('')}</fieldset>`).join('')}</details>`).join('');
+  const open=[...$$('#browse details[open]')].map(x=>x.querySelector('summary').textContent);
+  $('#browse').innerHTML=tabs+body;
+  $$('#browse details').forEach(x=>{if(open.includes(x.querySelector('summary').textContent))x.open=true});
+  $$('#browse [data-tab]').forEach(b=>b.onclick=()=>{TAB=b.dataset.tab;drawBrowse()});
   $$('#browse input').forEach(c=>c.onchange=()=>{c.checked?(S.acts.includes(c.value)||S.acts.push(c.value)):(S.acts=S.acts.filter(x=>x!==c.value));drawActs()});
 }
 $('#g-act-in').addEventListener('input',suggActs);
 $('#g-act-in').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const b=$('#g-act-sugg [data-id]');if(b)b.click()}if(e.key==='Backspace'&&!e.target.value&&S.acts.length){S.acts.pop();drawActs();drawBrowse()}});
-$('#g-browse').onclick=()=>{const b=$('#browse');b.hidden=!b.hidden;$('#g-browse').textContent=b.hidden?'Parcourir les métiers':'Fermer la liste'};
+$('#g-browse').onclick=()=>{const b=$('#browse');b.hidden=!b.hidden;$('#g-browse').textContent=b.hidden?'Parcourir les 732 métiers et les organismes':'Fermer la liste'};
 
 let lt=null;
 function setLieu(l){S.lieu=l;$('#g-lieu-in').value=l?(l.type==='fr'?'Toute la France':l.label+(l.type==='com'&&l.sub?' ('+l.sub+')':'')):'';$('#g-lieu-sugg').hidden=true;$('#g-rayon').hidden=!(l&&l.type==='com');$('#g-france').classList.toggle('on',!!l&&l.type==='fr')}
@@ -556,6 +592,14 @@ function chipsHtml(){return [...S.acts.map(id=>ALL[id]?ALL[id].l:id),zoneTxt(),T
 function show(d){
   const chips=chipsHtml();
   if(!d.total){$('#res').innerHTML=`<div class="chips">${chips}</div><b>Aucune entreprise en activité ne correspond.</b><small>Élargissez le rayon ou ajoutez un métier voisin.</small>`;return}
+  if(!ENQ){
+    const det=d.parts.length>1?`<ul class="parts">${d.parts.map(p=>`<li><span>${esc(p.l)}</span><b>${fmt(p.n)}${p.inclus?' (déjà comptés)':''}</b></li>`).join('')}</ul>`:'';
+    $('#res').innerHTML=`<div class="rtop"><div><div class="big num" id="rnum">0</div><b>établissement${d.total>1?'s':''} en activité dans votre cible</b></div></div>
+     <div class="chips">${chips}</div>${det}
+     <p class="wait">Ouverture très bientôt.</p>
+     <b>Laissez votre adresse : vous serez parmi les premiers à pouvoir les contacter.</b>${wlForm('Je veux ces clients')}
+     <small>Nombre exact d’établissements en activité${d.maj?' ('+esc(d.maj)+')':''}, sans ceux qui ont refusé la diffusion de leurs coordonnées. Vous ne paierez que les contacts réellement fournis.</small>`;
+    count($('#rnum'),d.total,900);bindWl();return}
   if(S.lieu.type!=='com'){
     $('#res').innerHTML=`<div class="rtop"><div><div class="big num" id="rnum">0</div><b>entreprise${d.total>1?'s':''} en activité dans cette zone</b></div></div>
      <div class="chips">${chips}</div>
@@ -564,6 +608,7 @@ function show(d){
     count($('#rnum'),d.total,900);return}
   enquete(d);
 }
+if(ENQ)$('#go').textContent='Lancer l’enquête';
 const DET=`<svg viewBox='0 0 100 100' class='det'><g class='det-l'><circle cx='44' cy='60' r='20' fill='rgba(91,140,255,.18)' stroke='#fff' stroke-width='11'/><path d='M30 50a16 16 0 0 1 9-6' stroke='#fff' stroke-width='4' stroke-linecap='round' fill='none' opacity='.7'/><path d='M58.5 74.5L80 96' stroke='#fff' stroke-width='13' stroke-linecap='round'/><g class='det-h'><g transform='translate(44 40) rotate(-12) scale(.78) translate(-50 -40)'><path d='M30 39C29 25 34 15.5 42 16.5Q50 21.5 58 16.5C66 15.5 71 25 70 39Z' fill='#fff'/><rect x='30' y='32' width='40' height='6' fill='#1E5EFF'/><path d='M12 41Q50 31 88 41Q50 49 12 41Z' fill='#fff'/></g></g></g></svg>`;
 async function enquete(d){
   const r=$('#res');const go=$('#go');go.disabled=true;

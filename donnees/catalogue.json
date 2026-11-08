@@ -422,35 +422,131 @@
   "items": [
    {
     "id": "medecins",
-    "l": "Médecins",
+    "l": "Médecins généralistes",
     "naf": "86.21Z",
     "k": [
      "medecin",
-     "generaliste"
+     "generaliste",
+     "docteur",
+     "doc"
+    ]
+   },
+   {
+    "id": "specialistes",
+    "l": "Médecins spécialistes (neurologues, cardiologues, psychiatres…)",
+    "naf": "86.22C",
+    "k": [
+     "specialiste",
+     "neurologue",
+     "neuro",
+     "cardiologue",
+     "psychiatre",
+     "dermatologue",
+     "ophtalmologue",
+     "pediatre",
+     "gynecologue",
+     "orl",
+     "rhumatologue",
+     "gastro",
+     "endocrinologue",
+     "pneumologue",
+     "urologue",
+     "allergologue"
+    ]
+   },
+   {
+    "id": "radiologues",
+    "l": "Radiologues et centres d’imagerie",
+    "naf": "86.22A",
+    "k": [
+     "radiolog",
+     "imagerie",
+     "radio",
+     "scanner",
+     "irm"
+    ]
+   },
+   {
+    "id": "chirurgiens",
+    "l": "Chirurgiens",
+    "naf": "86.22B",
+    "k": [
+     "chirurgien",
+     "chirurgie"
     ]
    },
    {
     "id": "dentistes",
-    "l": "Dentistes",
+    "l": "Dentistes et cabinets dentaires",
     "naf": "86.23Z",
     "k": [
-     "dentist"
+     "dentist",
+     "dentaire",
+     "orthodontiste"
+    ]
+   },
+   {
+    "id": "praticiens",
+    "l": "Ostéopathes, psychologues et autres praticiens de santé",
+    "naf": "86.90F",
+    "k": [
+     "osteo",
+     "osteopathe",
+     "psychologue",
+     "psy",
+     "psychotherapeute",
+     "sophrologue",
+     "naturopathe",
+     "hypnotherapeute",
+     "chiropracteur",
+     "dieteticien",
+     "nutritionniste",
+     "acupuncteur",
+     "reflexologue"
     ]
    },
    {
     "id": "kines",
-    "l": "Kinésithérapeutes",
+    "l": "Kinés, orthophonistes, podologues…",
     "naf": "86.90E",
     "k": [
-     "kine"
+     "kine",
+     "kinesitherapeute",
+     "orthophoniste",
+     "podologue",
+     "pedicure",
+     "orthoptiste",
+     "ergotherapeute",
+     "psychomotricien"
     ]
    },
    {
     "id": "infirmiers",
-    "l": "Infirmiers",
+    "l": "Infirmiers et sages-femmes",
     "naf": "86.90D",
     "k": [
-     "infirm"
+     "infirm",
+     "sage femme",
+     "sages femmes"
+    ]
+   },
+   {
+    "id": "pharmacies-sante",
+    "l": "Pharmacies",
+    "naf": "47.73Z",
+    "k": [
+     "pharmacie",
+     "pharmacien"
+    ]
+   },
+   {
+    "id": "cliniques",
+    "l": "Cliniques et hôpitaux privés",
+    "naf": "86.10Z",
+    "k": [
+     "clinique",
+     "hopital",
+     "hopitaux"
     ]
    },
    {
@@ -555,10 +651,14 @@
    },
    {
     "id": "avocats",
-    "l": "Avocats",
+    "l": "Avocats, notaires, huissiers",
     "naf": "69.10Z",
     "k": [
-     "avocat"
+     "avocat",
+     "notaire",
+     "huissier",
+     "commissaire de justice",
+     "juriste"
     ]
    },
    {

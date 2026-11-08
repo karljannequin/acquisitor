@@ -1,0 +1,425 @@
+[
+{
+"id": "org-mairies",
+"l": "Mairies",
+"cj": [
+"7210",
+"7312"
+],
+"k": [
+"mairie",
+"mairies",
+"commune",
+"communes",
+"municipalite"
+]
+},
+{
+"id": "org-intercos",
+"l": "Communautés de communes, d'agglomération et métropoles",
+"cj": [
+"7346",
+"7348",
+"7343",
+"7344",
+"7340"
+],
+"k": [
+"communaute",
+"de",
+"communes",
+"agglomeration",
+"metropole",
+"intercommunalite"
+]
+},
+{
+"id": "org-syndicats-interco",
+"l": "Syndicats intercommunaux et syndicats mixtes",
+"cj": [
+"7345",
+"7353",
+"7354",
+"7355",
+"7351",
+"7349",
+"7356",
+"7357"
+],
+"k": [
+"syndicat",
+"intercommunal",
+"sivom",
+"sivu",
+"syndicat",
+"mixte"
+]
+},
+{
+"id": "org-departements",
+"l": "Conseils départementaux",
+"cj": [
+"7220"
+],
+"k": [
+"conseil",
+"departemental",
+"departement"
+]
+},
+{
+"id": "org-regions",
+"l": "Régions et collectivités à statut particulier",
+"cj": [
+"7230",
+"7225",
+"7229"
+],
+"k": [
+"region",
+"conseil",
+"regional",
+"collectivite"
+]
+},
+{
+"id": "org-etat",
+"l": "Ministères et administrations centrales de l'État",
+"cj": [
+"7111",
+"7112",
+"7113",
+"7120",
+"7150",
+"7160"
+],
+"k": [
+"ministere",
+"etat",
+"administration",
+"centrale"
+]
+},
+{
+"id": "org-prefectures",
+"l": "Préfectures, rectorats et services de l'État en région et département",
+"cj": [
+"7171",
+"7172",
+"7179"
+],
+"k": [
+"prefecture",
+"rectorat",
+"services",
+"de",
+"l",
+"etat",
+"dreal",
+"ddt"
+]
+},
+{
+"id": "org-ccas",
+"l": "Centres d'action sociale (CCAS, CIAS)",
+"cj": [
+"7361",
+"7367"
+],
+"k": [
+"ccas",
+"cias",
+"action",
+"sociale"
+]
+},
+{
+"id": "org-caisses-ecoles",
+"l": "Caisses des écoles",
+"cj": [
+"7362"
+],
+"k": [
+"caisse",
+"des",
+"ecoles"
+]
+},
+{
+"id": "org-hopitaux",
+"l": "Hôpitaux publics",
+"cj": [
+"7364"
+],
+"k": [
+"hopital",
+"hopitaux",
+"centre",
+"hospitalier",
+"chu"
+]
+},
+{
+"id": "org-ehpad-publics",
+"l": "Maisons de retraite et EHPAD publics",
+"cj": [
+"7366"
+],
+"k": [
+"ehpad",
+"public",
+"maison",
+"de",
+"retraite",
+"publique"
+]
+},
+{
+"id": "org-colleges-lycees",
+"l": "Collèges et lycées publics",
+"cj": [
+"7331"
+],
+"k": [
+"college",
+"lycee",
+"colleges",
+"lycees"
+]
+},
+{
+"id": "org-universites",
+"l": "Universités et grandes écoles publiques",
+"cj": [
+"7383",
+"7384"
+],
+"k": [
+"universite",
+"ecole",
+"superieure",
+"grande",
+"ecole"
+]
+},
+{
+"id": "org-pompiers",
+"l": "Pompiers (SDIS)",
+"cj": [
+"7372"
+],
+"k": [
+"pompiers",
+"sdis",
+"incendie",
+"secours"
+]
+},
+{
+"id": "org-chambres",
+"l": "Chambres de commerce et chambres de métiers",
+"cj": [
+"7381"
+],
+"k": [
+"cci",
+"chambre",
+"de",
+"commerce",
+"chambre",
+"des",
+"metiers",
+"cma"
+]
+},
+{
+"id": "org-etablissements-publics",
+"l": "Autres établissements publics (agences, offices de tourisme, musées…)",
+"cj": [
+"7385",
+"7389",
+"7379",
+"7378",
+"7373",
+"7410",
+"7470",
+"7490",
+"4110",
+"4120",
+"4140",
+"4150"
+],
+"k": [
+"etablissement",
+"public",
+"office",
+"de",
+"tourisme",
+"agence",
+"regionale",
+"musee"
+]
+},
+{
+"id": "org-secu",
+"l": "Sécurité sociale, caisses de retraite et mutuelles",
+"cj": [
+"8110",
+"8120",
+"8130",
+"8140",
+"8150",
+"8160",
+"8170",
+"8190",
+"8210",
+"8250",
+"8290",
+"8510",
+"8520"
+],
+"k": [
+"securite",
+"sociale",
+"caf",
+"cpam",
+"msa",
+"urssaf",
+"caisse",
+"de",
+"retraite",
+"mutuelle"
+]
+},
+{
+"id": "org-cse",
+"l": "Comités d'entreprise (CSE)",
+"cj": [
+"8310",
+"8311"
+],
+"k": [
+"cse",
+"comite",
+"d",
+"entreprise",
+"comite",
+"social"
+]
+},
+{
+"id": "org-syndicats-pro",
+"l": "Syndicats, fédérations et ordres professionnels",
+"cj": [
+"8400",
+"8410",
+"8420",
+"8450",
+"8470",
+"8490"
+],
+"k": [
+"syndicat",
+"federation",
+"ordre",
+"professionnel"
+]
+},
+{
+"id": "org-associations",
+"l": "Associations",
+"cj": [
+"9210",
+"9220",
+"9221",
+"9222",
+"9230",
+"9260"
+],
+"k": [
+"association",
+"associations",
+"asso",
+"club"
+]
+},
+{
+"id": "org-groupements-employeurs",
+"l": "Groupements d'employeurs",
+"cj": [
+"9223"
+],
+"k": [
+"groupement",
+"d",
+"employeurs"
+]
+},
+{
+"id": "org-fondations",
+"l": "Fondations et fonds de dotation",
+"cj": [
+"9300"
+],
+"k": [
+"fondation",
+"fonds",
+"de",
+"dotation"
+]
+},
+{
+"id": "org-cultes",
+"l": "Congrégations et cultes",
+"cj": [
+"9240",
+"7430"
+],
+"k": [
+"congregation",
+"culte",
+"paroisse",
+"eglise"
+]
+},
+{
+"id": "org-coproprietes",
+"l": "Syndicats de copropriété",
+"cj": [
+"9110"
+],
+"k": [
+"copropriete",
+"syndic",
+"de",
+"copropriete"
+]
+},
+{
+"id": "org-maisons-sante",
+"l": "Maisons de santé pluriprofessionnelles",
+"cj": [
+"6511"
+],
+"k": [
+"maison",
+"de",
+"sante",
+"msp"
+]
+},
+{
+"id": "org-coop-agricoles",
+"l": "Coopératives agricoles et CUMA",
+"cj": [
+"6316",
+"6317",
+"6318"
+],
+"k": [
+"cooperative",
+"agricole",
+"cuma"
+]
+}
+]
