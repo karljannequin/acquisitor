@@ -117,3 +117,14 @@ Reprises des sites, pas seulement des logos. L'outil final ira lire le site de c
 - Page d'accueil : comptage en direct (`/api/estimation`) avec le prix pour contacter toutes les entreprises trouvées, liste d'attente (`/api/liste`).
 - Baseline : « L'apporteur de contacts qualifiés, conforme RGPD ». Pas de « numéro 1 » sans preuve.
 - **À faire avant toute vente** : mentions légales, politique de confidentialité, conditions générales de vente, contrat de traitement des données (RGPD).
+
+## 13. Décisions et pistes du 08/11/2026 (à reprendre)
+
+- **Slogan** : « Il trouve tout, partout. » puis « Trouvez vos clients dans la France entière. Configurez et envoyez vos campagnes marketing directement en ligne. » Chiffres affichés : 732 métiers, 26 types d'organismes publics et associations, 14,2 millions d'établissements (prêt sur l'adresse de test, attend le « ok, en ligne » de Karl).
+- **Tout le monde, sans exception** : les 732 métiers officiels (NAF) + organismes publics et associations (261 catégories juridiques, regroupées en 26 types ; une fiche par organisme = le siège). On ne compte que les établissements diffusables (ceux qui ont refusé la diffusion sont retirés : obligation légale).
+- **But final de Karl** : nom, adresse postale et e-mail de tous les pros de France, gardés pour toujours, suppression seulement sur demande de Karl avec double confirmation (exception légale : « ne plus contacter » respecté). Budget plafonné pour toute source payante.
+- **E-mails sans site internet** : sources légales seulement (annuaire officiel des administrations, e-mails notés sur OpenStreetMap, sites des entreprises, fichiers achetés à des fournisseurs B2B avec budget). Interdit : recopier PagesJaunes, Facebook, LinkedIn, Indeed, Google.
+- **Adresses postales et étiquettes** : listing vendu en fichier ou en étiquettes imprimées et envoyées au client (chiffre affiché = ce qui est livré). Prix à fixer par Karl.
+- **Nouvelles entreprises** : filtre « créées depuis 1 / 3 / 6 / 12 mois », section spéciale sur le site (≈ 88 000 créations en octobre 2026, 1,27 million sur un an), alerte hebdomadaire (option agent 19 €/mois). Sources : registre INSEE (mise à jour quotidienne : compte gratuit à créer par Karl) et BODACC (créations, reprises de fonds de commerce). Pappers / Infogreffe inutiles (mêmes données publiques, payantes).
+- **Raccourcis à ajouter** : « Fédérations » (≈ 10 600, repérées par le nom) et « Écoles » (maternelles, primaires, collèges, lycées).
+- **À faire dans l'ordre** : mise en ligne du nouveau haut de page (accord Karl) → annuaire officiel des administrations (e-mails) → e-mails OpenStreetMap → filtre et section « Nouvelles entreprises » → raccourcis → adresses postales et étiquettes → détective (e-mails des entreprises).
