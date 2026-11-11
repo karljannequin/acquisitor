@@ -26,6 +26,7 @@ export function exclu(e) {
   if (/\bhass?ann?i\b/.test(t) && /\bmalek\b/.test(t)) return true;
   if (/\bryd\b/.test(t) && String(e.cp || "").startsWith("41")) return true;
   if (/domino/.test(t) && (e.cp === "41100" || String(e.commune || "") === "41269")) return true;
+  if (/domino/.test(t) && /vendome|41100/.test(t)) return true; // ex. dominos.fr/magasin/vendome_41100
   return false;
 }
 

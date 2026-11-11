@@ -37,7 +37,7 @@ async function secteur(env, kv, cle) {
     parSite[h] = (parSite[h] || 0) + 1;
     lieux.push({ nom: t.name, site, h, p: [x[0], x[1]], email: t.email || t["contact:email"] || "", cp: t["addr:postcode"] });
   }
-  const garde = lieux.filter((l) => parSite[l.h] <= 2 && !exclu({ nom: l.nom, site: l.site, cp: l.cp }));
+  const garde = lieux.filter((l) => parSite[l.h] <= 2 && !exclu({ nom: l.nom, site: l.site, cp: l.cp }) && !(/domino/.test(norm(l.nom + " " + l.site)) && dist(l.p, [47.7929, 1.0656]) < 8));
   const [i, j] = cle.split(":").map(Number);
   const geo = await kv("geo");
   const communes = [];
@@ -115,10 +115,10 @@ export async function preparerMission(env, nom, motif) {
 }
 // Avance la mission en cours : quelques lieux du même secteur à chaque appel
 export async function avancerMission(env, kv, n = 5) {
-  const row = await env.BASE.prepare("SELECT cle FROM mission WHERE statut IS NULL ORDER BY cle LIMIT 1").first();
+  const row = await env.BASE.prepare("SELECT cle, prio FROM mission WHERE statut IS NULL ORDER BY prio DESC, cle LIMIT 1").first();
   if (!row) return null;
   const s = await secteur(env, kv, row.cle);
-  const rows = (await env.BASE.prepare("SELECT site, lieu FROM mission WHERE statut IS NULL AND cle=? LIMIT ?").bind(row.cle, n).all()).results;
+  const rows = (await env.BASE.prepare("SELECT site, lieu FROM mission WHERE statut IS NULL AND cle=? AND coalesce(prio,0)=? LIMIT ?").bind(row.cle, row.prio || 0, n).all()).results;
   let trouves = 0;
   await Promise.all(rows.map(async (r) => {
     const x = JSON.parse(r.lieu);
@@ -128,7 +128,8 @@ export async function avancerMission(env, kv, n = 5) {
     const h = hote(site);
     const l = { nom: t.name, site, h, p: [x[0], x[1]], email: t.email || t["contact:email"] || "", cp: t["addr:postcode"] };
     let ok = 0;
-    if (h && !CHAINES_SITES.test(h) && !exclu({ nom: l.nom, site, cp: l.cp })) ok = await traiter(env, s, l).catch(() => 0);
+    const dominosVendome = /domino/.test(norm(l.nom + " " + site)) && dist(l.p, [47.7929, 1.0656]) < 8;
+    if (h && !CHAINES_SITES.test(h) && !/(^|\.)dominos\.fr$/.test(h) && !dominosVendome && !exclu({ nom: l.nom, site, cp: l.cp })) ok = await traiter(env, s, l).catch(() => 0);
     trouves += ok;
     await env.BASE.prepare("UPDATE mission SET statut=? WHERE site=?").bind(ok ? "trouvé" : "lu", r.site).run();
   }));
@@ -136,7 +137,7 @@ export async function avancerMission(env, kv, n = 5) {
 }
 
 export const SCHEMA_NUIT = [
-  `CREATE TABLE IF NOT EXISTS mission (site TEXT PRIMARY KEY, mission TEXT, cle TEXT, lieu TEXT, statut TEXT)`,
+  `CREATE TABLE IF NOT EXISTS mission (site TEXT PRIMARY KEY, mission TEXT, cle TEXT, lieu TEXT, statut TEXT, prio INTEGER DEFAULT 0)`,
   `CREATE INDEX IF NOT EXISTS mission_attente ON mission (statut, cle)`,
   `CREATE TABLE IF NOT EXISTS etat (cle TEXT PRIMARY KEY, valeur TEXT)`,
   `CREATE TABLE IF NOT EXISTS lus (site TEXT PRIMARY KEY, nom TEXT, statut TEXT, date TEXT)`,
