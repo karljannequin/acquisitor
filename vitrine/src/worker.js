@@ -12,6 +12,7 @@ import CONFIDENTIALITE from "./confidentialite.html";
 import { CATALOGUE, METIERS as COURANTS } from "./catalogue.js";
 import { NAF, ORGS } from "./nomenclature.js";
 import { demarrer, avancer, exporter, SCHEMA, diag, remplirCarte } from "./agent.js";
+import { nuit, pageStock, SCHEMA_NUIT } from "./nuit.js";
 
 const JSON_H = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: JSON_H });
@@ -148,11 +149,23 @@ async function comprendre(env, text) {
 export default {
   // Tâche de fond (adresse de test seulement pour l'instant) : charge la carte de France petit à petit
   async scheduled(event, env, ctx) {
-    if (env.REMPLIR_CARTE) ctx.waitUntil(remplirCarte(env, (k) => kv(env, k)).then((r) => console.log("carte", JSON.stringify(r))));
+    if (!env.REMPLIR_CARTE) return;
+    ctx.waitUntil((async () => {
+      if (!SCHEMA_OK) { for (const q of [...SCHEMA, ...SCHEMA_NUIT]) await env.BASE.prepare(q).run(); SCHEMA_OK = true; }
+      const r = await nuit(env, (k) => kv(env, k), 4).catch((e) => ({ erreur: String(e) }));
+      const c = await remplirCarte(env, (k) => kv(env, k), 1).catch((e) => ({ erreur: String(e) }));
+      console.log("nuit", JSON.stringify(r), "carte", JSON.stringify(c));
+    })());
   },
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.hostname === "www.acquisitor.fr") { url.hostname = "acquisitor.fr"; return Response.redirect(url.toString(), 301); }
+    if (url.pathname === "/stock") {
+      if (!env.ADMIN_CLE || url.searchParams.get("cle") !== env.ADMIN_CLE) return new Response("Accès réservé.", { status: 403 });
+      for (const q of [...SCHEMA, ...SCHEMA_NUIT]) await env.BASE.prepare(q).run();
+      if (url.searchParams.get("lancer")) { try { return json(await nuit(env, (k) => kv(env, k), 4)); } catch (e) { return json({ erreur: String(e && e.stack || e) }, 500); } }
+      return new Response(await pageStock(env), { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex" } });
+    }
     try {
       if (url.pathname === "/api/metiers") return new Response(JSON.stringify({ courants: CATALOGUE.map((f) => ({ f: f.f, items: f.items.map((i) => ({ id: i.id, l: i.l, k: i.k })) })), naf: NAF, orgs: ORGS.map((o) => ({ id: o.id, l: o.l, k: o.k })), stats: await cpt(env, "stats") }), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "public, max-age=3600" } });
       if (url.pathname === "/api/admin/comptes" && request.method === "POST") {

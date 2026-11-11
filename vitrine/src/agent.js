@@ -171,7 +171,7 @@ export async function demarrer(env, kv, sel) {
 
 // ---------- La carte, par carrés de 0,25° (environ 25 km), gardés dans DONNEES (« o:<lat>:<lon> ») ----------
 const PAS = 0.25;
-const CLES = ["name", "website", "contact:website", "url", "email", "contact:email", "amenity", "shop", "craft", "office", "tourism", "healthcare", "leisure", "cuisine", "addr:postcode"];
+export const CLES = ["name", "website", "contact:website", "url", "email", "contact:email", "amenity", "shop", "craft", "office", "tourism", "healthcare", "leisure", "cuisine", "addr:postcode"];
 const cleCarre = (la, lo) => Math.floor(la / PAS) + ":" + Math.floor(lo / PAS);
 function carres(c, km) {
   const dla = km / 111, dlo = km / (111 * Math.cos((c[0] * Math.PI) / 180)), out = [];
@@ -199,7 +199,7 @@ export async function carre(env, k, forcer = false) {
 }
 const DERNIERE = [];
 // Les carrés sont rangés dans la base D1 (table carte), découpés en morceaux de 700 Ko
-async function lireCarre(env, k) {
+export async function lireCarre(env, k) {
   const rows = (await env.BASE.prepare("SELECT data FROM carte WHERE cle=? ORDER BY part").bind(k).all()).results;
   if (!rows.length) return null;
   return rows.flatMap((r) => JSON.parse(r.data));
@@ -303,7 +303,7 @@ async function peutRecevoir(domaine) {
   } catch { return false; }
 }
 
-async function enqueter(c, index) {
+export async function enqueter(c, index) {
   if (!(await robotsOk(c.site))) { c._raison = "le site refuse les robots"; return null; }
   const accueil = await texte(c.site);
   if (!accueil) { c._raison = "site injoignable"; return null; }
