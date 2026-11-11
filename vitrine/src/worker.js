@@ -12,7 +12,7 @@ import CONFIDENTIALITE from "./confidentialite.html";
 import { CATALOGUE, METIERS as COURANTS } from "./catalogue.js";
 import { NAF, ORGS } from "./nomenclature.js";
 import { demarrer, avancer, exporter, SCHEMA, diag, remplirCarte } from "./agent.js";
-import { nuit, pageStock, SCHEMA_NUIT } from "./nuit.js";
+import { nuit, pageStock, csvStock, preparerMission, SCHEMA_NUIT } from "./nuit.js";
 
 const JSON_H = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: JSON_H });
@@ -163,8 +163,10 @@ export default {
     if (url.pathname === "/stock") {
       if (!env.ADMIN_CLE || url.searchParams.get("cle") !== env.ADMIN_CLE) return new Response("Accès réservé.", { status: 403 });
       for (const q of [...SCHEMA, ...SCHEMA_NUIT]) await env.BASE.prepare(q).run();
+      if (url.searchParams.get("mission")) return json(await preparerMission(env, url.searchParams.get("mission"), url.searchParams.get("motif") || url.searchParams.get("mission")));
+      if (url.searchParams.get("csv")) return new Response(await csvStock(env), { headers: { "content-type": "text/csv; charset=utf-8", "content-disposition": 'attachment; filename="acquisitor-stock.csv"', "cache-control": "no-store" } });
       if (url.searchParams.get("lancer")) { try { return json(await nuit(env, (k) => kv(env, k), 4)); } catch (e) { return json({ erreur: String(e && e.stack || e) }, 500); } }
-      return new Response(await pageStock(env), { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex" } });
+      return new Response(await pageStock(env, url.searchParams.get("cle")), { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "no-store", "x-robots-tag": "noindex" } });
     }
     try {
       if (url.pathname === "/api/metiers") return new Response(JSON.stringify({ courants: CATALOGUE.map((f) => ({ f: f.f, items: f.items.map((i) => ({ id: i.id, l: i.l, k: i.k })) })), naf: NAF, orgs: ORGS.map((o) => ({ id: o.id, l: o.l, k: o.k })), stats: await cpt(env, "stats") }), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "public, max-age=3600" } });

@@ -342,8 +342,8 @@ export async function enqueter(c, index) {
 
   // L'adresse doit appartenir au site (ou être une messagerie classique affichée sur le site)
   const osm = String(c.email_osm || "").toLowerCase().split(/[;,\s]/)[0];
-  const choix = [...emails.keys()].filter((e) => { const d = e.split("@")[1]; return d === h || d.endsWith("." + h) || h.endsWith("." + d) || LIBRES.test(d); });
-  if (osm && hote("https://" + osm.split("@")[1]) === h && !choix.includes(osm)) choix.push(osm);
+  const choix = [...emails.keys()].filter((e) => { const d = e.split("@")[1]; return d === h || d.endsWith("." + h) || LIBRES.test(d); }); // une adresse du « domaine parent » d'un sous-site (ex. x.pharminfo.fr -> @pharminfo.fr) est celle de l'hébergeur : refusée
+  if (osm && /@/.test(osm) && (hote("https://" + osm.split("@")[1]) === h || LIBRES.test(osm.split("@")[1])) && !choix.includes(osm)) choix.push(osm);
   choix.sort((a, b) => (b.split("@")[1] === h) - (a.split("@")[1] === h) || /^(contact|info|accueil|bonjour|hello)@/.test(b) - /^(contact|info|accueil|bonjour|hello)@/.test(a));
   for (const e of choix) {
     if (/^(no-?reply|ne-pas-repondre|webmaster|postmaster|admin|abuse|rgpd|dpo|privacy)@/.test(e)) continue;

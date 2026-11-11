@@ -51,7 +51,41 @@ async function secteur(env, kv, cle) {
   return s;
 }
 
+// Lit le site d'un lieu et garde le contact s'il est prouvé. Renvoie 1 si un contact est gardé.
+async function traiter(env, s, l) {
+  let ok = 0;
+  const deja = await env.BASE.prepare("SELECT 1 FROM lus WHERE site=?").bind(l.h).first();
+  if (deja) return 0;
+  // Établissement du registre au même nom, à moins de 4 km
+  const m = mots(l.nom);
+  let best = null;
+  if (m.length) for (const x of s.etabs) {
+    const d = dist(l.p, x.p); if (d > 4) continue;
+    const nm = new Set(mots((x.e[2] || "") + " " + (x.e[1] || "")));
+    if (m.every((w) => nm.has(w)) && (!best || d < best.d)) best = { x, d };
+  }
+  const c = best ? { siret: best.x.e[0], nom: best.x.e[1], ens: best.x.e[2], naf: best.x.e[3], cp: best.x.e[4], adr: best.x.e[5], t: best.x.e[6], commune: best.x.c, lieu: l.nom, site: l.site, email_osm: l.email }
+    : { siret: null, lieu: l.nom, site: l.site, email_osm: l.email };
+  let r = null;
+  try { r = await enqueter(c, s.index); } catch {}
+  if (r && r.etab) { const e = r.etab; Object.assign(c, { siret: e[0], nom: e[1], ens: e[2] || l.nom, naf: e[3], cp: e[4], adr: e[5], t: e[6], commune: e[7] }); }
+  const now = new Date().toISOString();
+  // Une même adresse pour plusieurs entreprises = adresse d'un hébergeur ou d'une chaîne : refusée
+  if (r && c.siret) { const autre = await env.BASE.prepare("SELECT siret FROM contacts WHERE email=? AND siret<>?").bind(r.email, c.siret).first(); if (autre) { await env.BASE.prepare("DELETE FROM contacts WHERE email=?").bind(r.email).run(); c._raison = "adresse partagée par plusieurs entreprises"; r = null; } }
+  if (r && c.siret && !exclu({ ...c, email: r.email })) {
+    await env.BASE.prepare(`INSERT INTO contacts (siret, siren, nom, enseigne, naf, cp, commune, adresse, tranche, email, site, preuve, page_preuve, cree, maj)
+      VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(siret) DO UPDATE SET email=excluded.email, site=excluded.site, preuve=excluded.preuve, page_preuve=excluded.page_preuve, maj=excluded.maj`)
+      .bind(c.siret, c.siret.slice(0, 9), c.nom, c.ens || l.nom, c.naf, c.cp, c.commune, c.adr, c.t || 0, r.email, l.site, r.preuve, r.page, now, now).run();
+    ok = 1;
+  }
+  await env.BASE.prepare("INSERT OR REPLACE INTO lus (site, nom, statut, date) VALUES (?,?,?,?)").bind(l.h, l.nom, r && c.siret ? "trouvé" : (c._raison || "sans preuve"), now).run();
+
+  return ok;
+}
+
 export async function nuit(env, kv, n = 4) {
+  const m = await avancerMission(env, kv, n + 1);
+  if (m) return m;
   const cles = (await env.BASE.prepare("SELECT DISTINCT cle FROM carte ORDER BY cle").all()).results.map((r) => r.cle);
   if (!cles.length) return { fait: 0 };
   let cur = await etat(env);
@@ -63,48 +97,67 @@ export async function nuit(env, kv, n = 4) {
   }
   const part = s.lieux.slice(cur.i, cur.i + n);
   let trouves = 0;
-  await Promise.all(part.map(async (l) => {
-    const deja = await env.BASE.prepare("SELECT 1 FROM lus WHERE site=?").bind(l.h).first();
-    if (deja) return;
-    // Établissement du registre au même nom, à moins de 4 km
-    const m = mots(l.nom);
-    let best = null;
-    if (m.length) for (const x of s.etabs) {
-      const d = dist(l.p, x.p); if (d > 4) continue;
-      const nm = new Set(mots((x.e[2] || "") + " " + (x.e[1] || "")));
-      if (m.every((w) => nm.has(w)) && (!best || d < best.d)) best = { x, d };
-    }
-    const c = best ? { siret: best.x.e[0], nom: best.x.e[1], ens: best.x.e[2], naf: best.x.e[3], cp: best.x.e[4], adr: best.x.e[5], t: best.x.e[6], commune: best.x.c, lieu: l.nom, site: l.site, email_osm: l.email }
-      : { siret: null, lieu: l.nom, site: l.site, email_osm: l.email };
-    let r = null;
-    try { r = await enqueter(c, s.index); } catch {}
-    if (r && r.etab) { const e = r.etab; Object.assign(c, { siret: e[0], nom: e[1], ens: e[2] || l.nom, naf: e[3], cp: e[4], adr: e[5], t: e[6], commune: e[7] }); }
-    const now = new Date().toISOString();
-    if (r && c.siret && !exclu({ ...c, email: r.email })) {
-      await env.BASE.prepare(`INSERT INTO contacts (siret, siren, nom, enseigne, naf, cp, commune, adresse, tranche, email, site, preuve, page_preuve, cree, maj)
-        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(siret) DO UPDATE SET email=excluded.email, site=excluded.site, preuve=excluded.preuve, page_preuve=excluded.page_preuve, maj=excluded.maj`)
-        .bind(c.siret, c.siret.slice(0, 9), c.nom, c.ens || l.nom, c.naf, c.cp, c.commune, c.adr, c.t || 0, r.email, l.site, r.preuve, r.page, now, now).run();
-      trouves++;
-    }
-    await env.BASE.prepare("INSERT OR REPLACE INTO lus (site, nom, statut, date) VALUES (?,?,?,?)").bind(l.h, l.nom, r && c.siret ? "trouvé" : (c._raison || "sans preuve"), now).run();
-  }));
+  for (const t of await Promise.all(part.map((l) => traiter(env, s, l)))) trouves += t;
   cur.i += part.length;
   if (cur.i >= s.lieux.length) cur = { k: cur.k + 1, i: 0 };
   await env.BASE.prepare("INSERT OR REPLACE INTO etat (cle, valeur) VALUES ('curseur', ?)").bind(JSON.stringify(cur)).run();
   return { secteur: cur.k, total_secteurs: cles.length, lus: part.length, trouves };
 }
 
+// Prépare une mission : tous les lieux de la carte dont le nom ou la cuisine correspond (ex. « pizz »)
+export async function preparerMission(env, nom, motif) {
+  await env.BASE.prepare(`INSERT OR IGNORE INTO mission (site, mission, cle, lieu)
+    SELECT coalesce(nullif(json_extract(j.value,'$[3]'),''), nullif(json_extract(j.value,'$[4]'),''), json_extract(j.value,'$[5]')), ?, carte.cle, j.value
+    FROM carte, json_each(carte.data) j
+    WHERE (lower(json_extract(j.value,'$[2]')) LIKE ? OR lower(json_extract(j.value,'$[15]')) LIKE ?)
+      AND coalesce(nullif(json_extract(j.value,'$[3]'),''), nullif(json_extract(j.value,'$[4]'),''), json_extract(j.value,'$[5]')) <> ''`).bind(nom, "%" + motif + "%", "%" + motif + "%").run();
+  return await env.BASE.prepare("SELECT count(*) n, sum(statut IS NOT NULL) faits FROM mission WHERE mission=?").bind(nom).first();
+}
+// Avance la mission en cours : quelques lieux du même secteur à chaque appel
+export async function avancerMission(env, kv, n = 5) {
+  const row = await env.BASE.prepare("SELECT cle FROM mission WHERE statut IS NULL ORDER BY cle LIMIT 1").first();
+  if (!row) return null;
+  const s = await secteur(env, kv, row.cle);
+  const rows = (await env.BASE.prepare("SELECT site, lieu FROM mission WHERE statut IS NULL AND cle=? LIMIT ?").bind(row.cle, n).all()).results;
+  let trouves = 0;
+  await Promise.all(rows.map(async (r) => {
+    const x = JSON.parse(r.lieu);
+    const t = Object.fromEntries(CLES.map((k, i) => [k, x[i + 2]]));
+    let site = r.site;
+    if (!/^https?:\/\//i.test(site)) site = "https://" + site.replace(/^\/+/, "");
+    const h = hote(site);
+    const l = { nom: t.name, site, h, p: [x[0], x[1]], email: t.email || t["contact:email"] || "", cp: t["addr:postcode"] };
+    let ok = 0;
+    if (h && !CHAINES_SITES.test(h) && !exclu({ nom: l.nom, site, cp: l.cp })) ok = await traiter(env, s, l).catch(() => 0);
+    trouves += ok;
+    await env.BASE.prepare("UPDATE mission SET statut=? WHERE site=?").bind(ok ? "trouvé" : "lu", r.site).run();
+  }));
+  return { mission: true, lus: rows.length, trouves };
+}
+
 export const SCHEMA_NUIT = [
+  `CREATE TABLE IF NOT EXISTS mission (site TEXT PRIMARY KEY, mission TEXT, cle TEXT, lieu TEXT, statut TEXT)`,
+  `CREATE INDEX IF NOT EXISTS mission_attente ON mission (statut, cle)`,
   `CREATE TABLE IF NOT EXISTS etat (cle TEXT PRIMARY KEY, valeur TEXT)`,
   `CREATE TABLE IF NOT EXISTS lus (site TEXT PRIMARY KEY, nom TEXT, statut TEXT, date TEXT)`,
 ];
 
+// Export CSV du stock (exclusions toujours appliquées)
+export async function csvStock(env) {
+  const rows = (await env.BASE.prepare("SELECT * FROM contacts ORDER BY maj DESC").all()).results;
+  const esc = (v) => '"' + String(v ?? "").replace(/"/g, '""') + '"';
+  const head = ["entreprise", "enseigne", "siret", "activite", "adresse", "code_postal", "email", "site", "preuve", "page_preuve", "date"];
+  return "\ufeff" + head.join(";") + "\n" + rows.filter((r) => !exclu({ siret: r.siret, nom: r.nom, ens: r.enseigne, cp: r.cp, email: r.email, site: r.site, commune: r.commune }))
+    .map((r) => [r.nom, r.enseigne, r.siret, r.naf, r.adresse, r.cp, r.email, r.site, r.preuve, r.page_preuve, r.maj].map(esc).join(";")).join("\n");
+}
+
 // Page privée « Le stock » : ce qui a été collecté, au fur et à mesure
-export async function pageStock(env) {
+export async function pageStock(env, cleAdmin) {
   const q = async (sql) => (await env.BASE.prepare(sql).first()) || {};
   const carte = await q("SELECT count(DISTINCT cle) carres, coalesce(sum(n),0) lieux FROM carte");
   const lus = await q("SELECT count(*) n, sum(statut='trouvé') ok FROM lus");
   const nb = await q("SELECT count(*) n FROM contacts");
+  const missions = (await env.BASE.prepare("SELECT mission, count(*) n, sum(statut IS NOT NULL) lus, sum(statut='trouvé') ok FROM mission GROUP BY mission").all()).results;
   const raisons = (await env.BASE.prepare("SELECT statut, count(*) n FROM lus GROUP BY statut ORDER BY n DESC").all()).results;
   const derniers = (await env.BASE.prepare("SELECT enseigne, nom, cp, email, site, preuve, maj FROM contacts ORDER BY maj DESC LIMIT 200").all()).results;
   const f = (n) => Number(n || 0).toLocaleString("fr-FR");
@@ -122,6 +175,8 @@ td.e{font-weight:600;color:var(--b)}.r{display:flex;flex-wrap:wrap;gap:6px;margi
 <div class="k"><div><b>${f(carte.lieux)}</b><small>commerces avec site relevés (${f(carte.carres)} secteurs sur 1 257)</small></div>
 <div><b>${f(lus.n)}</b><small>sites lus</small></div><div class="ok"><b>${f(nb.n)}</b><small>e-mails prouvés en stock</small></div>
 <div><b>${lus.n ? Math.round((100 * (lus.ok || 0)) / lus.n) : 0} %</b><small>des sites lus donnent un e-mail prouvé</small></div></div>
+${missions.map((x) => `<p class="s"><b>Mission « ${e(x.mission)} »</b> : ${f(x.lus)} sites lus sur ${f(x.n)}, <b>${f(x.ok)} e-mails trouvés</b>.</p>`).join("")}
+<p class="s"><a href="?cle=${e(cleAdmin)}&csv=1">Télécharger tout le stock (fichier Excel / CSV)</a></p>
 <div class="r">${raisons.map((x) => `<span>${e(x.statut)} : ${f(x.n)}</span>`).join("")}</div>
 <table><thead><tr><th>Entreprise</th><th>Code postal</th><th>E-mail</th><th>Preuve</th><th>Site</th><th>Date</th></tr></thead><tbody>
 ${derniers.map((r) => `<tr><td>${e(r.enseigne || r.nom)}</td><td>${e(r.cp)}</td><td class="e">${e(r.email)}</td><td>${e(r.preuve)}</td><td>${e(r.site)}</td><td>${e(String(r.maj).slice(0, 16).replace("T", " "))}</td></tr>`).join("")}
